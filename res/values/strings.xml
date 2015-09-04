@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">7o\'clock</string>
+    <string name="menu_search">Search</string>
+    <string name="title_mypage">내 보관함</string>
+    <string name="title_setting">설정</string>
+    <string name="title_logout">로그아웃</string>
+    <string name="title_mainpage">메인화면</string>
+    <string name="title_login">로그인</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">OKOKOK</string>
+    <string name="action_settings">settings</string>
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+</resources>

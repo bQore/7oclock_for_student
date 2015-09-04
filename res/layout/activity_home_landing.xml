@@ -1,0 +1,112 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:gravity="center"
+             android:background="#FFFFFF">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@drawable/home_landing_logo" />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ll_home_landing_loginbox"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp" >
+
+            <EditText
+                    android:id="@+id/et_home_landing_userid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_home_landing_userinput"
+                    android:focusableInTouchMode="true"
+                    android:hint="아이디"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#000000"
+                    android:textColorHint="#808080" android:minWidth="270dp">
+
+                <requestFocus />
+            </EditText>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="#E5E5E5"/>
+
+            <EditText
+                    android:id="@+id/et_home_landing_userpw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_home_landing_userinput"
+                    android:focusableInTouchMode="true"
+                    android:hint="비밀번호"
+                    android:inputType="textPassword"
+                    android:textColor="#000000"
+                    android:textColorHint="#808080" />
+
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/btn_home_landing_login"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_home_landing_login"
+                android:text="로그인하기"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+        <LinearLayout
+                android:id="@+id/ll_home_landing_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:padding="10dp" android:layout_marginBottom="30dp">
+
+            <net.sevenoclock.mobile.customview.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아직 회원이 아니십니까?"
+                    android:textColor="#111"
+                    android:textSize="15sp"/>
+
+            <net.sevenoclock.mobile.customview.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:text="가입하기"
+                    android:background="@android:color/transparent"
+                    android:textColor="#111"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/ll_home_landing_loading"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="#66000000" android:gravity="center">
+        <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar" android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</FrameLayout>
