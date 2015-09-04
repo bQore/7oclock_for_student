@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.custom.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
@@ -88,7 +89,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
 
                 ja = Functions.GET("get_user_info&uid=" + values.user_id);
                 if (ja != null){
-                    values.user_info =ja.getJSONObject(0);
+                    values.user_info = new TryCatchJO(ja.getJSONObject(0));
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block

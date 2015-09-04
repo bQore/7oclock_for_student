@@ -1,4 +1,4 @@
-package net.sevenoclock.mobile.customview;
+package net.sevenoclock.mobile.custom;
 
 import android.content.Context;
 import android.graphics.Typeface;

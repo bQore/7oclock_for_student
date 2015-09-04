@@ -5,7 +5,7 @@
              android:layout_gravity="fill_horizontal"
              android:background="@drawable/actionbar_background">
 
-    <net.sevenoclock.mobile.customview.FontTextView
+    <net.sevenoclock.mobile.custom.FontTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

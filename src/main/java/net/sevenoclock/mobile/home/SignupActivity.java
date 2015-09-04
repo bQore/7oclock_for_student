@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.custom.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
@@ -178,7 +179,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
                         + "&school_room=" + classroom);
 
                 if (ja != null) {
-                    values.user_info =ja.getJSONObject(0);
+                    values.user_info = new TryCatchJO(ja.getJSONObject(0));
                     values.user_id = values.user_info.getInt("id");
                     Functions.put_pref(getApplicationContext(), "uid", values.user_id);
                 } else {

@@ -2,6 +2,7 @@ package net.sevenoclock.mobile.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import net.sevenoclock.mobile.custom.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
@@ -42,7 +43,7 @@ public class LoadingActivity extends Activity {
             if(uid != 0){
                 values.user_id = uid;
                 try {
-                    values.user_info = Functions.GET("get_user_info&uid="+values.user_id).getJSONObject(0);
+                    values.user_info = new TryCatchJO(Functions.GET("get_user_info&uid="+values.user_id).getJSONObject(0));
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     return 2;
