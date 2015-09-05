@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.custom.TryCatchJO;
+import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
@@ -53,6 +54,9 @@ public class LandingActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Vibrator Vibe = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
+
         switch (v.getId()){
             case R.id.btn_home_landing_login:
                 new LoginTask().execute(null, null, null);
@@ -106,9 +110,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                 return;
             }
             ll_home_landing_loading.setVisibility(View.GONE);
-            if(!(login_id.equals("")&&login_pw.equals(""))){
-                Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
     }

@@ -79,14 +79,14 @@
                 android:gravity="center_horizontal"
                 android:padding="10dp" android:layout_marginBottom="30dp">
 
-            <net.sevenoclock.mobile.custom.FontTextView
+            <net.sevenoclock.mobile.customobj.FontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아직 회원이 아니십니까?"
                     android:textColor="#111"
                     android:textSize="15sp"/>
 
-            <net.sevenoclock.mobile.custom.FontTextView
+            <net.sevenoclock.mobile.customobj.FontTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"

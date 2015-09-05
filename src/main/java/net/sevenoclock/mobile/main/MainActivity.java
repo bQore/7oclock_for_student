@@ -1,21 +1,22 @@
 package net.sevenoclock.mobile.main;
 
-import android.graphics.BitmapFactory;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import com.androidquery.AQuery;
+import android.view.View;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.home.LoadingActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
 
-public class MainActivity extends ActionBarActivity {
-
-    private AQuery aq = new AQuery(this);
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ActionBar actionBar;
     public static MenuDrawer menuDrawer;
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
     private void setActionBar(){
         actionBar = getSupportActionBar();
         ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(new ActionbarView(this).getView(), lp);
+        actionBar.setCustomView(new ActionbarView(this), lp);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowCustomEnabled(true);
     }
@@ -53,15 +54,48 @@ public class MainActivity extends ActionBarActivity {
         else if(width<640)
             menuDrawer.setMenuSize(400);
         menuDrawer.setContentView(R.layout.activity_main_main);
-        menuDrawer.setMenuView(R.layout.view_main_menudrawer);
+        menuDrawer.setMenuView(new MenudrawerView(this));
         menuDrawer.setDropShadowEnabled(false);
+    }
 
-        aq.id(R.id.iv_main_menudrawer_profilepic).image(Functions.borderRadius(Functions.DOMAIN + values.user_info.get("src", ""),100));
-        aq.id(R.id.tv_main_menudrawer_username).text(values.user_info.get("first_name", "다시 로그인해주세요."));
-        aq.id(R.id.tv_main_menudrawer_schoolname).text(String.format("%s %s학년 %s반"
-                ,values.user_info.get("school_name", "-")
-                ,values.user_info.get("school_year", "")
-                ,values.user_info.get("school_room", "")));
+    @Override
+    public void onClick(View v) {
+        Vibrator Vibe = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
 
+        if(v.getTag() != null){
+            String tag = v.getTag().toString();
+            if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper){
+
+            }else if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory){
+
+            }else if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search){
+
+            }
+        }else{
+            switch (v.getId()){
+                case R.id.ll_main_menudrawer_tablist_setting:
+                    break;
+                case R.id.ll_main_menudrawer_tablist_logout:
+                    new AlertDialog.Builder(this).setTitle("로그아웃")
+                            .setMessage("로그아웃 하시겠습니까?")
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    values.user_info = null;
+                                    values.user_id = 0;
+                                    Functions.remove_pref(getApplicationContext());
+                                    startActivity(new Intent(MainActivity.this, LoadingActivity.class));
+                                    MainActivity.this.finish();
+                                    return;
+                                }
+                            }).show();
+                    break;
+            }
+        }
     }
 }

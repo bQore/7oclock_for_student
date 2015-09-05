@@ -12,4 +12,11 @@
     <string name="action_example">OKOKOK</string>
     <string name="action_settings">settings</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
+    <string name="ic_main_actionvar_menu">&#xe607;</string>
+    <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
+    <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
+    <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>
+    <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
+    <string name="ic_main_menudrawer_list_search">&#xe63b;</string>
 </resources>

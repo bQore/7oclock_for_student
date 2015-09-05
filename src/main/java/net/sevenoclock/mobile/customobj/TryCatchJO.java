@@ -1,4 +1,4 @@
-package net.sevenoclock.mobile.custom;
+package net.sevenoclock.mobile.customobj;
 
 import org.json.JSONException;
 import org.json.JSONObject;
