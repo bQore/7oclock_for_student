@@ -9,10 +9,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.home.LoadingActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
+import net.sevenoclock.mobile.testpaper.TestpaperListView;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
 
@@ -20,6 +22,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private ActionBar actionBar;
     public static MenuDrawer menuDrawer;
+
+    public static LinearLayout ll_main_main_mainview;
+    public static LinearLayout ll_main_main_loading;
+
+    private TestpaperListView tmv;
 
     Values values;
 
@@ -31,6 +38,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         setActionBar();
         setMenuDrawer();
+
+        ll_main_main_mainview = (LinearLayout)findViewById(R.id.ll_main_main_mainview);
+        ll_main_main_loading = (LinearLayout)findViewById(R.id.ll_main_main_loading);
+
+        tmv = new TestpaperListView(this);
+
+        ll_main_main_mainview.addView(tmv);
+
     }
 
     private void setActionBar(){
@@ -65,13 +80,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if(v.getTag() != null){
             String tag = v.getTag().toString();
-            if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper){
+            if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
+                ll_main_main_mainview.removeAllViews();
+                ll_main_main_mainview.addView(tmv);
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
 
-            }else if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory){
-
-            }else if(tag == "ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search){
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
 
             }
+            menuDrawer.closeMenu();
         }else{
             switch (v.getId()){
                 case R.id.ll_main_menudrawer_tablist_setting:

@@ -102,7 +102,7 @@
             android:id="@+id/ll_home_landing_loading"
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:background="#66000000" android:gravity="center">
+            android:layout_height="fill_parent" android:background="#66FFFFFF" android:gravity="center">
         <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
