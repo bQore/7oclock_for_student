@@ -1,13 +1,16 @@
 package net.sevenoclock.mobile.main;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
@@ -22,6 +25,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private ActionBar actionBar;
     public static MenuDrawer menuDrawer;
+    public static Activity activity;
 
     public static LinearLayout ll_main_main_mainview;
     public static LinearLayout ll_main_main_loading;
@@ -34,6 +38,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_main);
+        activity = (Activity) this;
         values = (Values) getApplicationContext();
 
         setActionBar();
@@ -43,8 +48,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ll_main_main_loading = (LinearLayout)findViewById(R.id.ll_main_main_loading);
 
         tmv = new TestpaperListView(this);
-
-        ll_main_main_mainview.addView(tmv);
+        Functions.history_set_home(this, tmv);
 
     }
 
@@ -75,21 +79,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Vibrator Vibe = (Vibrator)getSystemService(VIBRATOR_SERVICE);
-        Vibe.vibrate(30);
-
         if(v.getTag() != null){
             String tag = v.getTag().toString();
             if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
-                ll_main_main_mainview.removeAllViews();
-                ll_main_main_mainview.addView(tmv);
+                Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
-
             }
             menuDrawer.closeMenu();
         }else{
+            Vibrator Vibe = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+
             switch (v.getId()){
                 case R.id.ll_main_menudrawer_tablist_setting:
                     break;
@@ -114,5 +115,38 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if(menuDrawer.isMenuVisible()){
+                    menuDrawer.closeMenu();
+                    return false;
+                }else {
+                    if (Functions.history_length() != 1) {
+                        Functions.history_back(this);
+                        return false;
+                    } else {
+                        new AlertDialog.Builder(this).setTitle("종료")
+                                .setMessage("정말 종료하시겠습니까?")
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        return;
+                                    }
+                                })
+                                .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                        return;
+                                    }
+                                }).show();
+                    }
+                }
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

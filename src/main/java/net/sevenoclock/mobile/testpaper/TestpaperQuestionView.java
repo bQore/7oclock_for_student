@@ -32,10 +32,8 @@ public class TestpaperQuestionView extends LinearLayout {
 
         setLayout();
 
-        Bitmap image_bitmap = aq.getCachedImage(Functions.DOMAIN + jo.get("src", ""), 300);
-
         tv_testpaper_question_list_question_number.setText((index +1)+".");
-        aq.id(iv_testpaper_question_list_question_img).image(image_bitmap);
+        aq.id(iv_testpaper_question_list_question_img).image(Functions.DOMAIN + jo.get("src", ""));
     }
 
     private void setLayout(){
@@ -44,7 +42,7 @@ public class TestpaperQuestionView extends LinearLayout {
 
         int book_height = (int) (90 * displayMetrics.density);
 
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, book_height*2-80);
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, book_height*2-100);
         LayoutInflater inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addView(inflater.inflate(R.layout.view_testpaper_question_list_question, null), lp);
 

@@ -11,7 +11,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.StrictMode;
+import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
+import net.sevenoclock.mobile.main.MainActivity;
+import net.sevenoclock.mobile.testpaper.TestpaperListView;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -20,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,9 +34,50 @@ import java.util.regex.Pattern;
  */
 public class Functions {
 
+    public static final String YOUTUBE_KEY = "AIzaSyBk3tlGV5gSLEwyp7A4PGaEfSC0XMcEUfQ";
     public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
+    private static ArrayList<View> view_history = new ArrayList<View>();
+
+    public static void history_go(Context con, View v){
+        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
+        view_history.add(v);
+        MainActivity.ll_main_main_mainview.removeAllViews();
+        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+    }
+
+    public static void history_go_home(Context con){
+        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
+        TestpaperListView home = (TestpaperListView)view_history.get(0);
+        home.reflesh();
+        view_history.clear();
+        view_history.add(home);
+        MainActivity.ll_main_main_mainview.removeAllViews();
+        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+    }
+
+    public static void history_set_home(Context con, View v){
+        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
+        view_history.add(0,v);
+        MainActivity.ll_main_main_mainview.removeAllViews();
+        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+    }
+
+    public static void history_back(Context con){
+        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+        Vibe.vibrate(30);
+        view_history.remove(view_history.size()-1);
+        MainActivity.ll_main_main_mainview.removeAllViews();
+        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+    }
+
+    public static int history_length(){
+        return view_history.size();
+    }
 
     public static Typeface setFont(Context con){
         if(mTypeface == null){

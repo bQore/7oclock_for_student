@@ -2,8 +2,6 @@ package net.sevenoclock.mobile.testpaper;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -66,21 +64,23 @@ public class TestpaperListView extends LinearLayout {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                Handler mHandler = new Handler(Looper.getMainLooper());
-                mHandler.postDelayed(new Runnable() {
+                MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_book.length(); i++) {
                             TestpaperBookView tbv = null;
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
-                                tbv = new TestpaperBookView(con,tcjo);
-                                tbv.setTag(tcjo.get("id","0"));
+                                tbv = new TestpaperBookView(con, tcjo);
+                                tbv.setTag(R.string.tag_testpaper_list_id, tcjo.get("id", "0"));
+                                tbv.setTag(R.string.tag_testpaper_list_title, tcjo.get("title", "-"));
+                                tbv.setTag(R.string.tag_testpaper_list_school_name, tcjo.get("school_name", "-"));
+                                tbv.setTag(R.string.tag_testpaper_list_user, tcjo.get("user", "-"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
-                            if(tbv != null){
+                            if (tbv != null) {
                                 int count_left = ll_testpaper_list_left.getChildCount();
                                 int count_right = ll_testpaper_list_right.getChildCount();
 
@@ -90,18 +90,22 @@ public class TestpaperListView extends LinearLayout {
                                 tbv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        MainActivity.ll_main_main_mainview.removeAllViews();
-                                        MainActivity.ll_main_main_mainview.addView(new TestpaperQuestionListView(con, Integer.parseInt(v.getTag().toString())));
+                                        Functions.history_go(con, new TestpaperQuestionListView(con
+                                                , Integer.parseInt(v.getTag(R.string.tag_testpaper_list_id).toString())
+                                                , v.getTag(R.string.tag_testpaper_list_title).toString()
+                                                , v.getTag(R.string.tag_testpaper_list_school_name).toString()
+                                                , v.getTag(R.string.tag_testpaper_list_user).toString()));
                                     }
                                 });
                             }
                         }
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                     }
-                }, 0);
+                });
             }else{
                 Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             }
-            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             return;
         }
     }

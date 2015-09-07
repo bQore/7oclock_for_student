@@ -1,11 +1,14 @@
 package net.sevenoclock.mobile.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -40,29 +43,29 @@ public class LandingActivity extends Activity implements View.OnClickListener {
         values = (Values) getApplicationContext();
         context = LandingActivity.this;
 
-        et_home_landing_userid = (EditText)findViewById(R.id.et_home_landing_userid);
-        et_home_landing_userpw = (EditText)findViewById(R.id.et_home_landing_userpw);
-        btn_home_landing_login = (Button)findViewById(R.id.btn_home_landing_login);
-        ll_home_landing_signup = (LinearLayout)findViewById(R.id.ll_home_landing_signup);
-        ll_home_landing_loading = (LinearLayout)findViewById(R.id.ll_home_landing_loading);
+        et_home_landing_userid = (EditText) findViewById(R.id.et_home_landing_userid);
+        et_home_landing_userpw = (EditText) findViewById(R.id.et_home_landing_userpw);
+        btn_home_landing_login = (Button) findViewById(R.id.btn_home_landing_login);
+        ll_home_landing_signup = (LinearLayout) findViewById(R.id.ll_home_landing_signup);
+        ll_home_landing_loading = (LinearLayout) findViewById(R.id.ll_home_landing_loading);
 
-        btn_home_landing_login.setOnClickListener((View.OnClickListener)this);
-        ll_home_landing_signup.setOnClickListener((View.OnClickListener)this);
+        btn_home_landing_login.setOnClickListener((View.OnClickListener) this);
+        ll_home_landing_signup.setOnClickListener((View.OnClickListener) this);
 
         ll_home_landing_loading.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
-        Vibrator Vibe = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        Vibrator Vibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         Vibe.vibrate(30);
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_home_landing_login:
                 new LoginTask().execute(null, null, null);
                 break;
             case R.id.ll_home_landing_signup:
-                Intent intent = new Intent(this,SignupActivity.class);
+                Intent intent = new Intent(this, SignupActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -92,7 +95,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                 }
 
                 ja = Functions.GET("get_user_info&uid=" + values.user_id);
-                if (ja != null){
+                if (ja != null) {
                     values.user_info = new TryCatchJO(ja.getJSONObject(0));
                 }
             } catch (Exception e) {
@@ -104,7 +107,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
         }
 
         protected void onPostExecute(Boolean result) {
-            if(result){
+            if (result) {
                 startActivity(new Intent(LandingActivity.this, MainActivity.class));
                 LandingActivity.this.finish();
                 return;
@@ -113,5 +116,28 @@ public class LandingActivity extends Activity implements View.OnClickListener {
             Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this).setTitle("종료")
+                        .setMessage("정말 종료하시겠습니까?")
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                return;
+                            }
+                        }).show();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
