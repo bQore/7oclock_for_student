@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <com.viewpagerindicator.TabPageIndicator
+                    android:id="@+id/tpi_question_detail_indicator"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    />
+            <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_question_detail_viewpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:gravity="bottom">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal"
+                    android:layout_margin="20dp">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_up"
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_up_default">
+                    <net.sevenoclock.mobile.customobj.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ic_question_fragment_up"
+                            android:textSize="15sp" android:textColor="#666666" android:id="@+id/itv_question_fragment_up"
+                            android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="쉬워요"
+                            android:textSize="13sp" android:textColor="#666666" android:id="@+id/ftv_question_fragment_up"
+                            android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_down"
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_down_default">
+                    <net.sevenoclock.mobile.customobj.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ic_question_fragment_down"
+                            android:textSize="15sp" android:textColor="#666666" android:id="@+id/itv_question_fragment_down"
+                            android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="어려워요"
+                            android:textSize="13sp" android:textColor="#666666" android:id="@+id/ftv_question_fragment_down"
+                            android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_save"
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_save_default">
+                    <net.sevenoclock.mobile.customobj.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ic_question_fragment_save"
+                            android:textSize="15sp" android:textColor="#666666" android:id="@+id/itv_question_fragment_save"
+                            android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="저장하기"
+                            android:textSize="13sp" android:textColor="#666666" android:id="@+id/ftv_question_fragment_save"
+                            android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

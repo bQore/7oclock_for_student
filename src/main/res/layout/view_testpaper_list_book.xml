@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:background="@drawable/ll_testpaper_list_book"
+            android:minHeight="150dp"
+            android:layout_margin="7dp" android:gravity="center_horizontal" android:paddingTop="40dp"
+            android:paddingLeft="10dp" android:paddingRight="10dp">
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:id="@+id/tv_testpaper_list_book_title" android:textColor="#333333" android:textSize="18sp"
+                android:textStyle="bold" android:background="#FFFFFF" android:paddingTop="5dp"
+                android:paddingBottom="5dp" android:paddingLeft="7dp" android:paddingRight="7dp"/>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015.01.01"
+                android:id="@+id/tv_testpaper_list_book_date" android:textColor="#ffffff" android:layout_marginTop="7dp"
+                android:textSize="12sp"/>
+    </LinearLayout>
+</LinearLayout>

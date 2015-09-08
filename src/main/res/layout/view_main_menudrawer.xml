@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_gravity="fill_horizontal"
+              android:orientation="vertical"
+              android:background="#FFFFFF">
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView2" android:layout_weight="1">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:background="@drawable/ll_main_menudrawer_profilebox"
+                    android:layout_weight="0">
+                <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/iv_main_menudrawer_profilepic"
+                        android:src="@drawable/default_user" android:layout_marginLeft="20dp" android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp" android:layout_marginBottom="20dp"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:layout_weight="1" android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp" android:gravity="center_vertical">
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="UserName"
+                            android:id="@+id/tv_main_menudrawer_username" android:textSize="18sp" android:textStyle="bold"
+                            android:textColor="#666666"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SchoolName"
+                            android:id="@+id/tv_main_menudrawer_schoolname" android:textSize="14sp"
+                            android:textColor="#f39c12"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_main_menudrawer_list" android:layout_weight="1">
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_weight="0"
+            >
+        <LinearLayout
+                android:id="@+id/ll_main_menudrawer_tablist_setting"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center_vertical|center_horizontal"
+                android:paddingBottom="10dp" android:paddingTop="10dp"
+                android:background="@drawable/ll_main_menudrawer_tablist">
+            <net.sevenoclock.mobile.customobj.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_main_menudrawer_tablist_setting"
+                    android:textSize="30sp" android:textIsSelectable="false"
+                    android:textColor="#aaaaaa" android:layout_marginBottom="5dp"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="설정"
+                    android:textColor="#aaaaaa" android:textSize="12sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="1dp"
+                android:layout_height="fill_parent" android:background="#DDDDDD">
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/ll_main_menudrawer_tablist_logout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center_vertical|center_horizontal"
+                android:paddingBottom="10dp" android:paddingTop="10dp"
+                android:background="@drawable/ll_main_menudrawer_tablist">
+            <net.sevenoclock.mobile.customobj.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_main_menudrawer_tablist_logout"
+                    android:textSize="30sp" android:textIsSelectable="false"
+                    android:textColor="#aaaaaa" android:layout_marginBottom="5dp"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로그아웃"
+                    android:textColor="#aaaaaa" android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
