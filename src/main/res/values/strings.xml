@@ -25,6 +25,11 @@
 
 
     <string name="ic_main_actionvar_menu">&#xe607;</string>
+
+    <string name="ic_question_fragment_up">&#xe6fc;</string>
+    <string name="ic_question_fragment_down">&#xe6fd;</string>
+    <string name="ic_question_fragment_save">&#xe656;</string>
+
     <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
     <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
     <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>

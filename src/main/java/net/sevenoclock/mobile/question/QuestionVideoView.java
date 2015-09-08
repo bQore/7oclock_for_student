@@ -1,56 +1,74 @@
 package net.sevenoclock.mobile.question;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
-import net.sevenoclock.mobile.settings.Values;
 
-public class QuestionVideoView extends YouTubePlayerSupportFragment {
+public class QuestionVideoView extends Fragment {
 
-    YouTubePlayer youTubeView;
+    private YouTubePlayer ytp;
+    private String url;
 
-    public static QuestionVideoView newInstance(String url) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        QuestionVideoView playerYouTubeFrag = new QuestionVideoView();
+        View view = inflater.inflate(R.layout.view_question_video, container, false);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("url", url);
-
-        playerYouTubeFrag.setArguments(bundle);
-
-        Log.i("@@@@@@@@@@@@@@@@", "" + url);
-
-        return playerYouTubeFrag;
-    }
-
-    private void init() {
-
-        initialize(Functions.YOUTUBE_KEY, new YouTubePlayer.OnInitializedListener() {
-
+        YouTubePlayerSupportFragment youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+        getChildFragmentManager().beginTransaction().replace(R.id.fl_question_video_fragment, youTubePlayerFragment).commit();
+        youTubePlayerFragment.initialize(Functions.YOUTUBE_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
-            public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
-            }
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                if (!b) {
+                    url = getArguments().getString("url");
+                    ytp = youTubePlayer;
+                    ytp.setOnFullscreenListener(new YouTubePlayer.OnFullscreenListener() {
 
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
-                youTubeView = player;
-                youTubeView.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-                if (!wasRestored) {
-                    youTubeView.loadVideo(getArguments().getString("url"), 0);
-
+                        @Override
+                        public void onFullscreen(boolean _isFullScreen) {
+                            if(_isFullScreen){
+                                ytp.setFullscreen(false);
+                                Intent intent = new Intent(MainActivity.activity, QuestionVideoActivity.class);
+                                intent.putExtra("url", url);
+                                startActivityForResult(intent, 1);
+                            }
+                        }
+                    });
+                    youTubePlayer.cueVideo(url);
                 }
             }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                Log.i("YoutubeError", "" + youTubeInitializationResult.toString());
+            }
         });
+
+        return view;
     }
 
+    public static QuestionVideoView newInstance(String url) {
+        QuestionVideoView view = new QuestionVideoView();
+        url = url.substring(32);
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        view.setArguments(args);
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

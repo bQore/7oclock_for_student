@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.IconTextView;
@@ -19,8 +20,7 @@ public class ActionbarView extends FrameLayout {
         super(context);
         con = context;
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_main_actionbar, null));
+        inflate(getContext(), R.layout.view_main_actionbar, this);
 
         FontTextView tv_main_actionbar_logo = (FontTextView)findViewById(R.id.tv_main_actionbar_logo);
         tv_main_actionbar_logo.setOnClickListener(new OnClickListener() {

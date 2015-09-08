@@ -15,14 +15,11 @@ import net.sevenoclock.mobile.settings.Values;
 
 public class QuestionExplainView extends Fragment {
 
-    private Context con;
-    private String url;
+    private AQuery aq;
     private ImageView iv_question_explain_img;
 
-    public QuestionExplainView(Context con, String url){
-        super();
-        this.con = con;
-        this.url = url;
+    public QuestionExplainView(){
+
     }
 
     @Override
@@ -30,11 +27,24 @@ public class QuestionExplainView extends Fragment {
 
         View view = inflater.inflate(R.layout.view_question_explain, container, false);
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
+        aq = new AQuery(getActivity(), view);
 
-        AQuery aq = new AQuery(con);
-        aq.id(iv_question_explain_img).image(Functions.DOMAIN + url);
+        aq.id(iv_question_explain_img).image(Functions.DOMAIN + getArguments().getString("url"));
 
         return view;
+    }
+
+    public static QuestionExplainView newInstance(String url) {
+        QuestionExplainView view = new QuestionExplainView();
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        view.setArguments(args);
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
 }

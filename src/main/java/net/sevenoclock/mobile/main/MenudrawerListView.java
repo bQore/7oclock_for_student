@@ -19,9 +19,9 @@ public class MenudrawerListView extends LinearLayout {
         super(context);
         values = (Values) context.getApplicationContext();
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_main_menudrawer_list, null), lp);
+        inflate(getContext(), R.layout.view_main_menudrawer_list, this);
+        setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
         setTag("ll_main_menudrawer_" + str_icon);
         setOnClickListener((OnClickListener)context);
 

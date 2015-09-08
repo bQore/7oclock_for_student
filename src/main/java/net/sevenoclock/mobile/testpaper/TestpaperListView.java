@@ -29,9 +29,8 @@ public class TestpaperListView extends LinearLayout {
 
         values = (Values) context.getApplicationContext();
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_testpaper_list, null), lp);
+        inflate(getContext(), R.layout.view_testpaper_list, this);
+        setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         ll_testpaper_list_left = (LinearLayout)findViewById(R.id.ll_testpaper_list_left);
         ll_testpaper_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_list_right);

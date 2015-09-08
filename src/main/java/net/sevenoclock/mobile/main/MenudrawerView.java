@@ -32,9 +32,8 @@ public class MenudrawerView extends LinearLayout {
         con = context;
         aq = new AQuery(context);
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_main_menudrawer, null), lp);
+        inflate(getContext(), R.layout.view_main_menudrawer, this);
+        setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         iv_main_menudrawer_profilepic = (ImageView)findViewById(R.id.iv_main_menudrawer_profilepic);
         tv_main_menudrawer_username = (FontTextView)findViewById(R.id.tv_main_menudrawer_username);

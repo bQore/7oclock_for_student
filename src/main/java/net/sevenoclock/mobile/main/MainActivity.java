@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.home.LoadingActivity;
+import net.sevenoclock.mobile.question.QuestionVideoView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
@@ -125,26 +126,26 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 if(menuDrawer.isMenuVisible()){
                     menuDrawer.closeMenu();
                     return false;
-                }else {
-                    if (Functions.history_length() != 1) {
-                        Functions.history_back(this);
-                        return false;
-                    } else {
-                        new AlertDialog.Builder(this).setTitle("종료")
-                                .setMessage("정말 종료하시겠습니까?")
-                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        return;
-                                    }
-                                })
-                                .setPositiveButton("종료", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        finish();
-                                        return;
-                                    }
-                                }).show();
-                    }
                 }
+                if (Functions.history_length() != 1) {
+                    Functions.history_back(this);
+                    return false;
+                }
+
+                new AlertDialog.Builder(this).setTitle("종료")
+                        .setMessage("정말 종료하시겠습니까?")
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .setPositiveButton("종료", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                return;
+                            }
+                        }).show();
+
                 break;
         }
         return super.onKeyDown(keyCode, event);
