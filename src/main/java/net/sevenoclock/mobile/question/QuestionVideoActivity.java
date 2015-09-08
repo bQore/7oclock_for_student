@@ -1,22 +1,42 @@
 package net.sevenoclock.mobile.question;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-
-import android.content.Intent;
-import android.widget.Toast;
+import com.google.android.youtube.player.YouTubePlayerView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.settings.Functions;
 
-/**
- * An abstract activity which deals with recovering from errors which may occur during API
- * initialization, but can be corrected through user action.
- */
-public abstract class YouTubeFailureRecoveryActivity extends YouTubeBaseActivity implements
-        YouTubePlayer.OnInitializedListener {
+public class QuestionVideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
     private static final int RECOVERY_DIALOG_REQUEST = 1;
+
+    Intent intent;
+    YouTubePlayerView youTubeView;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_question_video_fullscreen);
+
+        intent = getIntent();
+
+        youTubeView = (YouTubePlayerView) findViewById(R.id.yp_question_video_fullscreen_view);
+        youTubeView.initialize(Functions.YOUTUBE_KEY, this);
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+        if (!wasRestored) {
+            player.loadVideo(intent.getStringExtra("url"));
+            player.setFullscreen(true);
+        }
+    }
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider,
@@ -33,10 +53,8 @@ public abstract class YouTubeFailureRecoveryActivity extends YouTubeBaseActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECOVERY_DIALOG_REQUEST) {
             // Retry initialization if user performed a recovery action
-            getYouTubePlayerProvider().initialize(Functions.YOUTUBE_KEY, this);
+            youTubeView.initialize(Functions.YOUTUBE_KEY, this);
         }
     }
-
-    protected abstract YouTubePlayer.Provider getYouTubePlayerProvider();
 
 }

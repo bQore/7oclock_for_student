@@ -7,42 +7,52 @@
               android:background="#FFFFFF">
 
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:background="@drawable/ll_main_menudrawer_profilebox"
-            android:layout_weight="0">
-        <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/iv_main_menudrawer_profilepic"
-                android:src="@drawable/default_user" android:layout_marginLeft="20dp" android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp" android:layout_marginBottom="20dp"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView2" android:layout_weight="1">
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:layout_weight="1" android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp" android:gravity="center_vertical">
-            <net.sevenoclock.mobile.customobj.FontTextView
-                    android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:background="@drawable/ll_main_menudrawer_profilebox"
+                    android:layout_weight="0">
+                <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/iv_main_menudrawer_profilepic"
+                        android:src="@drawable/default_user" android:layout_marginLeft="20dp" android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp" android:layout_marginBottom="20dp"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:layout_weight="1" android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp" android:gravity="center_vertical">
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="UserName"
+                            android:id="@+id/tv_main_menudrawer_username" android:textSize="18sp" android:textStyle="bold"
+                            android:textColor="#666666"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SchoolName"
+                            android:id="@+id/tv_main_menudrawer_schoolname" android:textSize="14sp"
+                            android:textColor="#f39c12"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="UserName"
-                    android:id="@+id/tv_main_menudrawer_username" android:textSize="18sp" android:textStyle="bold"
-                    android:textColor="#666666"/>
-            <net.sevenoclock.mobile.customobj.FontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SchoolName"
-                    android:id="@+id/tv_main_menudrawer_schoolname" android:textSize="14sp"
-                    android:textColor="#f39c12"/>
+                    android:id="@+id/ll_main_menudrawer_list" android:layout_weight="1">
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ll_main_menudrawer_list" android:layout_weight="1">
-    </LinearLayout>
+    </ScrollView>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"

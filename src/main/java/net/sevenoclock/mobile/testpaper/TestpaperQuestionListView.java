@@ -38,9 +38,8 @@ public class TestpaperQuestionListView extends LinearLayout {
 
         values = (Values) context.getApplicationContext();
 
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_testpaper_question_list, null), lp);
+        inflate(getContext(), R.layout.view_testpaper_question_list, this);
+        setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         tv_testpaper_question_list_title = (FontTextView)findViewById(R.id.tv_testpaper_question_list_title);
         tv_testpaper_question_list_school = (FontTextView)findViewById(R.id.tv_testpaper_question_list_school);

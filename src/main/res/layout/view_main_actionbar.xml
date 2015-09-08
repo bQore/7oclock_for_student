@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="500dp"
+             android:layout_width="match_parent"
              android:layout_height="fill_parent"
              android:layout_gravity="fill_horizontal"
              android:background="@drawable/ll_main_actionbar_background">
 
     <net.sevenoclock.mobile.customobj.FontTextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:text="7o&apos;clock"

@@ -42,9 +42,8 @@ public class TestpaperQuestionView extends LinearLayout {
 
         int book_height = (int) (90 * displayMetrics.density);
 
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, book_height*2-100);
-        LayoutInflater inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_testpaper_question_list_question, null), lp);
+        inflate(getContext(), R.layout.view_testpaper_question_list_question, this);
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, book_height * 2 - 100));
 
         tv_testpaper_question_list_question_number = (FontTextView)findViewById(R.id.tv_testpaper_question_list_question_number);
         iv_testpaper_question_list_question_img = (ImageView)findViewById(R.id.iv_testpaper_question_list_question_img);

@@ -29,9 +29,8 @@ public class TestpaperBookView extends LinearLayout {
 
         int book_height = (int) (90 * displayMetrics.density);
 
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, book_height*3-80);
-        LayoutInflater inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addView(inflater.inflate(R.layout.view_testpaper_list_book, null), lp);
+        inflate(getContext(), R.layout.view_testpaper_list_book, this);
+        setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, book_height*3-80));
 
         tv_testpaper_list_book_title = (FontTextView)findViewById(R.id.tv_testpaper_list_book_title);
         tv_testpaper_list_book_date = (FontTextView)findViewById(R.id.tv_testpaper_list_book_date);

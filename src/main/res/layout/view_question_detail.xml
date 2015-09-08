@@ -12,17 +12,13 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:padding="10dp">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:id="@+id/textView" android:singleLine="true"/>
+                android:layout_height="fill_parent" android:paddingLeft="5dp" android:paddingTop="5dp"
+                android:paddingRight="5dp" android:paddingBottom="80dp">
             <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/iv_question_detail_img"
-                    android:scaleType="fitStart" android:src="@drawable/default_question"/>
+                    android:scaleType="centerInside" android:src="@drawable/default_question"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
