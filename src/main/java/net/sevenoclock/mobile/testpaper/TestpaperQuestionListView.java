@@ -2,8 +2,6 @@ package net.sevenoclock.mobile.testpaper;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,6 +53,9 @@ public class TestpaperQuestionListView extends LinearLayout {
         tv_testpaper_question_list_school.setText(school_name);
         tv_testpaper_question_list_teacher.setText(user+" 선생님");
 
+        setTag(R.string.tag_main_title, title);
+        setTag(R.string.tag_main_subtitle, "총 0개의 문제가 있습니다.");
+
         new AddQuestionTask().execute(null, null, null);
     }
 
@@ -93,16 +94,16 @@ public class TestpaperQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 tqv = new TestpaperQuestionView(con, i, tcjo);
-                                tqv.setTag(R.string.tag_testpaper_question_list_id, tcjo.get("id", "0"));
-                                tqv.setTag(R.string.tag_testpaper_question_list_src, tcjo.get("src", ""));
-                                tqv.setTag(R.string.tag_testpaper_question_list_explain, tcjo.get("explain", ""));
+                                tqv.setTag(R.string.tag_testpaper_question_list_unit, tcjo.get("unit_title", "0"));
+                                tqv.setTag(R.string.tag_testpaper_question_list_src, tcjo.get("src_url", ""));
+                                tqv.setTag(R.string.tag_testpaper_question_list_explain, tcjo.get("explain_url", ""));
                                 tqv.setTag(R.string.tag_testpaper_question_list_video, tcjo.get("video", ""));
 
                                 tqv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_testpaper_question_list_id).toString()
+                                                , v.getTag(R.string.tag_testpaper_question_list_unit).toString()
                                                 , v.getTag(R.string.tag_testpaper_question_list_src).toString()
                                                 , v.getTag(R.string.tag_testpaper_question_list_explain).toString()
                                                 , v.getTag(R.string.tag_testpaper_question_list_video).toString()));
@@ -120,6 +121,7 @@ public class TestpaperQuestionListView extends LinearLayout {
                             else ll_testpaper_question_list_left.addView(tqv);
                         }
                         tv_testpaper_question_list_count.setText("총 " + ja_question.length() + "문제");
+                        MainActivity.setSubtitle("총 "+ja_question.length()+"개의 문제가 있습니다.");
                     }
                 });
             }else{

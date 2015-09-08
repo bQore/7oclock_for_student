@@ -4,100 +4,106 @@
              android:gravity="center"
              android:background="#FFFFFF">
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-        <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:src="@drawable/home_landing_logo" />
-
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView3">
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ll_home_landing_loginbox"
                 android:orientation="vertical"
-                android:paddingBottom="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp" >
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
 
-            <EditText
-                    android:id="@+id/et_home_landing_userid"
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/home_landing_logo" android:minHeight="250dp"
+                    android:layout_marginTop="50dp"/>
+
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/et_home_landing_userinput"
-                    android:focusableInTouchMode="true"
-                    android:hint="아이디"
-                    android:inputType="textEmailAddress"
-                    android:textColor="#000000"
-                    android:textColorHint="#808080" android:minWidth="270dp">
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ll_home_landing_loginbox"
+                    android:orientation="vertical"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp" >
 
-                <requestFocus />
-            </EditText>
+                <EditText
+                        android:id="@+id/et_home_landing_userid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/et_home_landing_userinput"
+                        android:focusableInTouchMode="true"
+                        android:hint="아이디"
+                        android:inputType="textEmailAddress"
+                        android:textColor="#000000"
+                        android:textColorHint="#808080" android:minWidth="270dp">
 
-            <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dip"
-                    android:background="#E5E5E5"/>
+                    <requestFocus />
+                </EditText>
 
-            <EditText
-                    android:id="@+id/et_home_landing_userpw"
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:background="#E5E5E5"/>
+
+                <EditText
+                        android:id="@+id/et_home_landing_userpw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/et_home_landing_userinput"
+                        android:focusableInTouchMode="true"
+                        android:hint="비밀번호"
+                        android:inputType="textPassword"
+                        android:textColor="#000000"
+                        android:textColorHint="#808080" />
+
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/btn_home_landing_login"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_home_landing_login"
+                    android:text="로그인하기"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+            <LinearLayout
+                    android:id="@+id/ll_home_landing_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/et_home_landing_userinput"
-                    android:focusableInTouchMode="true"
-                    android:hint="비밀번호"
-                    android:inputType="textPassword"
-                    android:textColor="#000000"
-                    android:textColorHint="#808080" />
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp" android:layout_marginBottom="30dp">
 
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아직 회원이 아니십니까?"
+                        android:textColor="#111"
+                        android:textSize="15sp"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+
+                        android:text="가입하기"
+                        android:background="@android:color/transparent"
+                        android:textColor="#111"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-
-        <Button
-                android:id="@+id/btn_home_landing_login"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_home_landing_login"
-                android:text="로그인하기"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-        <LinearLayout
-                android:id="@+id/ll_home_landing_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center_horizontal"
-                android:padding="10dp" android:layout_marginBottom="30dp">
-
-            <net.sevenoclock.mobile.customobj.FontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아직 회원이 아니십니까?"
-                    android:textColor="#111"
-                    android:textSize="15sp"/>
-
-            <net.sevenoclock.mobile.customobj.FontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-
-                    android:text="가입하기"
-                    android:background="@android:color/transparent"
-                    android:textColor="#111"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
     <LinearLayout
             android:id="@+id/ll_home_landing_loading"
             android:orientation="vertical"
