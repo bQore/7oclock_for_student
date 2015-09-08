@@ -71,7 +71,7 @@ public class Functions {
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        MainActivity.ll_main_main_mainview.addView(v);
     }
 
     public static void history_back(Context con){
@@ -87,18 +87,6 @@ public class Functions {
 
     public static int history_length(){
         return view_history.size();
-    }
-
-    public static Typeface setFont(Context con){
-        if(mTypeface == null){
-            if (Integer.parseInt(Build.VERSION.SDK) > Build.VERSION_CODES.FROYO) {
-                mTypeface = Typeface.createFromAsset(con.getAssets(), "font.ttf");
-            }else{
-                mTypeface = Typeface.SANS_SERIF;
-            }
-        }
-
-        return mTypeface;
     }
 
     public static Bitmap borderRadius(String src, int pixels) {
@@ -183,12 +171,6 @@ public class Functions {
         return html.toString();
     }
 
-    public static String stripHTML(String htmlStr) {
-        Pattern p = Pattern.compile("<(?:.|\\s)*?>");
-        Matcher m = p.matcher(htmlStr);
-        return m.replaceAll("");
-    }
-
 //	public static void setBadge(Context context, int count) {
 //	    String launcherClassName = getLauncherClassName(context);
 //	    if (launcherClassName == null) {
@@ -200,24 +182,6 @@ public class Functions {
 //	    intent.putExtra("badge_count_class_name", launcherClassName);
 //	    context.sendBroadcast(intent);
 //	}
-
-    public static String getLauncherClassName(Context context) {
-
-        PackageManager pm = context.getPackageManager();
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-
-        List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo resolveInfo : resolveInfos) {
-            String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
-            if (pkgName.equalsIgnoreCase(context.getPackageName())) {
-                String className = resolveInfo.activityInfo.name;
-                return className;
-            }
-        }
-        return null;
-    }
 
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인
