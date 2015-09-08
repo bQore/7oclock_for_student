@@ -33,7 +33,7 @@ public class TestpaperQuestionView extends LinearLayout {
         setLayout();
 
         tv_testpaper_question_list_question_number.setText((index +1)+".");
-        aq.id(iv_testpaper_question_list_question_img).image(Functions.DOMAIN + jo.get("src", ""));
+        aq.id(iv_testpaper_question_list_question_img).image(Functions.DOMAIN + jo.get("src_url", ""));
     }
 
     private void setLayout(){

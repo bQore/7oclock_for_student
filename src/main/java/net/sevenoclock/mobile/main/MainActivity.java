@@ -14,7 +14,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
+import net.sevenoclock.mobile.inventory.InventoryListView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
@@ -30,7 +32,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static LinearLayout ll_main_main_mainview;
     public static LinearLayout ll_main_main_loading;
 
+    public static FontTextView tv_main_main_title;
+    public static FontTextView tv_main_main_subtitle;
+
     private TestpaperListView tmv;
+    private InventoryListView imv;
 
     Values values;
 
@@ -47,7 +53,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ll_main_main_mainview = (LinearLayout)findViewById(R.id.ll_main_main_mainview);
         ll_main_main_loading = (LinearLayout)findViewById(R.id.ll_main_main_loading);
 
+        tv_main_main_title = (FontTextView)findViewById(R.id.tv_main_main_title);
+        tv_main_main_subtitle = (FontTextView)findViewById(R.id.tv_main_main_subtitle);
+
         tmv = new TestpaperListView(this);
+        imv = new InventoryListView(this);
+
         Functions.history_set_home(this, tmv);
 
     }
@@ -69,12 +80,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         int width = dm.widthPixels;
 
         if(width>=640)
-            menuDrawer.setMenuSize(600);
+            menuDrawer.setMenuSize(width-100);
         else if(width<640)
             menuDrawer.setMenuSize(400);
         menuDrawer.setContentView(R.layout.activity_main_main);
         menuDrawer.setMenuView(new MenudrawerView(this));
         menuDrawer.setDropShadowEnabled(false);
+    }
+
+    public static void setSubtitle(String str){
+        MainActivity.tv_main_main_subtitle.setText(str);
     }
 
     @Override
@@ -84,6 +99,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
                 Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
+                imv.reflesh();
+                Functions.history_go(this, imv);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
             }
             menuDrawer.closeMenu();

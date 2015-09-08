@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
@@ -35,6 +36,9 @@ public class TestpaperListView extends LinearLayout {
 
         ll_testpaper_list_left = (LinearLayout)findViewById(R.id.ll_testpaper_list_left);
         ll_testpaper_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_list_right);
+
+        setTag(R.string.tag_main_title,"출제문제지");
+        setTag(R.string.tag_main_subtitle, "총 0개의 문제지가 있습니다.");
 
         new AddBookTask().execute(null, null, null);
     }
@@ -99,7 +103,9 @@ public class TestpaperListView extends LinearLayout {
                                 });
                             }
                         }
+
                         MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                        MainActivity.setSubtitle("총 " + ja_book.length() + "개의 문제지가 있습니다.");
                     }
                 });
             }else{

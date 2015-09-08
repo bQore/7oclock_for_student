@@ -14,6 +14,7 @@ import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
 import org.json.JSONArray;
@@ -44,6 +45,8 @@ public class Functions {
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
         view_history.add(v);
+        MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+        MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
     }
@@ -55,6 +58,8 @@ public class Functions {
         home.reflesh();
         view_history.clear();
         view_history.add(home);
+        MainActivity.tv_main_main_title.setText(home.getTag(R.string.tag_main_title).toString());
+        MainActivity.tv_main_main_subtitle.setText(home.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
     }
@@ -63,6 +68,8 @@ public class Functions {
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
         view_history.add(0,v);
+        MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+        MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
     }
@@ -70,9 +77,12 @@ public class Functions {
     public static void history_back(Context con){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-        view_history.remove(view_history.size()-1);
+        view_history.remove(view_history.size() - 1);
+        View v = view_history.get(view_history.size() - 1);
+        MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+        MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        MainActivity.ll_main_main_mainview.addView(v);
     }
 
     public static int history_length(){

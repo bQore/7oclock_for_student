@@ -35,7 +35,7 @@ public class QuestionFragmentView extends LinearLayout {
 
     Values values;
 
-    public QuestionFragmentView(Context context, String qid, String src, String explain, String video) {
+    public QuestionFragmentView(Context context, String title, String src, String explain, String video) {
         super(context);
         this.con = context;
         this.src = src;
@@ -50,6 +50,9 @@ public class QuestionFragmentView extends LinearLayout {
 
         pager = (ViewPager) findViewById(R.id.vp_question_detail_viewpaper);
         indicator = (TabPageIndicator) findViewById(R.id.tpi_question_detail_indicator);
+
+        setTag(R.string.tag_main_title,"");
+        setTag(R.string.tag_main_subtitle, title);
 
         pager.setOffscreenPageLimit(10);
 
