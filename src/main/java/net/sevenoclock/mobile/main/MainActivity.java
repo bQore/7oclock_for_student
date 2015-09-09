@@ -6,21 +6,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
-<<<<<<< HEAD
 import net.sevenoclock.mobile.inventory.InventoryListView;
-=======
-import net.sevenoclock.mobile.question.QuestionVideoView;
->>>>>>> develop
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
@@ -143,15 +139,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // TODO Auto-generated method stub
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
+                Log.i("@@@@@@@@@@@@@@@@1", "" + Functions.history_length());
+
                 if(menuDrawer.isMenuVisible()){
                     menuDrawer.closeMenu();
                     return false;
                 }
+                Log.i("@@@@@@@@@@@@@@@@2", "" + Functions.history_length());
                 if (Functions.history_length() != 1) {
                     Functions.history_back(this);
                     return false;
                 }
-
+                Log.i("@@@@@@@@@@@@@@@@3", "" + Functions.history_length());
                 new AlertDialog.Builder(this).setTitle("종료")
                         .setMessage("정말 종료하시겠습니까?")
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -165,7 +164,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 return;
                             }
                         }).show();
-
+                Log.i("@@@@@@@@@@@@@@@@4", "" + Functions.history_length());
                 break;
         }
         return super.onKeyDown(keyCode, event);

@@ -45,14 +45,10 @@ public class Functions {
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
         view_history.add(v);
-<<<<<<< HEAD
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-=======
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
->>>>>>> develop
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        MainActivity.ll_main_main_mainview.addView(v);
     }
 
     public static void history_go_home(Context con){
@@ -62,46 +58,31 @@ public class Functions {
         home.reflesh();
         view_history.clear();
         view_history.add(home);
-<<<<<<< HEAD
         MainActivity.tv_main_main_title.setText(home.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(home.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-=======
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
->>>>>>> develop
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        MainActivity.ll_main_main_mainview.addView(home);
     }
 
     public static void history_set_home(Context con, View v){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-<<<<<<< HEAD
-        view_history.add(0,v);
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
+        view_history.add(0, v);
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(v);
-=======
-        view_history.add(0, v);
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(0));
->>>>>>> develop
     }
 
     public static void history_back(Context con){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-        view_history.remove(view_history.size() - 1);
-<<<<<<< HEAD
         View v = view_history.get(view_history.size() - 1);
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(v);
-=======
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
->>>>>>> develop
+        Log.i("@@@@@@@@@@@@@@@@0", "----------------------");
     }
 
     public static int history_length(){

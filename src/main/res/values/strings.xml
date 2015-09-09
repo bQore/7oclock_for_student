@@ -21,7 +21,8 @@
     <string name="tag_testpaper_list_school_name">tag_testpaper_list_school_name</string>
     <string name="tag_testpaper_list_user">tag_testpaper_list_user</string>
 
-    <string name="tag_testpaper_question_list_unit">tag_testpaper_question_list_id</string>
+    <string name="tag_testpaper_question_list_id">tag_testpaper_question_list_id</string>
+    <string name="tag_testpaper_question_list_title">tag_testpaper_question_list_title</string>
     <string name="tag_testpaper_question_list_src">tag_testpaper_question_list_src</string>
     <string name="tag_testpaper_question_list_explain">tag_testpaper_question_list_explain</string>
     <string name="tag_testpaper_question_list_video">tag_testpaper_question_list_video</string>
@@ -29,7 +30,8 @@
     <string name="tag_inventory_list_id">tag_inventory_list_id</string>
     <string name="tag_inventory_list_title">tag_inventory_list_title</string>
 
-    <string name="tag_inventory_question_list_unit">tag_inventory_question_list_unit</string>
+    <string name="tag_inventory_question_list_id">tag_inventory_question_list_id</string>
+    <string name="tag_inventory_question_list_title">tag_inventory_question_list_title</string>
     <string name="tag_inventory_question_list_src">tag_inventory_question_list_src</string>
     <string name="tag_inventory_question_list_explain">tag_inventory_question_list_explain</string>
     <string name="tag_inventory_question_list_video">tag_inventory_question_list_video</string>

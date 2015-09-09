@@ -80,7 +80,8 @@ public class InventoryQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 iqv = new InventoryQuestionView(con, tcjo);
-                                iqv.setTag(R.string.tag_inventory_question_list_unit, tcjo.get("unit_title", "0"));
+                                iqv.setTag(R.string.tag_inventory_question_list_id, tcjo.get("id", "0"));
+                                iqv.setTag(R.string.tag_inventory_question_list_title, tcjo.get("unit_title", "-"));
                                 iqv.setTag(R.string.tag_inventory_question_list_src, tcjo.get("src_url", ""));
                                 iqv.setTag(R.string.tag_inventory_question_list_explain, tcjo.get("explain_url", ""));
                                 iqv.setTag(R.string.tag_inventory_question_list_video, tcjo.get("video", ""));
@@ -89,7 +90,8 @@ public class InventoryQuestionListView extends LinearLayout {
                                     @Override
                                     public void onClick(View v) {
                                         Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_inventory_question_list_unit).toString()
+                                                , v.getTag(R.string.tag_inventory_question_list_id).toString()
+                                                , v.getTag(R.string.tag_inventory_question_list_title).toString()
                                                 , v.getTag(R.string.tag_inventory_question_list_src).toString()
                                                 , v.getTag(R.string.tag_inventory_question_list_explain).toString()
                                                 , v.getTag(R.string.tag_inventory_question_list_video).toString()));

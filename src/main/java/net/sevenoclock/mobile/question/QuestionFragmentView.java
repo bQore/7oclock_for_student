@@ -2,16 +2,14 @@ package net.sevenoclock.mobile.question;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Vibrator;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import com.viewpagerindicator.TabPageIndicator;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
@@ -20,9 +18,7 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class QuestionFragmentView extends LinearLayout {
 
@@ -30,6 +26,7 @@ public class QuestionFragmentView extends LinearLayout {
     TryCatchJO tcjo;
     private String qid;
     private String feedback_state = "";
+    private String save_state = "";
 
     private ViewPager pager;
     private TabPageIndicator indicator;
@@ -41,7 +38,7 @@ public class QuestionFragmentView extends LinearLayout {
 
     Values values;
 
-    public QuestionFragmentView(Context context, String title, String src, String explain, String video) {
+    public QuestionFragmentView(Context context, String qid, String title, String src, String explain, String video) {
         super(context);
         this.qid = qid;
         this.tcjo = null;
@@ -54,10 +51,9 @@ public class QuestionFragmentView extends LinearLayout {
         pager = (ViewPager) findViewById(R.id.vp_question_detail_viewpaper);
         indicator = (TabPageIndicator) findViewById(R.id.tpi_question_detail_indicator);
 
-<<<<<<< HEAD
         setTag(R.string.tag_main_title,"");
         setTag(R.string.tag_main_subtitle, title);
-=======
+
         ll_question_fragment_up = (LinearLayout) findViewById(R.id.ll_question_fragment_up);
         ll_question_fragment_down = (LinearLayout) findViewById(R.id.ll_question_fragment_down);
         ll_question_fragment_save = (LinearLayout) findViewById(R.id.ll_question_fragment_save);
@@ -100,9 +96,9 @@ public class QuestionFragmentView extends LinearLayout {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)getContext().getSystemService(getContext().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
+                setSaveBtn();
             }
         });
->>>>>>> develop
 
         pager.setOffscreenPageLimit(10);
 
@@ -112,7 +108,27 @@ public class QuestionFragmentView extends LinearLayout {
         indicator.setViewPager(pager);
 
         setFeedbackBtn();
+        setSaveBtn();
 
+    }
+
+    private void setSaveBtn(){
+        TryCatchJO tcjo_save = null;
+        try {
+            tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + qid + "&method=" + save_state).getJSONObject(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (tcjo_save.get("question",0) == 0){
+            ll_question_fragment_save.setBackgroundResource(R.drawable.ll_question_fragment_feedback_save_default);
+            ftv_question_fragment_save.setTextColor(Color.parseColor("#666666"));
+            save_state = "add";
+            return;
+        }
+        ll_question_fragment_save.setBackgroundResource(R.drawable.ll_question_fragment_feedback_save_checked);
+        ftv_question_fragment_save.setTextColor(Color.parseColor("#dd9015"));
+        save_state = "delete";
+        return;
     }
 
     private void setFeedbackBtn(){
