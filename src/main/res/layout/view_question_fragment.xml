@@ -12,12 +12,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
             <com.viewpagerindicator.TabPageIndicator
-                    android:id="@+id/tpi_question_detail_indicator"
+                    android:id="@+id/tpi_question_fragment_indicator"
                     android:layout_height="50dp"
                     android:layout_width="match_parent"
+                    android:background="#FFFFFF"
                     />
             <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_question_detail_viewpaper"
+                    android:id="@+id/vp_question_fragment_viewpaper"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -37,7 +38,7 @@
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_up"
-                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_up_default">
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_up">
                     <net.sevenoclock.mobile.customobj.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -55,7 +56,7 @@
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_down"
-                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_down_default">
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_down">
                     <net.sevenoclock.mobile.customobj.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -73,7 +74,7 @@
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_question_fragment_save"
-                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_save_default">
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp" android:background="@drawable/ll_question_fragment_feedback_save">
                     <net.sevenoclock.mobile.customobj.IconTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

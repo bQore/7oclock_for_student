@@ -81,9 +81,9 @@ public class InventoryQuestionListView extends LinearLayout {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 iqv = new InventoryQuestionView(con, tcjo);
                                 iqv.setTag(R.string.tag_inventory_question_list_id, tcjo.get("id", "0"));
-                                iqv.setTag(R.string.tag_inventory_question_list_title, tcjo.get("unit_title", "-"));
-                                iqv.setTag(R.string.tag_inventory_question_list_src, tcjo.get("src_url", ""));
-                                iqv.setTag(R.string.tag_inventory_question_list_explain, tcjo.get("explain_url", ""));
+                                iqv.setTag(R.string.tag_inventory_question_list_title, tcjo.get("unit", "-"));
+                                iqv.setTag(R.string.tag_inventory_question_list_src, tcjo.get("src", ""));
+                                iqv.setTag(R.string.tag_inventory_question_list_explain, tcjo.get("explain", ""));
                                 iqv.setTag(R.string.tag_inventory_question_list_video, tcjo.get("video", ""));
 
                                 iqv.setOnClickListener(new OnClickListener() {

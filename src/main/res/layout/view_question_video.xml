@@ -5,8 +5,24 @@
               android:layout_height="match_parent" android:paddingBottom="80dp">
 
     <FrameLayout
-            android:id="@+id/fl_question_video_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <FrameLayout
+                android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+                android:id="@+id/fl_question_video_fragment"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:background="#00000000"
+                android:id="@+id/ll_question_video_fullscreen">
+            <net.sevenoclock.mobile.customobj.IconTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#ff1ce7a0" android:textSize="80sp" android:text="@string/ic_question_video_play"/>
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

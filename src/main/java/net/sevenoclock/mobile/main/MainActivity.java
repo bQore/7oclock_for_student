@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static LinearLayout ll_main_main_mainview;
     public static LinearLayout ll_main_main_loading;
 
+    public static LinearLayout ll_main_main_title;
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
@@ -53,6 +54,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ll_main_main_mainview = (LinearLayout)findViewById(R.id.ll_main_main_mainview);
         ll_main_main_loading = (LinearLayout)findViewById(R.id.ll_main_main_loading);
 
+        ll_main_main_title = (LinearLayout)findViewById(R.id.ll_main_main_title);
         tv_main_main_title = (FontTextView)findViewById(R.id.tv_main_main_title);
         tv_main_main_subtitle = (FontTextView)findViewById(R.id.tv_main_main_subtitle);
 
@@ -139,18 +141,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // TODO Auto-generated method stub
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                Log.i("@@@@@@@@@@@@@@@@1", "" + Functions.history_length());
-
                 if(menuDrawer.isMenuVisible()){
                     menuDrawer.closeMenu();
                     return false;
                 }
-                Log.i("@@@@@@@@@@@@@@@@2", "" + Functions.history_length());
-                if (Functions.history_length() != 1) {
+                if (Functions.history_length() > 1) {
                     Functions.history_back(this);
                     return false;
                 }
-                Log.i("@@@@@@@@@@@@@@@@3", "" + Functions.history_length());
                 new AlertDialog.Builder(this).setTitle("종료")
                         .setMessage("정말 종료하시겠습니까?")
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -164,7 +162,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 return;
                             }
                         }).show();
-                Log.i("@@@@@@@@@@@@@@@@4", "" + Functions.history_length());
                 break;
         }
         return super.onKeyDown(keyCode, event);

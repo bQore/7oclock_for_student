@@ -2,6 +2,7 @@ package net.sevenoclock.mobile.question;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -17,6 +18,7 @@ public class QuestionVideoActivity extends YouTubeBaseActivity implements YouTub
 
     Intent intent;
     YouTubePlayerView youTubeView;
+    YouTubePlayer youTubePlayer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,10 @@ public class QuestionVideoActivity extends YouTubeBaseActivity implements YouTub
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
+            youTubePlayer = player;
             player.loadVideo(intent.getStringExtra("url"));
             player.setFullscreen(true);
+            player.play();
         }
     }
 
@@ -55,6 +59,14 @@ public class QuestionVideoActivity extends YouTubeBaseActivity implements YouTub
             // Retry initialization if user performed a recovery action
             youTubeView.initialize(Functions.YOUTUBE_KEY, this);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        youTubePlayer.setFullscreen(false);
+        finishActivity(1);
+        finish();
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.settings.Functions;
@@ -26,6 +27,8 @@ public class QuestionExplainView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.view_question_explain, container, false);
+        view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
         aq = new AQuery(getActivity(), view);
 

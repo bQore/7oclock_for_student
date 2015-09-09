@@ -39,37 +39,38 @@ public class Functions {
     public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
-    private static ArrayList<View> view_history = new ArrayList<View>();
+    private static Values values;
 
     public static void history_go(Context con, View v){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-        view_history.add(v);
+        values.view_history.add(v);
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(v);
+        MainActivity.ll_main_main_mainview.addView(values.view_history.get(values.view_history.size()-1));
     }
 
     public static void history_go_home(Context con){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-        TestpaperListView home = (TestpaperListView)view_history.get(0);
+        TestpaperListView home = (TestpaperListView)values.view_history.get(0);
         home.reflesh();
-        view_history.clear();
-        view_history.add(home);
+        values.view_history.clear();
+        values.view_history.add(home);
         MainActivity.tv_main_main_title.setText(home.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(home.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(home);
+        MainActivity.ll_main_main_mainview.addView(values.view_history.get(0));
     }
 
     public static void history_set_home(Context con, View v){
+        values = (Values)con.getApplicationContext();
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
-        view_history.add(0, v);
+        values.view_history.add(0,v);
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(v);
     }
@@ -77,16 +78,16 @@ public class Functions {
     public static void history_back(Context con){
         Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
         Vibe.vibrate(30);
-        View v = view_history.get(view_history.size() - 1);
+        values.view_history.remove(values.view_history.size() - 1);
+        View v = values.view_history.get(values.view_history.size() - 1);
         MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
         MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
         MainActivity.ll_main_main_mainview.removeAllViews();
         MainActivity.ll_main_main_mainview.addView(v);
-        Log.i("@@@@@@@@@@@@@@@@0", "----------------------");
     }
 
     public static int history_length(){
-        return view_history.size();
+        return values.view_history.size();
     }
 
     public static Bitmap borderRadius(String src, int pixels) {

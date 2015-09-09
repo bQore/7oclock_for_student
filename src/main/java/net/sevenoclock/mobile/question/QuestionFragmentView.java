@@ -2,6 +2,7 @@ package net.sevenoclock.mobile.question;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -48,8 +49,8 @@ public class QuestionFragmentView extends LinearLayout {
         inflate(getContext(), R.layout.view_question_fragment, this);
         setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        pager = (ViewPager) findViewById(R.id.vp_question_detail_viewpaper);
-        indicator = (TabPageIndicator) findViewById(R.id.tpi_question_detail_indicator);
+        pager = (ViewPager) findViewById(R.id.vp_question_fragment_viewpaper);
+        indicator = (TabPageIndicator) findViewById(R.id.tpi_question_fragment_indicator);
 
         setTag(R.string.tag_main_title,"");
         setTag(R.string.tag_main_subtitle, title);
@@ -120,13 +121,11 @@ public class QuestionFragmentView extends LinearLayout {
             e.printStackTrace();
         }
         if (tcjo_save.get("question",0) == 0){
-            ll_question_fragment_save.setBackgroundResource(R.drawable.ll_question_fragment_feedback_save_default);
-            ftv_question_fragment_save.setTextColor(Color.parseColor("#666666"));
+            setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, false);
             save_state = "add";
             return;
         }
-        ll_question_fragment_save.setBackgroundResource(R.drawable.ll_question_fragment_feedback_save_checked);
-        ftv_question_fragment_save.setTextColor(Color.parseColor("#dd9015"));
+        setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, true);
         save_state = "delete";
         return;
     }
@@ -139,34 +138,37 @@ public class QuestionFragmentView extends LinearLayout {
             feedback_state = tcjo.get("is_good","");
 
             if(feedback_state.equals("")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_default);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_default);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, false);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, false);
                 feedback_state = "-1";
             }else if(feedback_state.equals("false")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_default);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_checked);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#dd9015"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#dd9015"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, false);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, true);
                 feedback_state = "0";
             }else if(feedback_state.equals("true")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_checked);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_default);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#dd9015"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#dd9015"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, true);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, false);
                 feedback_state = "1";
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setFeedbackFont(IconTextView itv, FontTextView ftv, Boolean selected){
+        if(selected){
+            itv.setTextColor(Color.parseColor("#e74c3c"));
+            ftv.setTextColor(Color.parseColor("#e74c3c"));
+            itv.setTypeface(itv.getTypeface(), Typeface.BOLD);
+            ftv.setTypeface(ftv.getTypeface(), Typeface.BOLD);
+        }else{
+            itv.setTextColor(Color.parseColor("#666666"));
+            ftv.setTextColor(Color.parseColor("#666666"));
+            itv.setTypeface(itv.getTypeface(), Typeface.NORMAL);
+            ftv.setTypeface(ftv.getTypeface(), Typeface.NORMAL);
+        }
+
     }
 
     class QuestionFragmentAdapter extends FragmentStatePagerAdapter {
