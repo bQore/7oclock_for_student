@@ -2,27 +2,27 @@ package net.sevenoclock.mobile.main;
 
 import android.content.Context;
 import android.os.Vibrator;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.IconTextView;
 import net.sevenoclock.mobile.settings.Functions;
 
-public class ActionbarView extends FrameLayout {
+public class ActionbarDefaultView extends FrameLayout {
 
     private Context con;
 
-    public ActionbarView(Context context) {
+    public ActionbarDefaultView(Context context) {
         super(context);
         con = context;
 
-        inflate(getContext(), R.layout.view_main_actionbar, this);
+        inflate(getContext(), R.layout.view_main_actionbar_default, this);
 
-        FontTextView tv_main_actionbar_logo = (FontTextView)findViewById(R.id.tv_main_actionbar_logo);
+        IconTextView tv_main_actionbar_searchbtn = (IconTextView)findViewById(R.id.tv_main_actionbar_searchbtn);
+        tv_main_actionbar_searchbtn.setOnClickListener((OnClickListener)context);
+
+        FontTextView tv_main_actionbar_logo = (FontTextView)findViewById(R.id.tv_main_actionbar_default_logo);
         tv_main_actionbar_logo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,7 +30,7 @@ public class ActionbarView extends FrameLayout {
             }
         });
 
-        IconTextView tv_main_actionbar_menubtn = (IconTextView)findViewById(R.id.tv_main_actionbar_menubtn);
+        IconTextView tv_main_actionbar_menubtn = (IconTextView)findViewById(R.id.tv_main_actionbar_default_menubtn);
         tv_main_actionbar_menubtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

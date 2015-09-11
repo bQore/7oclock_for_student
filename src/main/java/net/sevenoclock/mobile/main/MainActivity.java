@@ -9,14 +9,15 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
 import net.sevenoclock.mobile.inventory.InventoryListView;
+import net.sevenoclock.mobile.search.SearchFragmentView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
@@ -26,6 +27,7 @@ import net.simonvt.menudrawer.Position;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ActionBar actionBar;
+    private ActionBar.LayoutParams actionbar_lp;
     public static MenuDrawer menuDrawer;
     public static Activity activity;
 
@@ -36,10 +38,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    private TestpaperListView tmv;
-    private InventoryListView imv;
+    private ActionbarDefaultView adv;
+    private ActionbarSearchView asv;
+    private TestpaperListView tlv;
+    private InventoryListView ilv;
+    public static SearchFragmentView sfv;
+    public static MainSearchView msv;
 
     Values values;
+    InputMethodManager imm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main_main);
         activity = (Activity) this;
         values = (Values) getApplicationContext();
+        imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
         setActionBar();
         setMenuDrawer();
@@ -58,17 +66,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         tv_main_main_title = (FontTextView)findViewById(R.id.tv_main_main_title);
         tv_main_main_subtitle = (FontTextView)findViewById(R.id.tv_main_main_subtitle);
 
-        tmv = new TestpaperListView(this);
-        imv = new InventoryListView(this);
 
-        Functions.history_set_home(this, tmv);
+        adv = new ActionbarDefaultView(this);
+        asv = new ActionbarSearchView(this);
+        tlv = new TestpaperListView(this);
+        ilv = new InventoryListView(this);
+        sfv = new SearchFragmentView(this,0,Functions.GET("get_question_unit_new"), 0, values.user_info.get("school_name",""));
+        msv = new MainSearchView(this);
+
+        Functions.history_set_home(this, tlv);
 
     }
 
     private void setActionBar(){
         actionBar = getSupportActionBar();
-        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(new ActionbarView(this), lp);
+        actionbar_lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        actionBar.setCustomView(new ActionbarDefaultView(this), actionbar_lp);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowCustomEnabled(true);
     }
@@ -101,9 +114,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
                 Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-                imv.reflesh();
-                Functions.history_go(this, imv);
+                ilv.reflesh();
+                Functions.history_go(this, ilv);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
+                Functions.history_go(this, sfv);
             }
             menuDrawer.closeMenu();
         }else{
@@ -111,6 +125,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Vibe.vibrate(30);
 
             switch (v.getId()){
+                case R.id.tv_main_actionbar_searchbtn:
+                    actionBar.setCustomView(asv, actionbar_lp);
+                    Functions.history_go(this,msv);
+                    asv.et_main_actionbar_search_form.setText("");
+                    asv.et_main_actionbar_search_form.requestFocus();
+                    imm.showSoftInput(asv.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
+                    break;
+                case R.id.tv_main_actionbar_search_backbtn:
+                    Functions.history_back(this);
+                    imm.hideSoftInputFromWindow(asv.et_main_actionbar_search_form.getWindowToken(), 0);
+                    actionBar.setCustomView(adv, actionbar_lp);
+                    break;
                 case R.id.ll_main_menudrawer_tablist_setting:
                     break;
                 case R.id.ll_main_menudrawer_tablist_logout:
@@ -143,6 +169,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case KeyEvent.KEYCODE_BACK:
                 if(menuDrawer.isMenuVisible()){
                     menuDrawer.closeMenu();
+                    return false;
+                }
+                if(actionBar.getCustomView() == asv ){
+                    Functions.history_back(this);
+                    actionBar.setCustomView(adv, actionbar_lp);
                     return false;
                 }
                 if (Functions.history_length() > 1) {

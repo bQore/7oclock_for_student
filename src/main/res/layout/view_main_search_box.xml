@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" android:background="@drawable/ll_main_view_box">
+
+    <net.sevenoclock.mobile.customobj.FontTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:id="@+id/tv_main_search_box_title" android:textColor="#666666" android:textSize="15dp" android:layout_margin="3dp"
+            android:padding="3dp"/>
+</LinearLayout>

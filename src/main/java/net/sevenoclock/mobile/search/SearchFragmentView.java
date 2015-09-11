@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import com.viewpagerindicator.TabPageIndicator;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.customobj.FontTextView;
+import net.sevenoclock.mobile.customobj.FullnameTabIndicator;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.question.QuestionDetailView;
 import net.sevenoclock.mobile.question.QuestionExplainView;
@@ -22,11 +24,11 @@ import org.json.JSONException;
 public class SearchFragmentView extends LinearLayout {
 
     private ViewPager pager;
-    private TabPageIndicator indicator;
+    private FullnameTabIndicator indicator;
 
     Values values;
 
-    public SearchFragmentView(Context context, JSONArray ja_unit, String unit_title) {
+    public SearchFragmentView(Context context, final int position, JSONArray ja_unit, int unit_level, String unit_title) {
         super(context);
 
         values = (Values) context.getApplicationContext();
@@ -34,19 +36,24 @@ public class SearchFragmentView extends LinearLayout {
         inflate(getContext(), R.layout.view_search_fragment, this);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        MainActivity.ll_main_main_title.setVisibility(View.GONE);
-        setTag(R.string.tag_main_title, "");
+        setTag(R.string.tag_main_title, unit_title);
         setTag(R.string.tag_main_subtitle, "");
 
         pager = (ViewPager) findViewById(R.id.vp_search_fragment_viewpaper);
-        indicator = (TabPageIndicator) findViewById(R.id.tpi_search_fragment_indicator);
+        indicator = (FullnameTabIndicator) findViewById(R.id.tpi_search_fragment_indicator);
 
-        pager.setOffscreenPageLimit(10);
+        pager.setOffscreenPageLimit(ja_unit.length());
 
         if(ja_unit != null){
-            SearchFragmentAdapter adapter = new SearchFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), ja_unit);
+            SearchFragmentAdapter adapter = new SearchFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), ja_unit, unit_level);
             adapter.notifyDataSetChanged();
             pager.setAdapter(adapter);
+            pager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pager.setCurrentItem(position);
+                }
+            }, 100);
             indicator.setViewPager(pager);
         }
     }
@@ -54,16 +61,19 @@ public class SearchFragmentView extends LinearLayout {
     class SearchFragmentAdapter extends FragmentStatePagerAdapter {
 
         private JSONArray ja;
+        private int unit_level;
+        private String unit_title;
 
-        public SearchFragmentAdapter(FragmentManager fm, JSONArray ja) {
+        public SearchFragmentAdapter(FragmentManager fm, JSONArray ja, int unit_level) {
             super(fm);
             this.ja = ja;
+            this.unit_level = unit_level;
         }
 
         @Override
         public Fragment getItem(int position) {
             try{
-                return new SearchListView().newInstance(ja.getJSONObject(position).getString("id"));
+                return new SearchListView().newInstance(unit_level, ja.getJSONObject(position).getInt("id"), ja.getJSONObject(position).getString("title"));
             }catch (Exception e){
                 return null;
             }

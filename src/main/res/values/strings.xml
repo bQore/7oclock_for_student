@@ -36,8 +36,16 @@
     <string name="tag_inventory_question_list_explain">tag_inventory_question_list_explain</string>
     <string name="tag_inventory_question_list_video">tag_inventory_question_list_video</string>
 
+    <string name="tag_search_question_list_id">tag_search_question_list_id</string>
+    <string name="tag_search_question_list_title">tag_search_question_list_title</string>
+    <string name="tag_search_question_list_src">tag_search_question_list_src</string>
+    <string name="tag_search_question_list_explain">tag_search_question_list_explain</string>
+    <string name="tag_search_question_list_video">tag_search_question_list_video</string>
 
-    <string name="ic_main_actionvar_menu">&#xe607;</string>
+
+    <string name="ic_main_actionbar_default_menu">&#xe607;</string>
+    <string name="ic_main_actionbar_default_search">&#xe63b;</string>
+    <string name="ic_main_actionbar_search_back">&#xe625;</string>
 
     <string name="ic_question_fragment_up">&#xe6fc;</string>
     <string name="ic_question_fragment_down">&#xe6fd;</string>

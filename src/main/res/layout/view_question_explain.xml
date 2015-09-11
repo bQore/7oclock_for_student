@@ -25,9 +25,9 @@
                     android:gravity="center_horizontal">
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:id="@+id/iv_question_explain_img"
-                        android:scaleType="centerInside" android:src="@drawable/default_question"/>
+                        android:scaleType="centerInside"/>
             </LinearLayout>
         </LinearLayout>
 
