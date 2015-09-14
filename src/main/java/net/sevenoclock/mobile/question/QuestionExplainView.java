@@ -17,6 +17,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
@@ -40,25 +41,28 @@ public class QuestionExplainView extends Fragment {
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
         aq = new AQuery(getActivity(), view);
 
-        try{
-            aq.ajax(Functions.DOMAIN + getArguments().getString("url"), File.class, new AjaxCallback<File>() {
-                public void callback(String url, File file, AjaxStatus status) {
-                    if (file != null) {
-                        BitmapFactory.Options opts = new BitmapFactory.Options();
-                        opts.inScaled = true;
-                        opts.inDensity = DisplayMetrics.DENSITY_HIGH;
-                        opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
-                        Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                        aq.id(iv_question_explain_img).image(buttonImages);
-                    } else {
-                        Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        if(MainActivity.app_width>=800){
+            try{
+                aq.ajax(Functions.DOMAIN + getArguments().getString("url"), File.class, new AjaxCallback<File>() {
+                    public void callback(String url, File file, AjaxStatus status) {
+                        if (file != null) {
+                            BitmapFactory.Options opts = new BitmapFactory.Options();
+                            opts.inScaled = true;
+                            opts.inDensity = DisplayMetrics.DENSITY_HIGH;
+                            opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
+                            Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
+                            aq.id(iv_question_explain_img).image(buttonImages);
+                        } else {
+                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                });
+            }catch (Exception e){
+                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        } else if(MainActivity.app_width<800){
+            aq.id(iv_question_explain_img).image(Functions.DOMAIN + getArguments().getString("url"));
         }
-
 
         return view;
     }

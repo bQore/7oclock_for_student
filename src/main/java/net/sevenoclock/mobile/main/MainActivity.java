@@ -47,6 +47,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     Values values;
     public static InputMethodManager imm;
+    public static int app_width = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,11 +93,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
+        app_width = dm.widthPixels;
 
-        if(width>=640)
-            menuDrawer.setMenuSize(width-100);
-        else if(width<640)
+        if(app_width>=640)
+            menuDrawer.setMenuSize(app_width-100);
+        else if(app_width<640)
             menuDrawer.setMenuSize(400);
         menuDrawer.setContentView(R.layout.activity_main_main);
         menuDrawer.setMenuView(new MenudrawerView(this));
