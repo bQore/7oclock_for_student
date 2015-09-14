@@ -29,6 +29,8 @@ import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.net.URLEncoder;
+
 public class MainSearchView extends LinearLayout {
 
     private Context con;
@@ -54,7 +56,13 @@ public class MainSearchView extends LinearLayout {
     }
 
     public void search(String str){
-        search_query = str;
+        try{
+            MainActivity.tv_main_main_title.setText(String.format("\"%s\"에 대한 검색결과", str));
+            search_query = URLEncoder.encode(str, "utf-8");
+            new AddListTask().execute(null, null, null);
+        }catch (Exception e){
+            Log.i("SearchError",e.getMessage());
+        }
     }
 
     class AddListTask extends AsyncTask<Void, Void, Boolean> {
@@ -80,10 +88,10 @@ public class MainSearchView extends LinearLayout {
                     public void run() {
                         try{
                             for(int i=0; i < ja_search.length(); i++){
-                                ll_main_search_list.addView(new MainSearchBoxView(con, ja_search.getJSONArray(i)));
+                                ll_main_search_list.addView(new MainSearchBoxView(con, ja_search.getJSONObject(i)));
                             }
                         }catch (Exception e){
-
+                            Log.i("SearchListAddError",e.getMessage());
                         }
                         MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                     }

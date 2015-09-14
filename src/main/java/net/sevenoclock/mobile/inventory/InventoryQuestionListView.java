@@ -80,21 +80,21 @@ public class InventoryQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 iqv = new InventoryQuestionView(con, tcjo);
-                                iqv.setTag(R.string.tag_inventory_question_list_id, tcjo.get("id", "0"));
-                                iqv.setTag(R.string.tag_inventory_question_list_title, tcjo.get("unit", "-"));
-                                iqv.setTag(R.string.tag_inventory_question_list_src, tcjo.get("src", ""));
-                                iqv.setTag(R.string.tag_inventory_question_list_explain, tcjo.get("explain", ""));
-                                iqv.setTag(R.string.tag_inventory_question_list_video, tcjo.get("video", ""));
+                                iqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
+                                iqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit", "-"));
+                                iqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
+                                iqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
+                                iqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
 
                                 iqv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_inventory_question_list_id).toString()
-                                                , v.getTag(R.string.tag_inventory_question_list_title).toString()
-                                                , v.getTag(R.string.tag_inventory_question_list_src).toString()
-                                                , v.getTag(R.string.tag_inventory_question_list_explain).toString()
-                                                , v.getTag(R.string.tag_inventory_question_list_video).toString()));
+                                                , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
                                     }
                                 });
 

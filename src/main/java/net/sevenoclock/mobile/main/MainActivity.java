@@ -26,8 +26,8 @@ import net.simonvt.menudrawer.Position;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private ActionBar actionBar;
-    private ActionBar.LayoutParams actionbar_lp;
+    public static ActionBar actionBar;
+    public static ActionBar.LayoutParams actionbar_lp;
     public static MenuDrawer menuDrawer;
     public static Activity activity;
 
@@ -38,15 +38,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    private ActionbarDefaultView adv;
-    private ActionbarSearchView asv;
-    private TestpaperListView tlv;
-    private InventoryListView ilv;
+    public static ActionbarDefaultView adv;
+    public static ActionbarSearchView asv;
+    public static TestpaperListView tlv;
+    public static InventoryListView ilv;
     public static SearchFragmentView sfv;
     public static MainSearchView msv;
 
     Values values;
-    InputMethodManager imm;
+    public static InputMethodManager imm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

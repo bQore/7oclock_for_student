@@ -6,11 +6,12 @@
              android:background="@drawable/ll_main_actionbar_background">
 
     <net.sevenoclock.mobile.customobj.IconTextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/ic_main_actionbar_default_search"
             android:id="@+id/tv_main_actionbar_searchbtn" android:layout_marginRight="12dp" android:textSize="20sp"
-            android:textStyle="bold" android:gravity="center_vertical|right" android:textColor="#FFFFFF"/>
+            android:textStyle="bold" android:gravity="center_vertical|right" android:textColor="#FFFFFF"
+            android:layout_gravity="right"/>
 
     <net.sevenoclock.mobile.customobj.FontTextView
             android:layout_width="wrap_content"

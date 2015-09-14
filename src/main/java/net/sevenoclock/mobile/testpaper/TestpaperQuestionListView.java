@@ -93,21 +93,21 @@ public class TestpaperQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 tqv = new TestpaperQuestionView(con, i, tcjo);
-                                tqv.setTag(R.string.tag_testpaper_question_list_id, tcjo.get("id", "0"));
-                                tqv.setTag(R.string.tag_testpaper_question_list_title, tcjo.get("unit_title", "-"));
-                                tqv.setTag(R.string.tag_testpaper_question_list_src, tcjo.get("src_url", ""));
-                                tqv.setTag(R.string.tag_testpaper_question_list_explain, tcjo.get("explain_url", ""));
-                                tqv.setTag(R.string.tag_testpaper_question_list_video, tcjo.get("video", ""));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit_title", "-"));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src_url", ""));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain_url", ""));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
 
                                 tqv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_testpaper_question_list_id).toString()
-                                                , v.getTag(R.string.tag_testpaper_question_list_title).toString()
-                                                , v.getTag(R.string.tag_testpaper_question_list_src).toString()
-                                                , v.getTag(R.string.tag_testpaper_question_list_explain).toString()
-                                                , v.getTag(R.string.tag_testpaper_question_list_video).toString()));
+                                                , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
+                                                , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
                                     }
                                 });
 
