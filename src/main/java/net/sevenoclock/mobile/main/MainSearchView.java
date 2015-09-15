@@ -55,6 +55,12 @@ public class MainSearchView extends LinearLayout {
 
     }
 
+    public void reset(){
+        search_query = "";
+        MainActivity.tv_main_main_title.setText(String.format("\"%s\"에 대한 검색결과", search_query));
+        if(ll_main_search_list.getChildCount() > 0) ll_main_search_list.removeAllViews();
+    }
+
     public void search(String str){
         try{
             MainActivity.tv_main_main_title.setText(String.format("\"%s\"에 대한 검색결과", str));

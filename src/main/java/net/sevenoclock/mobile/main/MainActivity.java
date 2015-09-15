@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
@@ -56,6 +57,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         activity = (Activity) this;
         values = (Values) getApplicationContext();
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        values.aq = new AQuery(this);
 
         setActionBar();
         setMenuDrawer();
@@ -67,6 +69,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         tv_main_main_title = (FontTextView)findViewById(R.id.tv_main_main_title);
         tv_main_main_subtitle = (FontTextView)findViewById(R.id.tv_main_main_subtitle);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        displayMetrics = getResources().getDisplayMetrics();
+        values.book_height = (int) (90 * displayMetrics.density);
 
         adv = new ActionbarDefaultView(this);
         asv = new ActionbarSearchView(this);
@@ -128,6 +133,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             switch (v.getId()){
                 case R.id.tv_main_actionbar_searchbtn:
                     actionBar.setCustomView(asv, actionbar_lp);
+                    msv.reset();
                     Functions.history_go(this,msv);
                     asv.et_main_actionbar_search_form.setText("");
                     asv.et_main_actionbar_search_form.requestFocus();

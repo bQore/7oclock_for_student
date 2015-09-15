@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ScrollView
+    <net.sevenoclock.mobile.customobj.RefreshScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sv_testpaper_question_list_scrollview" >
@@ -56,12 +56,6 @@
                             <net.sevenoclock.mobile.customobj.FontTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/tv_testpaper_question_list_count" android:gravity="center_vertical|center_horizontal"
-                                    android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"
-                                    android:text="-"/>
-                            <net.sevenoclock.mobile.customobj.FontTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
                                     android:text="-"
                                     android:id="@+id/tv_testpaper_question_list_teacher" android:gravity="center_vertical|center_horizontal"
                                     android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"/>
@@ -90,5 +84,5 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </net.sevenoclock.mobile.customobj.RefreshScrollView>
 </LinearLayout>

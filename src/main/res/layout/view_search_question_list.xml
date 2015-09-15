@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ScrollView
+    <net.sevenoclock.mobile.customobj.RefreshScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sv_search_question_list_scrollview" >
@@ -42,5 +42,5 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </net.sevenoclock.mobile.customobj.RefreshScrollView>
 </LinearLayout>
