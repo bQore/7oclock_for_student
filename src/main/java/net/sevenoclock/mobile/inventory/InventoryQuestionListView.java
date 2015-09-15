@@ -65,7 +65,7 @@ public class InventoryQuestionListView extends LinearLayout {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_question = Functions.GET("get_inventory_question_list&unit_id=" + unit_id);
+            ja_question = Functions.GET("get_inventory_question_list&unit_id=" + unit_id + "&uid=" + values.user_id);
             if(ja_question == null) return false;
             return true;
         }
