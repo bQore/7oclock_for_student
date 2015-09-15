@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/iv_inventory_question_list_question_img" android:layout_weight="1"
-                android:src="@drawable/default_question" android:scaleType="fitCenter"
+                android:src="@drawable/default_question" android:scaleType="fitStart"
                 android:background="@drawable/ll_inventory_question_list_question" android:padding="5dp"/>
     </LinearLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import com.viewpagerindicator.TabPageIndicator;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
@@ -41,6 +42,7 @@ public class QuestionFragmentView extends LinearLayout {
 
     public QuestionFragmentView(Context context, String qid, String title, String src, String explain, String video) {
         super(context);
+        this.con = context;
         this.qid = qid;
         this.tcjo = null;
 
@@ -97,6 +99,8 @@ public class QuestionFragmentView extends LinearLayout {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)getContext().getSystemService(getContext().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
+                if(save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 setSaveBtn();
             }
         });

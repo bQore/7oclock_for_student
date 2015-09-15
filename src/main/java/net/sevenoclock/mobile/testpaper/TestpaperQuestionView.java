@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,14 +27,15 @@ public class TestpaperQuestionView extends LinearLayout {
 
     public TestpaperQuestionView(Context context, int index, TryCatchJO jo) {
         super(context);
-
-        aq = new AQuery(context);
-        con = context;
-
-        setLayout();
-
-        tv_testpaper_question_list_question_number.setText((index +1)+".");
-        aq.id(iv_testpaper_question_list_question_img).image(Functions.DOMAIN + jo.get("src_url", ""));
+        try{
+            aq = new AQuery(context);
+            con = context;
+            setLayout();
+            tv_testpaper_question_list_question_number.setText((index +1)+".");
+            aq.id(iv_testpaper_question_list_question_img).image(Functions.DOMAIN + jo.get("src_url", ""));
+        }catch (Exception e){
+            Log.i("TestpaperError", e.getMessage());
+        }
     }
 
     private void setLayout(){

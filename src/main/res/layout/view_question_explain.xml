@@ -27,7 +27,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/iv_question_explain_img"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="fitStart"/>
             </LinearLayout>
         </LinearLayout>
 
