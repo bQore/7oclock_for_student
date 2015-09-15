@@ -2,19 +2,16 @@ package net.sevenoclock.mobile.settings;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.*;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.inventory.InventoryQuestionListView;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
 import org.json.JSONArray;
@@ -25,10 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2015-09-03.
@@ -88,11 +81,21 @@ public class Functions {
     }
 
     public static void history_back(Context con){
+        history_back(con, true);
+    }
+
+    public static void history_back(Context con, Boolean vibrate){
         try{
-            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
-            Vibe.vibrate(30);
+            if(vibrate){
+                Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+                Vibe.vibrate(30);
+            }
             values.view_history.remove(values.view_history.size() - 1);
             View v = values.view_history.get(values.view_history.size() - 1);
+            if(v.getRootView().getClass().getName().endsWith("InventoryQuestionListView")){
+                InventoryQuestionListView lqlv = (InventoryQuestionListView)v;
+                lqlv.reflesh();
+            }
             MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
             MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
             MainActivity.ll_main_main_mainview.removeAllViews();

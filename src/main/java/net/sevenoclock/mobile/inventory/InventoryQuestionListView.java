@@ -72,6 +72,12 @@ public class InventoryQuestionListView extends LinearLayout {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
+                if(ja_question.length() == 0){
+                    Functions.history_back(con,false);
+                    MainActivity.view_inventory_list.reflesh();
+                    MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    return;
+                }
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
