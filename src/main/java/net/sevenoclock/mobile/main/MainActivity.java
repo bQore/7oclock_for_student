@@ -39,12 +39,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    public static ActionbarDefaultView adv;
-    public static ActionbarSearchView asv;
-    public static TestpaperListView tlv;
-    public static InventoryListView ilv;
-    public static SearchFragmentView sfv;
-    public static MainSearchView msv;
+    public static ActionbarDefaultView view_actionbar_default;
+    public static ActionbarSearchView view_actionbar_search;
+    public static TestpaperListView view_testpaper_list;
+    public static InventoryListView view_inventory_list;
+    public static SearchFragmentView view_search_fragment;
+    public static MainSearchView view_main_search;
 
     Values values;
     public static InputMethodManager imm;
@@ -73,14 +73,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         displayMetrics = getResources().getDisplayMetrics();
         values.book_height = (int) (90 * displayMetrics.density);
 
-        adv = new ActionbarDefaultView(this);
-        asv = new ActionbarSearchView(this);
-        tlv = new TestpaperListView(this);
-        ilv = new InventoryListView(this);
-        sfv = new SearchFragmentView(this,0,Functions.GET("get_question_unit_new"), 0, values.user_info.get("school_name",""));
-        msv = new MainSearchView(this);
+        view_actionbar_default = new ActionbarDefaultView(this);
+        view_actionbar_search = new ActionbarSearchView(this);
+        view_testpaper_list = new TestpaperListView(this);
+        view_inventory_list = new InventoryListView(this);
+        view_search_fragment = new SearchFragmentView(this,0,Functions.GET("get_question_unit_new"), 0, values.user_info.get("school_name",""));
+        view_main_search = new MainSearchView(this);
 
-        Functions.history_set_home(this, tlv);
+        Functions.history_set_home(this, view_testpaper_list);
 
     }
 
@@ -120,10 +120,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
                 Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-                ilv.reflesh();
-                Functions.history_go(this, ilv);
+                view_inventory_list.reflesh();
+                Functions.history_go(this, view_inventory_list);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
-                Functions.history_go(this, sfv);
+                Functions.history_go(this, view_search_fragment);
             }
             menuDrawer.closeMenu();
         }else{
@@ -132,17 +132,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             switch (v.getId()){
                 case R.id.tv_main_actionbar_searchbtn:
-                    actionBar.setCustomView(asv, actionbar_lp);
-                    msv.reset();
-                    Functions.history_go(this,msv);
-                    asv.et_main_actionbar_search_form.setText("");
-                    asv.et_main_actionbar_search_form.requestFocus();
-                    imm.showSoftInput(asv.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
+                    actionBar.setCustomView(view_actionbar_search, actionbar_lp);
+                    view_main_search.reset();
+                    Functions.history_go(this, view_main_search);
+                    view_actionbar_search.et_main_actionbar_search_form.setText("");
+                    view_actionbar_search.et_main_actionbar_search_form.requestFocus();
+                    imm.showSoftInput(view_actionbar_search.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
                     break;
                 case R.id.tv_main_actionbar_search_backbtn:
                     Functions.history_back(this);
-                    imm.hideSoftInputFromWindow(asv.et_main_actionbar_search_form.getWindowToken(), 0);
-                    actionBar.setCustomView(adv, actionbar_lp);
+                    imm.hideSoftInputFromWindow(view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
+                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
                     break;
                 case R.id.ll_main_menudrawer_tablist_setting:
                     break;
@@ -178,9 +178,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     menuDrawer.closeMenu();
                     return false;
                 }
-                if(actionBar.getCustomView() == asv ){
+                if(actionBar.getCustomView() == view_actionbar_search){
                     Functions.history_back(this);
-                    actionBar.setCustomView(adv, actionbar_lp);
+                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
                     return false;
                 }
                 if (Functions.history_length() > 1) {

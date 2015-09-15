@@ -12,7 +12,6 @@ import android.widget.Toast;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.search.SearchFragmentView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
@@ -52,7 +51,7 @@ public class InventoryListView extends LinearLayout {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                Functions.history_go(con, MainActivity.sfv);
+                Functions.history_go(con, MainActivity.view_search_fragment);
             }
         });
 

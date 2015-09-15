@@ -101,6 +101,7 @@ public class QuestionFragmentView extends LinearLayout {
                 Vibe.vibrate(30);
                 if(save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                MainActivity.view_inventory_list.reflesh();
                 setSaveBtn();
             }
         });

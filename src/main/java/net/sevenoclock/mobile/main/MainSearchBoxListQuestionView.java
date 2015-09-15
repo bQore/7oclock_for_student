@@ -1,14 +1,10 @@
 package net.sevenoclock.mobile.main;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;

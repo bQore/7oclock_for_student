@@ -1,12 +1,10 @@
 package net.sevenoclock.mobile.question;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,21 +23,23 @@ import java.io.File;
 
 public class QuestionDetailView extends Fragment {
 
-    private AQuery aq;
     private ImageView iv_question_detail_img;
+
+    private Values values;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        values = (Values)container.getContext().getApplicationContext();
 
         View view = inflater.inflate(R.layout.view_question_detail, container, false);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         iv_question_detail_img = (ImageView)view.findViewById(R.id.iv_question_detail_img);
-        aq = new AQuery(getActivity(), view);
+        values.aq = new AQuery(getActivity(), view);
 
         if(MainActivity.app_width>=800){
             try{
-                aq.ajax(Functions.DOMAIN + getArguments().getString("url"), File.class, new AjaxCallback<File>() {
+                values.aq.ajax(Functions.DOMAIN + getArguments().getString("url"), File.class, new AjaxCallback<File>() {
                     public void callback(String url, File file, AjaxStatus status) {
                         if (file != null) {
                             BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -47,7 +47,7 @@ public class QuestionDetailView extends Fragment {
                             opts.inDensity = DisplayMetrics.DENSITY_HIGH;
                             opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
                             Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                            aq.id(iv_question_detail_img).image(buttonImages);
+                            values.aq.id(iv_question_detail_img).image(buttonImages);
                         } else {
                             Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -57,7 +57,7 @@ public class QuestionDetailView extends Fragment {
                 Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         } else if(MainActivity.app_width<800){
-            aq.id(iv_question_detail_img).image(Functions.DOMAIN + getArguments().getString("url"));
+            values.aq.id(iv_question_detail_img).image(Functions.DOMAIN + getArguments().getString("url"));
         }
 
         return view;

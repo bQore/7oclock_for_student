@@ -3,22 +3,16 @@ package net.sevenoclock.mobile.search;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
-import net.sevenoclock.mobile.testpaper.TestpaperBookView;
-import net.sevenoclock.mobile.testpaper.TestpaperQuestionListView;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 public class SearchListView extends Fragment {
 

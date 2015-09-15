@@ -1,7 +1,6 @@
 package net.sevenoclock.mobile.main;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
@@ -54,8 +53,8 @@ public class MainSearchBoxListView extends LinearLayout {
             msblqv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity.imm.hideSoftInputFromWindow(MainActivity.asv.et_main_actionbar_search_form.getWindowToken(), 0);
-                    MainActivity.actionBar.setCustomView(MainActivity.adv, MainActivity.actionbar_lp);
+                    MainActivity.imm.hideSoftInputFromWindow(MainActivity.view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
+                    MainActivity.actionBar.setCustomView(MainActivity.view_actionbar_default, MainActivity.actionbar_lp);
                     Functions.history_go(con, new QuestionFragmentView(con
                             , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
                             , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
