@@ -59,7 +59,7 @@ public class SearchListView extends Fragment {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_unit = Functions.GET(String.format("get_question_unit_new&u%d=%d", unit_level, unit_id));
+            ja_unit = Functions.GET(String.format("get_question_unit&u%d=%d", unit_level, unit_id));
             if(ja_unit == null) return false;
             return true;
         }
@@ -84,7 +84,7 @@ public class SearchListView extends Fragment {
                                 if(unit_level < 4) {
                                     try {
                                         Functions.history_go(con
-                                                , new SearchFragmentView(con, position, Functions.GET("get_question_unit_new&u" + unit_level + "=" + unit_id), unit_level, unit_title));
+                                                , new SearchFragmentView(con, position, Functions.GET("get_question_unit&u" + unit_level + "=" + unit_id), unit_level, unit_title));
                                     } catch (Exception e) {
                                         Log.i("QuestionUnitError", e.getMessage());
                                     }

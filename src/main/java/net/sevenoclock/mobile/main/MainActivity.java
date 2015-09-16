@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         view_actionbar_search = new ActionbarSearchView(this);
         view_testpaper_list = new TestpaperListView(this);
         view_inventory_list = new InventoryListView(this);
-        view_search_fragment = new SearchFragmentView(this,0,Functions.GET("get_question_unit_new"), 0, values.user_info.get("school_name",""));
+        view_search_fragment = new SearchFragmentView(this,0,Functions.GET("get_question_unit"), 0, values.user_info.get("school_name",""));
         view_main_search = new MainSearchView(this);
 
         Functions.history_set_home(this, view_testpaper_list);

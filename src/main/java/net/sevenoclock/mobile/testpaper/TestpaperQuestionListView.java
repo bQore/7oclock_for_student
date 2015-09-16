@@ -115,8 +115,8 @@ public class TestpaperQuestionListView extends LinearLayout {
                                 tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo);
                                 tqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
                                 tqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit_title", "-"));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src_url", ""));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain_url", ""));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
+                                tqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
                                 tqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
 
                                 tqv.setOnClickListener(new OnClickListener() {
