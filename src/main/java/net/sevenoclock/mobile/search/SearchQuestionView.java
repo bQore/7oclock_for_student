@@ -18,9 +18,12 @@ import java.io.File;
 
 public class SearchQuestionView extends LinearLayout {
 
+    TryCatchJO tcjo;
+
     public SearchQuestionView(Context context, TryCatchJO jo) {
         super(context);
         try{
+            tcjo = jo;
             final Values valeus = (Values)context.getApplicationContext();
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, valeus.book_height * 2 - 100);
             lp.setMargins(7, 7, 7, 7);

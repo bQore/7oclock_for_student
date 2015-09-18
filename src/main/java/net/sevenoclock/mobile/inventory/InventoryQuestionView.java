@@ -18,9 +18,12 @@ import java.io.File;
 
 public class InventoryQuestionView extends LinearLayout {
 
+    TryCatchJO tcjo;
+
     public InventoryQuestionView(Context context, TryCatchJO jo) {
         super(context);
         try{
+            tcjo = jo;
             final Values valeus = (Values)context.getApplicationContext();
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, valeus.book_height * 2 - 100);
             lp.setMargins(7, 7, 7, 7);
@@ -33,7 +36,7 @@ public class InventoryQuestionView extends LinearLayout {
             iv_inventory_question_list_question_img.setScaleType(ImageView.ScaleType.FIT_START);
             iv_inventory_question_list_question_img.setBackgroundResource(R.drawable.ll_inventory_question_list_question);
 
-            valeus.aq.ajax(Functions.DOMAIN + jo.get("src", ""), File.class, new AjaxCallback<File>() {
+            valeus.aq.ajax(Functions.DOMAIN + tcjo.get("src", ""), File.class, new AjaxCallback<File>() {
                 public void callback(String url, File file, AjaxStatus status) {
                     if (file != null) {
                         BitmapFactory.Options opts = new BitmapFactory.Options();

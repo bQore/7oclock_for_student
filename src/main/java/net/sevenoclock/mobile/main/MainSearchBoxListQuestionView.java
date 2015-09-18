@@ -10,9 +10,13 @@ import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
 public class MainSearchBoxListQuestionView extends LinearLayout {
+
+    TryCatchJO tcjo;
+
     public MainSearchBoxListQuestionView(Context context, TryCatchJO jo) {
         super(context);
         try{
+            tcjo = jo;
             Values valeus = (Values)context.getApplicationContext();
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, valeus.book_height * 2 - 100);
             lp.setMargins(7, 7, 7, 7);

@@ -101,21 +101,11 @@ public class SearchQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 iqv = new SearchQuestionView(con, tcjo);
-                                iqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
-                                iqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit_title", "-"));
-                                iqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
-                                iqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
-                                iqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
 
                                 iqv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
+                                        Functions.history_go(con, new QuestionFragmentView(con,((SearchQuestionView)v).tcjo));
                                     }
                                 });
 

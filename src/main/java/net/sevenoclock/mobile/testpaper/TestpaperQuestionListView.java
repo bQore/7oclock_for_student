@@ -19,7 +19,7 @@ import org.json.JSONException;
 public class TestpaperQuestionListView extends LinearLayout {
 
     private Context con;
-    private int tpid_id;
+    private TryCatchJO tcjo;
 
     private FontTextView tv_testpaper_question_list_title;
     private FontTextView tv_testpaper_question_list_school;
@@ -34,10 +34,10 @@ public class TestpaperQuestionListView extends LinearLayout {
 
     Values values;
 
-    public TestpaperQuestionListView(Context context, int tpid_id, String title, String school_name, String user) {
+    public TestpaperQuestionListView(Context context, TryCatchJO tcjo) {
         super(context);
         this.con = context;
-        this.tpid_id = tpid_id;
+        this.tcjo = tcjo;
 
         values = (Values) context.getApplicationContext();
 
@@ -52,11 +52,11 @@ public class TestpaperQuestionListView extends LinearLayout {
         ll_testpaper_question_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_right);
         sv_testpaper_question_list_scrollview = (RefreshScrollView)findViewById(R.id.sv_testpaper_question_list_scrollview);
 
-        tv_testpaper_question_list_title.setText(title);
-        tv_testpaper_question_list_school.setText(school_name);
-        tv_testpaper_question_list_teacher.setText(user+" 선생님");
+        tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
+        tv_testpaper_question_list_school.setText(tcjo.get("school_name",""));
+        tv_testpaper_question_list_teacher.setText(tcjo.get("user","")+" 선생님");
 
-        setTag(R.string.tag_main_title, title);
+        setTag(R.string.tag_main_title, tcjo.get("title", ""));
         setTag(R.string.tag_main_subtitle, "총 0개 표시 중");
 
         sv_testpaper_question_list_scrollview.setOnScrollViewListener(new RefreshScrollView.OnScrollViewListener() {
@@ -96,7 +96,7 @@ public class TestpaperQuestionListView extends LinearLayout {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_question = Functions.GET("get_testpaper_question_list&tpid=" + tpid_id + "&limit="+element_count+":"+(element_count+10));
+            ja_question = Functions.GET("get_testpaper_question_list&tpid=" + tcjo.get("id", "") + "&limit="+element_count+":"+(element_count+10));
             if(ja_question == null) return false;
             element_count += 10;
             return true;
@@ -113,21 +113,11 @@ public class TestpaperQuestionListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
                                 tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo);
-                                tqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit_title", "-"));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
 
                                 tqv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
+                                        Functions.history_go(con, new QuestionFragmentView(con,((TestpaperQuestionView)v).tcjo));
                                     }
                                 });
 

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -25,10 +26,10 @@ import org.json.JSONException;
 public class QuestionFragmentView extends LinearLayout {
 
     private Context con;
-    TryCatchJO tcjo;
-    private String qid;
     private String feedback_state = "";
     private String save_state = "";
+    TryCatchJO tcjo;
+    TryCatchJO tcjo_feedback = null;
 
     private ViewPager pager;
     private TabPageIndicator indicator;
@@ -40,11 +41,10 @@ public class QuestionFragmentView extends LinearLayout {
 
     Values values;
 
-    public QuestionFragmentView(Context context, String qid, String title, String src, String explain, String video) {
+    public QuestionFragmentView(Context context, TryCatchJO jo) {
         super(context);
         this.con = context;
-        this.qid = qid;
-        this.tcjo = null;
+        tcjo = jo;
 
         values = (Values) context.getApplicationContext();
 
@@ -55,7 +55,7 @@ public class QuestionFragmentView extends LinearLayout {
         indicator = (TabPageIndicator) findViewById(R.id.tpi_question_fragment_indicator);
 
         setTag(R.string.tag_main_title,"");
-        setTag(R.string.tag_main_subtitle, title);
+        setTag(R.string.tag_main_subtitle, tcjo.get("unit_title",""));
 
         ll_question_fragment_up = (LinearLayout) findViewById(R.id.ll_question_fragment_up);
         ll_question_fragment_down = (LinearLayout) findViewById(R.id.ll_question_fragment_down);
@@ -97,9 +97,9 @@ public class QuestionFragmentView extends LinearLayout {
         ll_question_fragment_save.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vibrator Vibe = (Vibrator)getContext().getSystemService(getContext().VIBRATOR_SERVICE);
+                Vibrator Vibe = (Vibrator) getContext().getSystemService(getContext().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                if(save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                if (save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 MainActivity.view_inventory_list.reflesh();
                 setSaveBtn();
@@ -108,7 +108,7 @@ public class QuestionFragmentView extends LinearLayout {
 
         pager.setOffscreenPageLimit(10);
 
-        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), src, explain, video);
+        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), tcjo);
         adapter.notifyDataSetChanged();
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
@@ -121,7 +121,7 @@ public class QuestionFragmentView extends LinearLayout {
     private void setSaveBtn(){
         TryCatchJO tcjo_save = null;
         try {
-            tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + qid + "&method=" + save_state).getJSONObject(0));
+            tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + tcjo.get("id",0) + "&method=" + save_state).getJSONObject(0));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -137,10 +137,10 @@ public class QuestionFragmentView extends LinearLayout {
 
     private void setFeedbackBtn(){
         try {
-            if(tcjo == null) tcjo = new TryCatchJO(Functions.GET("get_question_feedback&uid=" + values.user_id + "&qid=" + qid).getJSONObject(0));
-            else tcjo = new TryCatchJO(Functions.GET("set_question_feedback&uid=" + values.user_id + "&qid=" + qid + "&is_good=" + feedback_state).getJSONObject(0));
+            if(tcjo_feedback == null) tcjo_feedback = new TryCatchJO(Functions.GET("get_question_feedback&uid=" + values.user_id + "&qid=" + tcjo.get("id",0)).getJSONObject(0));
+            else tcjo_feedback = new TryCatchJO(Functions.GET("set_question_feedback&uid=" + values.user_id + "&qid=" + tcjo.get("id",0) + "&is_good=" + feedback_state).getJSONObject(0));
 
-            feedback_state = tcjo.get("is_good","");
+            feedback_state = tcjo_feedback.get("is_good","");
 
             if(feedback_state.equals("")){
                 setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, false);
@@ -182,17 +182,15 @@ public class QuestionFragmentView extends LinearLayout {
         private QuestionExplainView qev;
         private QuestionVideoView qvv;
 
-        String src, explain, video;
+        TryCatchJO tcjo;
 
-        public QuestionFragmentAdapter(FragmentManager fm, String src, String explain, String video) {
+        public QuestionFragmentAdapter(FragmentManager fm, TryCatchJO jo) {
             super(fm);
-            this.src = src;
-            this.explain = explain;
-            this.video = video;
+            tcjo = jo;
 
-            qdv = new QuestionDetailView().newInstance(src);
-            qev = new QuestionExplainView().newInstance(explain);
-            qvv = new QuestionVideoView().newInstance(video);
+            qdv = new QuestionDetailView().newInstance(tcjo.get("src",""));
+            qev = new QuestionExplainView().newInstance(tcjo.get("explain",""));
+            qvv = new QuestionVideoView().newInstance(tcjo.get("video",""));
         }
 
         @Override
