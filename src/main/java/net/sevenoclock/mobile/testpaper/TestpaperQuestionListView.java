@@ -1,6 +1,8 @@
 package net.sevenoclock.mobile.testpaper;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ public class TestpaperQuestionListView extends LinearLayout {
 
     private Context con;
     private TryCatchJO tcjo;
+    private JSONArray ja_question;
 
     private FontTextView tv_testpaper_question_list_title;
     private FontTextView tv_testpaper_question_list_school;
@@ -29,12 +32,15 @@ public class TestpaperQuestionListView extends LinearLayout {
     private LinearLayout ll_testpaper_question_list_right;
     private RefreshScrollView sv_testpaper_question_list_scrollview;
 
+    private LinearLayout ll_testpaper_question_list_quickanswer;
+
     private int element_count = 0;
     private boolean semaphore = true;
+    private boolean is_solved = false;
 
     Values values;
 
-    public TestpaperQuestionListView(Context context, TryCatchJO tcjo) {
+    public TestpaperQuestionListView(Context context, final TryCatchJO tcjo) {
         super(context);
         this.con = context;
         this.tcjo = tcjo;
@@ -52,12 +58,17 @@ public class TestpaperQuestionListView extends LinearLayout {
         ll_testpaper_question_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_right);
         sv_testpaper_question_list_scrollview = (RefreshScrollView)findViewById(R.id.sv_testpaper_question_list_scrollview);
 
+        ll_testpaper_question_list_quickanswer = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickanswer);
+
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
-        tv_testpaper_question_list_school.setText(tcjo.get("school_name",""));
-        tv_testpaper_question_list_teacher.setText(tcjo.get("user","")+" 선생님");
+        tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
+        tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
 
         setTag(R.string.tag_main_title, tcjo.get("title", ""));
         setTag(R.string.tag_main_subtitle, "총 0개 표시 중");
+
+        if (tcjo.get("is_solved","false") == "true") is_solved = true;
+        else is_solved = false;
 
         sv_testpaper_question_list_scrollview.setOnScrollViewListener(new RefreshScrollView.OnScrollViewListener() {
             public void onScrollChanged(RefreshScrollView v, int l, int t, int oldl, int oldt) {
@@ -69,6 +80,13 @@ public class TestpaperQuestionListView extends LinearLayout {
                 }
             }
         } );
+
+        ll_testpaper_question_list_quickanswer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperAnswerQuickInsertView(con, tcjo));
+            }
+        });
 
         new AddQuestionTask().execute(null, null, null);
     }
@@ -84,7 +102,6 @@ public class TestpaperQuestionListView extends LinearLayout {
     }
 
     class AddQuestionTask extends AsyncTask<Void, Void, Boolean> {
-        JSONArray ja_question;
         int count_left;
         int count_right;
 
@@ -111,13 +128,29 @@ public class TestpaperQuestionListView extends LinearLayout {
                         for (i = 0; i < ja_question.length(); i++) {
                             TestpaperQuestionView tqv = null;
                             try {
-                                TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
-                                tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo);
+                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
+                                tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo_question);
 
                                 tqv.setOnClickListener(new OnClickListener() {
                                     @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionFragmentView(con,((TestpaperQuestionView)v).tcjo));
+                                    public void onClick(final View v) {
+                                        if (is_solved){
+                                            Functions.history_go(con, new QuestionFragmentView(con,((TestpaperQuestionView)v).tcjo));
+                                        }else{
+                                            new AlertDialog.Builder(con).setTitle("문제 열람 실패")
+                                                    .setMessage("답안제출 후 열람가능합니다.\n답안을 제출하시겠습니까?")
+                                                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            return;
+                                                        }
+                                                    })
+                                                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            Functions.history_go(con, new TestpaperAnswerQuickInsertView(con, tcjo));
+                                                            return;
+                                                        }
+                                                    }).show();
+                                        }
                                     }
                                 });
 

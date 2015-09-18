@@ -18,17 +18,17 @@ import org.json.JSONException;
 public class InventoryQuestionListView extends LinearLayout {
 
     private Context con;
-    private int unit_id;
+    TryCatchJO tcjo;
 
     private LinearLayout ll_inventory_question_list_left;
     private LinearLayout ll_inventory_question_list_right;
 
     Values values;
 
-    public InventoryQuestionListView(Context context, int unit_id, String title) {
+    public InventoryQuestionListView(Context context, TryCatchJO jo) {
         super(context);
         this.con = context;
-        this.unit_id = unit_id;
+        this.tcjo = jo;
 
         values = (Values) context.getApplicationContext();
 
@@ -39,7 +39,7 @@ public class InventoryQuestionListView extends LinearLayout {
         ll_inventory_question_list_left = (LinearLayout)findViewById(R.id.ll_inventory_question_list_left);
         ll_inventory_question_list_right = (LinearLayout)findViewById(R.id.ll_inventory_question_list_right);
 
-        setTag(R.string.tag_main_title, title);
+        setTag(R.string.tag_main_title, tcjo.get("title",""));
         setTag(R.string.tag_main_subtitle, "총 0개의 문제가 있습니다.");
 
         new AddQuestionTask().execute(null, null, null);
@@ -65,7 +65,7 @@ public class InventoryQuestionListView extends LinearLayout {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_question = Functions.GET("get_inventory_question_list&unit_id=" + unit_id + "&uid=" + values.user_id);
+            ja_question = Functions.GET("get_inventory_question_list&unit_id=" + tcjo.get("id",0) + "&uid=" + values.user_id);
             if(ja_question == null) return false;
             return true;
         }
