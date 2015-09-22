@@ -2,25 +2,16 @@ package net.sevenoclock.mobile.testpaper;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
-import android.renderscript.Font;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
-import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import org.json.JSONArray;
 
 public class TestpaperAnswerFormView extends LinearLayout {
 
@@ -60,9 +51,27 @@ public class TestpaperAnswerFormView extends LinearLayout {
 
     void setSingular(){
         final EditText et_answer = new EditText(con);
-        et_answer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        LinearLayout.LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp.setMargins(0, 5, 0, 5);
+        et_answer.setLayoutParams(lp);
         et_answer.setSingleLine();
+        et_answer.setHint("ex) 답");
+        et_answer.setBackgroundColor(Color.WHITE);
         ll_testpaper_answer_form_view.addView(et_answer);
+
+        et_answer.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    TestpaperAnswerQuickView.et_focused = et_answer;
+                    TestpaperAnswerQuickView.ll_testpaper_answer_quick_btns.setVisibility(View.VISIBLE);
+                } else {
+                    TestpaperAnswerQuickView.et_focused = null;
+                    TestpaperAnswerQuickView.ll_testpaper_answer_quick_btns.setVisibility(View.GONE);
+                }
+
+            }
+        });
 
         et_answer.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,8 +103,10 @@ public class TestpaperAnswerFormView extends LinearLayout {
             btn[i] = new Button(con);
             LinearLayout.LayoutParams btn_lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             btn_lp.weight = 1;
+            btn_lp.setMargins(0,0,5,0);
             btn[i].setLayoutParams(btn_lp);
-            btn[i].setBackgroundColor(Color.parseColor("#EEEEEE"));
+            btn[i].setTextColor(Color.parseColor("#666666"));
+            btn[i].setBackgroundResource(R.drawable.btn_testpaper_answer_btns);
             btn[i].setText("" + (i + 1));
             ll_testpaper_answer_form_view.addView(btn[i]);
 
@@ -103,11 +114,11 @@ public class TestpaperAnswerFormView extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     for(int i=0; i<items; i++){
-                        btn[i].setBackgroundColor(Color.parseColor("#EEEEEE"));
+                        btn[i].setBackgroundResource(R.drawable.btn_testpaper_answer_btns);
                         btn[i].setTextColor(Color.parseColor("#666666"));
                     }
-                    v.setBackgroundColor(Color.parseColor("#f39c12"));
-                    ((Button)v).setTextColor(Color.parseColor("#FFFFFF"));
+                    ((Button)v).setBackgroundResource(R.drawable.btn_testpaper_answer_btns_clicked);
+                    ((Button)v).setTextColor(Color.parseColor("#c0392b"));
                     answer = ((Button)v).getText().toString();
                 }
             });

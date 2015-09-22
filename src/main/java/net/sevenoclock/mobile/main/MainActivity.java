@@ -109,6 +109,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         menuDrawer.setDropShadowEnabled(false);
     }
 
+    public static void setTitle(String str){
+        MainActivity.tv_main_main_title.setText(str);
+    }
     public static void setSubtitle(String str){
         MainActivity.tv_main_main_subtitle.setText(str);
     }

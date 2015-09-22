@@ -60,7 +60,8 @@ public class TestpaperListView extends LinearLayout {
         protected Boolean doInBackground(Void... Void) {
             ja_book = Functions.GET("get_testpaper_list&school=" + values.user_info.get("school_id","")
                     + "&year=" + values.user_info.get("school_year","")
-                    + "&room=" + values.user_info.get("school_room",""));
+                    + "&room=" + values.user_info.get("school_room","")
+                    + "&uid=" + values.user_id);
             if(ja_book == null) return false;
             return true;
         }
