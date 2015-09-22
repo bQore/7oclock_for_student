@@ -52,6 +52,6 @@ public class MenudrawerView extends LinearLayout {
 
         ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_testpaper, "출제문제지"));
         ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_inventory, "내 보관함"));
-        ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_search, "문제검색"));
+        ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_search, "유형검색"));
     }
 }
