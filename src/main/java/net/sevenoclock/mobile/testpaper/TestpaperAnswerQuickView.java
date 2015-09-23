@@ -165,9 +165,9 @@ public class TestpaperAnswerQuickView extends LinearLayout {
                     public void run() {
                         trqv = new TestpaperResultQuickView[ja_submit.length()];
                         for (int i = 0; i < ja_submit.length(); i++) {
-                            try{
+                            try {
                                 TryCatchJO tcjo_question = new TryCatchJO(ja_submit.getJSONObject(i));
-                                trqv[i] = new TestpaperResultQuickView(con,i,tcjo_question);
+                                trqv[i] = new TestpaperResultQuickView(con, i, tcjo_question);
                                 trqv[i].setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -175,26 +175,26 @@ public class TestpaperAnswerQuickView extends LinearLayout {
                                     }
                                 });
                                 ll_testpaper_answer_quick_forms.addView(trqv[i]);
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        if(ja_rank.length() > 0){
-                            try{
-                                ll_testpaper_answer_quick_list.addView(new TestpaperResultQuickRankView(con,ja_rank),0);
-                            }catch (Exception e){
+                        if (ja_rank.length() > 0) {
+                            try {
+                                ll_testpaper_answer_quick_list.addView(new TestpaperResultQuickRankView(con, ja_rank), 0);
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
 
                         MainActivity.setTitle("채점결과");
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                     }
                 });
             }else{
                 new TestpaperQuestionTask().execute(null, null, null);
             }
-            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             return;
         }
     }
