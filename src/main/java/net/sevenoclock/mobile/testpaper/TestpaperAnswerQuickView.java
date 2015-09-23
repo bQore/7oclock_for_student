@@ -160,6 +160,11 @@ public class TestpaperAnswerQuickView extends LinearLayout {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
+                if(ja_submit.length() < 1) {
+                    new TestpaperQuestionTask().execute(null, null, null);
+                    return;
+                }
+
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
