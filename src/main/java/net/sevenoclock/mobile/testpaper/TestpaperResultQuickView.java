@@ -14,7 +14,7 @@ import net.sevenoclock.mobile.settings.Values;
 public class TestpaperResultQuickView extends LinearLayout {
 
     private Context con;
-    private TryCatchJO tcjo_info;
+    public TryCatchJO tcjo_info;
 
     public int qid = 0;
     public String answer_user = "";
@@ -33,12 +33,12 @@ public class TestpaperResultQuickView extends LinearLayout {
         this.con = context;
         this.tcjo_info = jo;
 
-        qid = tcjo_info.get("id",0);
+        qid = tcjo_info.get("tps_id",0);
         answer_user = tcjo_info.get("answer_user","");
         answer_correct = tcjo_info.get("answer_correct","");
 
         values = (Values) context.getApplicationContext();
-        inflate(getContext(), R.layout.view_testpaper_result_quick, this);
+        inflate(getContext(), R.layout.view_testpaper_result_form, this);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
         tv_testpaper_result_quick_index = (FontTextView)findViewById(R.id.tv_testpaper_result_quick_index);

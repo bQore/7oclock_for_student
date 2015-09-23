@@ -144,8 +144,8 @@ public class TestpaperQuestionListView extends LinearLayout {
                                         if (is_solved){
                                             Functions.history_go(con, new QuestionFragmentView(con,((TestpaperQuestionView)v).tcjo));
                                         }else{
-                                            new AlertDialog.Builder(con).setTitle("문제 열람 실패")
-                                                    .setMessage("답안제출 후 열람가능합니다.\n답안을 제출하시겠습니까?")
+                                            new AlertDialog.Builder(con).setTitle("답안 미입력")
+                                                    .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")
                                                     .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             return;
