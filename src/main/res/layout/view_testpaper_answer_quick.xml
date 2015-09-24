@@ -52,6 +52,24 @@
                 android:layout_height="wrap_content"
                 android:text="π"
                 android:id="@+id/btn_testpaper_answer_quick_key1"
-                android:background="@drawable/btn_testpaper_answer_btns"/>
+                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:id="@+id/btn_testpaper_answer_quick_key2"
+                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:id="@+id/btn_testpaper_answer_quick_key3"
+                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=","
+                android:id="@+id/btn_testpaper_answer_quick_key4"
+                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
     </LinearLayout>
 </LinearLayout>

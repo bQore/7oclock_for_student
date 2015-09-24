@@ -35,9 +35,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
     private LinearLayout ll_testpaper_answer_quick_forms;
     private Button btn_testpaper_answer_quick_submit;
 
-    private Button btn_testpaper_answer_quick_key0;
-    private Button btn_testpaper_answer_quick_key1;
-
     public static EditText et_focused = null;
 
     TestpaperAnswerFormView[] tafv;
@@ -60,9 +57,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
         ll_testpaper_answer_quick_forms = (LinearLayout)findViewById(R.id.ll_testpaper_answer_quick_forms);
         btn_testpaper_answer_quick_submit = (Button)findViewById(R.id.btn_testpaper_answer_quick_submit);
 
-        btn_testpaper_answer_quick_key0 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key0);
-        btn_testpaper_answer_quick_key1 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key1);
-
         setTag(R.string.tag_main_title, "");
         setTag(R.string.tag_main_subtitle, tcjo_info.get("title", ""));
 
@@ -77,8 +71,8 @@ public class TestpaperAnswerQuickView extends LinearLayout {
                     final JSONObject jo_answer = new JSONObject();
                     int len = tafv.length;
 
-                    for (int i = 0; i < len; i++){
-                        if(tafv[i].answer.equals("")) return;
+                    for (int i = 0; i < len; i++) {
+                        if (tafv[i].answer.equals("")) return;
                         jo_answer.put("" + tafv[i].qid, tafv[i].answer);
                     }
 
@@ -114,17 +108,39 @@ public class TestpaperAnswerQuickView extends LinearLayout {
             }
         });
 
+        Button btn_testpaper_answer_quick_key0 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key0);
         btn_testpaper_answer_quick_key0.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(et_focused != null) et_focused.append(btn_testpaper_answer_quick_key0.getText());
+                if (et_focused != null) et_focused.append(((Button)v).getText());
             }
         });
-
+        Button btn_testpaper_answer_quick_key1 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key1);
         btn_testpaper_answer_quick_key1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(et_focused != null) et_focused.append(btn_testpaper_answer_quick_key1.getText());
+                if (et_focused != null) et_focused.append(((Button)v).getText());
+            }
+        });
+        Button btn_testpaper_answer_quick_key2 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key2);
+        btn_testpaper_answer_quick_key2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_focused != null) et_focused.append(((Button)v).getText());
+            }
+        });
+        Button btn_testpaper_answer_quick_key3 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key3);
+        btn_testpaper_answer_quick_key3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_focused != null) et_focused.append(((Button)v).getText());
+            }
+        });
+        Button btn_testpaper_answer_quick_key4 = (Button)findViewById(R.id.btn_testpaper_answer_quick_key4);
+        btn_testpaper_answer_quick_key4.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_focused != null) et_focused.append(((Button)v).getText());
             }
         });
     }
@@ -154,17 +170,13 @@ public class TestpaperAnswerQuickView extends LinearLayout {
                 ja_rank = ja.getJSONObject(0).getJSONArray("ranks");
             } catch (JSONException e) {
                 e.printStackTrace();
+                return false;
             }
             return true;
         }
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                if(ja_submit.length() < 1) {
-                    new TestpaperQuestionTask().execute(null, null, null);
-                    return;
-                }
-
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

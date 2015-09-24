@@ -3,6 +3,7 @@ package net.sevenoclock.mobile.testpaper;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
