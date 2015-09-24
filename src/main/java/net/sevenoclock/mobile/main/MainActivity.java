@@ -81,7 +81,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         view_main_search = new MainSearchView(this);
 
         Functions.history_set_home(this, view_testpaper_list);
-
     }
 
     private void setActionBar(){

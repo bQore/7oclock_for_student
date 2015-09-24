@@ -3,6 +3,7 @@ package net.sevenoclock.mobile.testpaper;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
@@ -38,7 +39,7 @@ public class TestpaperResultQuickView extends LinearLayout {
         answer_correct = tcjo_info.get("answer_correct","");
 
         values = (Values) context.getApplicationContext();
-        inflate(getContext(), R.layout.view_testpaper_result_form, this);
+        inflate(getContext(),R.layout.view_testpaper_result_form, this);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
         tv_testpaper_result_quick_index = (FontTextView)findViewById(R.id.tv_testpaper_result_quick_index);
