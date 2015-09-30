@@ -34,6 +34,7 @@ public class TestpaperQuestionListView extends LinearLayout {
 
     private LinearLayout ll_testpaper_question_list_quickanswer;
     private LinearLayout ll_testpaper_question_list_quickresult;
+    private LinearLayout ll_testpaper_question_list_quickrank;
 
     private int element_count = 0;
     private boolean semaphore = true;
@@ -61,6 +62,7 @@ public class TestpaperQuestionListView extends LinearLayout {
 
         ll_testpaper_question_list_quickanswer = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickanswer);
         ll_testpaper_question_list_quickresult = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickresult);
+        ll_testpaper_question_list_quickrank = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickrank);
 
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
         tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
@@ -78,7 +80,7 @@ public class TestpaperQuestionListView extends LinearLayout {
                     if (view_count >= element_count && semaphore) readMore();
                 }
             }
-        } );
+        });
 
         ll_testpaper_question_list_quickanswer.setOnClickListener(new OnClickListener() {
             @Override
@@ -91,6 +93,13 @@ public class TestpaperQuestionListView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+            }
+        });
+
+        ll_testpaper_question_list_quickrank.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperRankView(con, tcjo));
             }
         });
 

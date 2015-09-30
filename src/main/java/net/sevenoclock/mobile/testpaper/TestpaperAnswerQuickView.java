@@ -31,7 +31,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
     private TryCatchJO tcjo_info;
 
     public static LinearLayout ll_testpaper_answer_quick_btns;
-    private LinearLayout ll_testpaper_answer_quick_list;
     private LinearLayout ll_testpaper_answer_quick_forms;
     private Button btn_testpaper_answer_quick_submit;
 
@@ -53,7 +52,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         ll_testpaper_answer_quick_btns = (LinearLayout)findViewById(R.id.ll_testpaper_answer_quick_btns);
-        ll_testpaper_answer_quick_list = (LinearLayout)findViewById(R.id.ll_testpaper_answer_quick_list);
         ll_testpaper_answer_quick_forms = (LinearLayout)findViewById(R.id.ll_testpaper_answer_quick_forms);
         btn_testpaper_answer_quick_submit = (Button)findViewById(R.id.btn_testpaper_answer_quick_submit);
 
@@ -153,7 +151,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
     class TestpaperSubmitTask extends AsyncTask<Void, Void, Boolean> {
         JSONArray ja;
         JSONArray ja_submit;
-        JSONArray ja_rank;
 
         @Override
         protected void onPreExecute() {
@@ -167,7 +164,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
             if(ja == null) return false;
             try {
                 ja_submit = ja.getJSONObject(0).getJSONArray("submits");
-                ja_rank = ja.getJSONObject(0).getJSONArray("ranks");
             } catch (JSONException e) {
                 e.printStackTrace();
                 return false;
@@ -177,6 +173,10 @@ public class TestpaperAnswerQuickView extends LinearLayout {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
+                if(ja_submit.length() < 1) {
+                    new TestpaperQuestionTask().execute(null, null, null);
+                    return;
+                }
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -192,14 +192,6 @@ public class TestpaperAnswerQuickView extends LinearLayout {
                                     }
                                 });
                                 ll_testpaper_answer_quick_forms.addView(trqv[i]);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (ja_rank.length() > 0) {
-                            try {
-                                ll_testpaper_answer_quick_list.addView(new TestpaperResultQuickRankView(con, ja_rank), 0);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

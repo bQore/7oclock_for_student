@@ -134,6 +134,32 @@
                         android:textSize="13sp" android:textColor="#666666"
                         android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
             </LinearLayout>
+            <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+                    android:background="#DDDDDD"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/ll_testpaper_question_list_quickrank"
+                    android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:clickable="true">
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_testpaper_question_list_quickrank"
+                        android:textSize="15sp" android:textColor="#666666"
+                        android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="랭킹보기"
+                        android:textSize="13sp" android:textColor="#666666"
+                        android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
