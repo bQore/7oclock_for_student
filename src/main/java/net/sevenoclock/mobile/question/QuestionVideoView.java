@@ -2,6 +2,7 @@ package net.sevenoclock.mobile.question;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -53,9 +54,13 @@ public class QuestionVideoView extends Fragment {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                Intent intent = new Intent(MainActivity.activity, QuestionVideoActivity.class);
-                intent.putExtra("url", url);
-                startActivityForResult(intent, 1);
+                //Intent intent = new Intent(MainActivity.activity, QuestionVideoActivity.class);
+                //intent.putExtra("url", url);
+                //startActivityForResult(intent, 1);
+                Log.i("@@@@@@@@@@@@@@@@",""+url);
+                startActivityForResult(new Intent(Intent.ACTION_VIEW)
+                        .setData(Uri.parse("https://www.youtube.com/watch?v="+url))
+                        .setPackage("com.google.android.youtube"),1);
             }
         });
 
