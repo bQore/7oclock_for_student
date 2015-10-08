@@ -3,6 +3,7 @@ package net.sevenoclock.mobile.question;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeIntents;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import net.sevenoclock.mobile.R;
@@ -53,9 +55,16 @@ public class QuestionVideoView extends Fragment {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                Intent intent = new Intent(MainActivity.activity, QuestionVideoActivity.class);
-                intent.putExtra("url", url);
-                startActivityForResult(intent, 1);
+                MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+                Intent intent = YouTubeIntents.createPlayVideoIntentWithOptions(con, url, true, false);
+                startActivity(intent);
+                Handler handler = new Handler();
+                Runnable r = new Runnable() {
+                    public void run() {
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    }
+                };
+                handler.postDelayed(r, 5000);
             }
         });
 

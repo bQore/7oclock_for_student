@@ -30,7 +30,6 @@
         <activity android:name=".home.LandingActivity" android:screenOrientation="portrait" />
         <activity android:name=".home.SignupActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" android:windowSoftInputMode="stateHidden" />
         <activity android:name=".main.MainActivity" android:configChanges="orientation|screenSize" />
-        <activity android:name=".question.QuestionVideoActivity" android:configChanges="orientation|screenSize" />
 
     </application>
 
