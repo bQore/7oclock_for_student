@@ -5,17 +5,45 @@
              android:background="#FFFFFF">
 
     <LinearLayout
-            android:id="@+id/ll_main_main_mainview"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="#f9f9f9">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_weight="0"
+                android:background="@drawable/ll_main_title_box" android:focusableInTouchMode="false"
+                android:id="@+id/ll_main_main_title">
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:id="@+id/tv_main_main_title" android:textSize="18sp" android:textColor="#5f5f72"
+                    android:gravity="bottom" android:layout_marginTop="15dp" android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="15dp"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:id="@+id/tv_main_main_subtitle" android:textSize="15sp" android:textColor="#a7a8af"
+                    android:gravity="bottom" android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp" android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/ll_main_main_mainview"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
             android:id="@+id/ll_main_main_loading"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" android:background="#66FFFFFF" android:gravity="center">
+            android:layout_height="fill_parent" android:background="#66FFFFFF" android:gravity="center"
+            android:visibility="gone">
         <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"

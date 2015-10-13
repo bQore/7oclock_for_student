@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:focusableInTouchMode="true" >
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/ll_main_view_box" android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" android:longClickable="true"
+                    android:id="@+id/ll_inventory_list_view">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/ll_inventory_list_left"
+                        android:layout_weight="1" android:paddingTop="7dp" android:paddingLeft="7dp"
+                        android:paddingBottom="7dp">
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/ll_inventory_list_right"
+                        android:layout_weight="1" android:paddingTop="7dp" android:paddingBottom="7dp"
+                        android:paddingRight="7dp">
+                </LinearLayout>
+
+            </LinearLayout>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/iv_inventory_list_nodata" android:src="@drawable/inventory_list_nodata"
+                    android:scaleType="centerInside" android:layout_marginTop="50dp" android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

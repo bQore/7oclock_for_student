@@ -3,7 +3,7 @@
     <item android:state_pressed="true" >
         <shape>
             <solid android:color="#517A92"/>
-            <stroke android:width="1dip" android:color="#88956c71"/>
+            <stroke android:width="1dip" android:color="#ff3e647c"/>
             <corners android:bottomRightRadius="10dp"
                      android:topRightRadius="10dp"
                      android:bottomLeftRadius="0dp"
@@ -13,7 +13,7 @@
     <item>
         <shape>
             <solid android:color="#517A92"/>
-            <stroke android:width="1dip" android:color="#88956c71"/>
+            <stroke android:width="1dip" android:color="#ff3e647c"/>
             <corners android:bottomRightRadius="10dp"
                      android:topRightRadius="10dp"
                      android:bottomLeftRadius="0dp"

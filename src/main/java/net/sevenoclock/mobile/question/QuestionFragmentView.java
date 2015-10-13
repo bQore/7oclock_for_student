@@ -2,14 +2,15 @@ package net.sevenoclock.mobile.question;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Vibrator;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.viewpagerindicator.TabPageIndicator;
@@ -20,16 +21,15 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class QuestionFragmentView extends LinearLayout {
 
     private Context con;
-    TryCatchJO tcjo;
-    private String qid;
     private String feedback_state = "";
+    private String save_state = "";
+    TryCatchJO tcjo;
+    TryCatchJO tcjo_feedback = null;
 
     private ViewPager pager;
     private TabPageIndicator indicator;
@@ -41,18 +41,21 @@ public class QuestionFragmentView extends LinearLayout {
 
     Values values;
 
-    public QuestionFragmentView(Context context, String qid, String src, String explain, String video) {
+    public QuestionFragmentView(Context context, TryCatchJO jo) {
         super(context);
-        this.qid = qid;
-        this.tcjo = null;
+        this.con = context;
+        tcjo = jo;
 
         values = (Values) context.getApplicationContext();
 
         inflate(getContext(), R.layout.view_question_fragment, this);
         setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        pager = (ViewPager) findViewById(R.id.vp_question_detail_viewpaper);
-        indicator = (TabPageIndicator) findViewById(R.id.tpi_question_detail_indicator);
+        pager = (ViewPager) findViewById(R.id.vp_question_fragment_viewpaper);
+        indicator = (TabPageIndicator) findViewById(R.id.tpi_question_fragment_indicator);
+
+        setTag(R.string.tag_main_title,"");
+        setTag(R.string.tag_main_subtitle, tcjo.get("unit_title",""));
 
         ll_question_fragment_up = (LinearLayout) findViewById(R.id.ll_question_fragment_up);
         ll_question_fragment_down = (LinearLayout) findViewById(R.id.ll_question_fragment_down);
@@ -94,52 +97,62 @@ public class QuestionFragmentView extends LinearLayout {
         ll_question_fragment_save.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vibrator Vibe = (Vibrator)getContext().getSystemService(getContext().VIBRATOR_SERVICE);
+                Vibrator Vibe = (Vibrator) getContext().getSystemService(getContext().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
+                if (save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                MainActivity.view_inventory_list.reflesh();
+                setSaveBtn();
             }
         });
 
         pager.setOffscreenPageLimit(10);
 
-        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), src, explain, video);
+        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), tcjo);
         adapter.notifyDataSetChanged();
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
 
         setFeedbackBtn();
+        setSaveBtn();
 
+    }
+
+    private void setSaveBtn(){
+        TryCatchJO tcjo_save = null;
+        try {
+            tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + tcjo.get("id",0) + "&method=" + save_state).getJSONObject(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (tcjo_save.get("question",0) == 0){
+            setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, false);
+            save_state = "add";
+            return;
+        }
+        setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, true);
+        save_state = "delete";
+        return;
     }
 
     private void setFeedbackBtn(){
         try {
-            if(tcjo == null) tcjo = new TryCatchJO(Functions.GET("get_question_feedback&uid=" + values.user_id + "&qid=" + qid).getJSONObject(0));
-            else tcjo = new TryCatchJO(Functions.GET("set_question_feedback&uid=" + values.user_id + "&qid=" + qid + "&is_good=" + feedback_state).getJSONObject(0));
+            if(tcjo_feedback == null) tcjo_feedback = new TryCatchJO(Functions.GET("get_question_feedback&uid=" + values.user_id + "&qid=" + tcjo.get("id",0)).getJSONObject(0));
+            else tcjo_feedback = new TryCatchJO(Functions.GET("set_question_feedback&uid=" + values.user_id + "&qid=" + tcjo.get("id",0) + "&is_good=" + feedback_state).getJSONObject(0));
 
-            feedback_state = tcjo.get("is_good","");
+            feedback_state = tcjo_feedback.get("is_good","");
 
             if(feedback_state.equals("")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_default);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_default);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, false);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, false);
                 feedback_state = "-1";
             }else if(feedback_state.equals("false")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_default);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_checked);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#666666"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#dd9015"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#dd9015"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, false);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, true);
                 feedback_state = "0";
             }else if(feedback_state.equals("true")){
-                ll_question_fragment_up.setBackgroundResource(R.drawable.ll_question_fragment_feedback_up_checked);
-                ll_question_fragment_down.setBackgroundResource(R.drawable.ll_question_fragment_feedback_down_default);
-                itv_question_fragment_up.setTextColor(Color.parseColor("#dd9015"));
-                ftv_question_fragment_up.setTextColor(Color.parseColor("#dd9015"));
-                itv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
-                ftv_question_fragment_down.setTextColor(Color.parseColor("#666666"));
+                setFeedbackFont(itv_question_fragment_up, ftv_question_fragment_up, true);
+                setFeedbackFont(itv_question_fragment_down, ftv_question_fragment_down, false);
                 feedback_state = "1";
             }
 
@@ -148,23 +161,36 @@ public class QuestionFragmentView extends LinearLayout {
         }
     }
 
+    private void setFeedbackFont(IconTextView itv, FontTextView ftv, Boolean selected){
+        if(selected){
+            itv.setTextColor(Color.parseColor("#e74c3c"));
+            ftv.setTextColor(Color.parseColor("#e74c3c"));
+            itv.setTypeface(itv.getTypeface(), Typeface.BOLD);
+            ftv.setTypeface(ftv.getTypeface(), Typeface.BOLD);
+        }else{
+            itv.setTextColor(Color.parseColor("#666666"));
+            ftv.setTextColor(Color.parseColor("#666666"));
+            itv.setTypeface(itv.getTypeface(), Typeface.NORMAL);
+            ftv.setTypeface(ftv.getTypeface(), Typeface.NORMAL);
+        }
+
+    }
+
     class QuestionFragmentAdapter extends FragmentStatePagerAdapter {
 
         private QuestionDetailView qdv;
         private QuestionExplainView qev;
         private QuestionVideoView qvv;
 
-        String src, explain, video;
+        TryCatchJO tcjo;
 
-        public QuestionFragmentAdapter(FragmentManager fm, String src, String explain, String video) {
+        public QuestionFragmentAdapter(FragmentManager fm, TryCatchJO jo) {
             super(fm);
-            this.src = src;
-            this.explain = explain;
-            this.video = video;
+            tcjo = jo;
 
-            qdv = new QuestionDetailView().newInstance(src);
-            qev = new QuestionExplainView().newInstance(explain);
-            qvv = new QuestionVideoView().newInstance(video);
+            qdv = new QuestionDetailView().newInstance(tcjo.get("src",""));
+            qev = new QuestionExplainView().newInstance(tcjo.get("explain",""));
+            qvv = new QuestionVideoView().newInstance(tcjo.get("video",""));
         }
 
         @Override

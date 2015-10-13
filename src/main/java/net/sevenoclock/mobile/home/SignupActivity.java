@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +37,10 @@ public class SignupActivity extends Activity implements View.OnClickListener {
     private EditText et_home_signup_userclass;
     private Button btn_home_signup_search;
     private Button btn_home_signup_done;
+    private RadioButton rb_home_signup_gender_0;
+    private RadioButton rb_home_signup_gender_1;
+
+    private int gender = 0;
 
     String school_coercion="!@#$%%%^&*()";
 
@@ -63,11 +68,24 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         et_home_signup_userclass = (EditText) findViewById(R.id.et_home_signup_userclass);
         btn_home_signup_search = (Button) findViewById(R.id.btn_home_signup_search);
         btn_home_signup_done = (Button) findViewById(R.id.btn_home_signup_done);
+        rb_home_signup_gender_0 = (RadioButton) findViewById(R.id.rb_home_signup_gender_0);
+        rb_home_signup_gender_1 = (RadioButton) findViewById(R.id.rb_home_signup_gender_1);
+
+        btn_home_signup_search.setOnClickListener((View.OnClickListener)this);
+        btn_home_signup_done.setOnClickListener((View.OnClickListener)this);
+        rb_home_signup_gender_0.setOnClickListener((View.OnClickListener)this);
+        rb_home_signup_gender_1.setOnClickListener((View.OnClickListener)this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.rb_home_signup_gender_0:
+                gender = 0;
+                break;
+            case R.id.rb_home_signup_gender_1:
+                gender = 1;
+                break;
             case R.id.btn_home_signup_search:
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(et_home_signup_userschool.getWindowToken(), 0);
@@ -168,15 +186,15 @@ public class SignupActivity extends Activity implements View.OnClickListener {
                 String uid=et_home_signup_userid.getText().toString();
                 String pw=et_home_signup_userpw.getText().toString();
                 String pwck=et_home_signup_userpw_ck.getText().toString();
-                String name=et_home_signup_username.getText().toString();
-                String school_name =et_home_signup_userschool.getText().toString();
-                String grade=et_home_signup_usergrade.getText().toString();
+                String name=URLEncoder.encode(et_home_signup_username.getText().toString(), "utf-8");
+                String school_name =URLEncoder.encode(et_home_signup_userschool.getText().toString(), "utf-8");
+                String grade = et_home_signup_usergrade.getText().toString();
                 String classroom=et_home_signup_userclass.getText().toString();
 
                 JSONArray ja = Functions.GET("set_user&user_id=" + uid +
                         "&password=" + pw + "&user_name=" + name + "&user_email=" + et_home_signup_useremail.getText().toString()
                         + "&user_phone=" + et_home_signup_userphone.getText().toString() + "&school_name=" + school_name + "&school_year=" + grade
-                        + "&school_room=" + classroom);
+                         + "&school_room=" + classroom + "&user_gender=" + gender);
 
                 if (ja != null) {
                     values.user_info = new TryCatchJO(ja.getJSONObject(0));

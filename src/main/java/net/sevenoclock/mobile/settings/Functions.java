@@ -2,20 +2,19 @@ package net.sevenoclock.mobile.settings;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.*;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.inventory.InventoryQuestionListView;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
+import net.sevenoclock.mobile.testpaper.TestpaperQuestionListView;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -24,71 +23,95 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2015-09-03.
  */
 public class Functions {
 
-    public static final String YOUTUBE_KEY = "AIzaSyBk3tlGV5gSLEwyp7A4PGaEfSC0XMcEUfQ";
+    public static final String YOUTUBE_KEY = "AIzaSyA5ajaURV7840WCtQsHMFUKZFsR1kLMA2A";
     public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
-    private static ArrayList<View> view_history = new ArrayList<View>();
+    private static Values values;
 
     public static void history_go(Context con, View v){
-        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
-        Vibe.vibrate(30);
-        view_history.add(v);
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        try{
+            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+            values.view_history.add(v);
+            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
+            MainActivity.ll_main_main_mainview.removeAllViews();
+            MainActivity.ll_main_main_mainview.addView(values.view_history.get(values.view_history.size()-1));
+        }catch (Exception e){
+            Log.i("history_go_Error",e.getMessage());
+        }
     }
 
     public static void history_go_home(Context con){
-        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
-        Vibe.vibrate(30);
-        TestpaperListView home = (TestpaperListView)view_history.get(0);
-        home.reflesh();
-        view_history.clear();
-        view_history.add(home);
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        try{
+            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+            TestpaperListView home = (TestpaperListView)values.view_history.get(0);
+            home.reflesh();
+            values.view_history.clear();
+            values.view_history.add(home);
+            MainActivity.tv_main_main_title.setText(home.getTag(R.string.tag_main_title).toString());
+            MainActivity.tv_main_main_subtitle.setText(home.getTag(R.string.tag_main_subtitle).toString());
+            MainActivity.ll_main_main_mainview.removeAllViews();
+            MainActivity.ll_main_main_mainview.addView(values.view_history.get(0));
+        }catch (Exception e){
+            Log.i("history_go_home_Error",e.getMessage());
+        }
     }
 
     public static void history_set_home(Context con, View v){
-        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
-        Vibe.vibrate(30);
-        view_history.add(0, v);
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(0));
+        try{
+            values = (Values)con.getApplicationContext();
+            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
+            values.view_history.add(0, v);
+            MainActivity.ll_main_main_mainview.removeAllViews();
+            MainActivity.ll_main_main_mainview.addView(v);
+        }catch (Exception e){
+            Log.i("history_set_home_Error",e.getMessage());
+        }
     }
 
     public static void history_back(Context con){
-        Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
-        Vibe.vibrate(30);
-        view_history.remove(view_history.size() - 1);
-        if(MainActivity.ll_main_main_mainview.getChildCount() != 0) MainActivity.ll_main_main_mainview.removeAllViews();
-        MainActivity.ll_main_main_mainview.addView(view_history.get(view_history.size() - 1));
+        history_back(con, true);
+    }
+
+    public static void history_back(Context con, Boolean vibrate){
+        try{
+            if(vibrate){
+                Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+                Vibe.vibrate(30);
+            }
+            values.view_history.remove(values.view_history.size() - 1);
+            View v = values.view_history.get(values.view_history.size() - 1);
+            if(v.getRootView().getClass().getName().endsWith("InventoryQuestionListView")){
+                InventoryQuestionListView lqlv = (InventoryQuestionListView)v;
+                lqlv.reflesh();
+            }
+            if(v.getRootView().getClass().getName().endsWith("TestpaperQuestionListView")){
+                TestpaperQuestionListView tqlv = (TestpaperQuestionListView)v;
+                tqlv.reflesh();
+            }
+            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
+            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
+            MainActivity.ll_main_main_mainview.removeAllViews();
+            MainActivity.ll_main_main_mainview.addView(v);
+        }catch (Exception e){
+            Log.i("history_back_Error",e.getMessage());
+        }
     }
 
     public static int history_length(){
-        return view_history.size();
-    }
-
-    public static Typeface setFont(Context con){
-        if(mTypeface == null){
-            if (Integer.parseInt(Build.VERSION.SDK) > Build.VERSION_CODES.FROYO) {
-                mTypeface = Typeface.createFromAsset(con.getAssets(), "font.ttf");
-            }else{
-                mTypeface = Typeface.SANS_SERIF;
-            }
-        }
-
-        return mTypeface;
+        return values.view_history.size();
     }
 
     public static Bitmap borderRadius(String src, int pixels) {
@@ -173,12 +196,6 @@ public class Functions {
         return html.toString();
     }
 
-    public static String stripHTML(String htmlStr) {
-        Pattern p = Pattern.compile("<(?:.|\\s)*?>");
-        Matcher m = p.matcher(htmlStr);
-        return m.replaceAll("");
-    }
-
 //	public static void setBadge(Context context, int count) {
 //	    String launcherClassName = getLauncherClassName(context);
 //	    if (launcherClassName == null) {
@@ -190,24 +207,6 @@ public class Functions {
 //	    intent.putExtra("badge_count_class_name", launcherClassName);
 //	    context.sendBroadcast(intent);
 //	}
-
-    public static String getLauncherClassName(Context context) {
-
-        PackageManager pm = context.getPackageManager();
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-
-        List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo resolveInfo : resolveInfos) {
-            String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
-            if (pkgName.equalsIgnoreCase(context.getPackageName())) {
-                String className = resolveInfo.activityInfo.name;
-                return className;
-            }
-        }
-        return null;
-    }
 
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인

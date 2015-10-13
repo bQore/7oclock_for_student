@@ -7,18 +7,29 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView">
+            android:layout_height="match_parent" >
+
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:paddingLeft="5dp" android:paddingTop="5dp"
-                android:paddingRight="5dp" android:paddingBottom="80dp">
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/iv_question_explain_img"
-                    android:scaleType="centerInside" android:src="@drawable/default_question"/>
+                android:layout_height="fill_parent"
+                android:paddingTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dp" android:layout_marginBottom="80dp"
+                    android:background="@drawable/ll_main_view_box" android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal">
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_question_explain_img"
+                        android:scaleType="fitStart"/>
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
@@ -35,6 +36,9 @@ public class TestpaperListView extends LinearLayout {
         ll_testpaper_list_left = (LinearLayout)findViewById(R.id.ll_testpaper_list_left);
         ll_testpaper_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_list_right);
 
+        setTag(R.string.tag_main_title,"출제문제지");
+        setTag(R.string.tag_main_subtitle, "총 0개의 문제지가 있습니다.");
+
         new AddBookTask().execute(null, null, null);
     }
 
@@ -56,7 +60,8 @@ public class TestpaperListView extends LinearLayout {
         protected Boolean doInBackground(Void... Void) {
             ja_book = Functions.GET("get_testpaper_list&school=" + values.user_info.get("school_id","")
                     + "&year=" + values.user_info.get("school_year","")
-                    + "&room=" + values.user_info.get("school_room",""));
+                    + "&room=" + values.user_info.get("school_room","")
+                    + "&uid=" + values.user_id);
             if(ja_book == null) return false;
             return true;
         }
@@ -71,10 +76,6 @@ public class TestpaperListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
                                 tbv = new TestpaperBookView(con, tcjo);
-                                tbv.setTag(R.string.tag_testpaper_list_id, tcjo.get("id", "0"));
-                                tbv.setTag(R.string.tag_testpaper_list_title, tcjo.get("title", "-"));
-                                tbv.setTag(R.string.tag_testpaper_list_school_name, tcjo.get("school_name", "-"));
-                                tbv.setTag(R.string.tag_testpaper_list_user, tcjo.get("user", "-"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -89,16 +90,14 @@ public class TestpaperListView extends LinearLayout {
                                 tbv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Functions.history_go(con, new TestpaperQuestionListView(con
-                                                , Integer.parseInt(v.getTag(R.string.tag_testpaper_list_id).toString())
-                                                , v.getTag(R.string.tag_testpaper_list_title).toString()
-                                                , v.getTag(R.string.tag_testpaper_list_school_name).toString()
-                                                , v.getTag(R.string.tag_testpaper_list_user).toString()));
+                                        Functions.history_go(con, new TestpaperQuestionListView(con,((TestpaperBookView)v).tcjo));
                                     }
                                 });
                             }
                         }
+
                         MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                        MainActivity.setSubtitle("총 " + ja_book.length() + "개의 문제지가 있습니다.");
                     }
                 });
             }else{

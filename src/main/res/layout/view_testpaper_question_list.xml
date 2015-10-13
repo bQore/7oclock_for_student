@@ -1,85 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ScrollView
+    <net.sevenoclock.mobile.customobj.RefreshScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sv_testpaper_question_list_scrollview" >
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:paddingBottom="80dp">
 
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" android:layout_margin="10dp"
-                    android:background="@drawable/ll_testpaper_question_list_box">
+                    android:layout_height="fill_parent" android:background="@drawable/ll_main_view_box"
+                    android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+
                 <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/ll_testpaper_question_list_titlebox" android:gravity="start"
-                        android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:layout_marginRight="10dp">
-                    <net.sevenoclock.mobile.customobj.FontTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TITLE"
-                            android:id="@+id/tv_testpaper_question_list_title"
-                            android:textStyle="bold" android:textSize="25sp" android:paddingTop="15dp"
-                            android:paddingBottom="10dp" android:gravity="center_vertical|center_horizontal"/>
+                        android:layout_height="fill_parent" android:layout_margin="10dp"
+                        android:background="@drawable/ll_testpaper_question_list_box">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/ll_testpaper_question_list_titlebox" android:gravity="start"
+                            android:layout_marginLeft="10dp" android:layout_marginTop="10dp" android:layout_marginRight="10dp">
+                        <net.sevenoclock.mobile.customobj.FontTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="TITLE"
+                                android:id="@+id/tv_testpaper_question_list_title"
+                                android:textStyle="bold" android:textSize="25sp" android:paddingTop="15dp"
+                                android:paddingBottom="10dp" android:gravity="center_vertical|center_horizontal"/>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp" android:background="#000000">
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent">
+                            <net.sevenoclock.mobile.customobj.FontTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="-"
+                                    android:id="@+id/tv_testpaper_question_list_school" android:gravity="center_vertical|center_horizontal"
+                                    android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"/>
+                            <net.sevenoclock.mobile.customobj.FontTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="-"
+                                    android:id="@+id/tv_testpaper_question_list_teacher" android:gravity="center_vertical|center_horizontal"
+                                    android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
                     <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
-                            android:layout_height="1dp" android:background="#000000">
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent">
-                        <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_height="wrap_content" android:focusableInTouchMode="true">
+                        <LinearLayout
+                                android:orientation="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="-"
-                                android:id="@+id/tv_testpaper_question_list_school" android:gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"/>
-                        <net.sevenoclock.mobile.customobj.FontTextView
+                                android:layout_height="wrap_content" android:id="@+id/ll_testpaper_question_list_left"
+                                android:layout_weight="1" android:paddingTop="7dp" android:paddingLeft="7dp"
+                                android:paddingBottom="7dp">
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:id="@+id/tv_testpaper_question_list_count" android:gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"
-                                android:text="-"/>
-                        <net.sevenoclock.mobile.customobj.FontTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="-"
-                                android:id="@+id/tv_testpaper_question_list_teacher" android:gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1" android:paddingTop="10dp" android:paddingBottom="10dp"/>
+                                android:layout_height="wrap_content" android:id="@+id/ll_testpaper_question_list_right"
+                                android:layout_weight="1" android:paddingTop="7dp" android:paddingBottom="7dp"
+                                android:paddingRight="7dp">
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" android:focusableInTouchMode="true">
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" android:id="@+id/ll_testpaper_question_list_left"
-                            android:layout_weight="1" android:paddingTop="7dp" android:paddingLeft="7dp"
-                            android:paddingBottom="7dp">
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" android:id="@+id/ll_testpaper_question_list_right"
-                            android:layout_weight="1" android:paddingTop="7dp" android:paddingBottom="7dp"
-                            android:paddingRight="7dp">
-                    </LinearLayout>
-                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </net.sevenoclock.mobile.customobj.RefreshScrollView>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:gravity="bottom">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal"
+                android:layout_margin="20dp" android:background="@drawable/ll_testpaper_question_list_feedback_bg">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/ll_testpaper_question_list_quickanswer"
+                    android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:clickable="true">
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_testpaper_question_list_quickanswer"
+                        android:textSize="15sp" android:textColor="#666666"
+                        android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="빠른 답안 입력하기"
+                        android:textSize="13sp" android:textColor="#666666"
+                        android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/ll_testpaper_question_list_quickresult"
+                    android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:clickable="true" android:visibility="gone">
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_testpaper_question_list_quickresult"
+                        android:textSize="15sp" android:textColor="#666666"
+                        android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="채점 결과 보기"
+                        android:textSize="13sp" android:textColor="#666666"
+                        android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+                    android:background="#DDDDDD"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/ll_testpaper_question_list_quickrank"
+                    android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:clickable="true">
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_testpaper_question_list_quickrank"
+                        android:textSize="15sp" android:textColor="#666666"
+                        android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="랭킹보기"
+                        android:textSize="13sp" android:textColor="#666666"
+                        android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

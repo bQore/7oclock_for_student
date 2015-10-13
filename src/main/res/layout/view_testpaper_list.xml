@@ -8,23 +8,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
         <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" android:focusableInTouchMode="true">
+                android:layout_height="wrap_content" android:focusableInTouchMode="true"
+                >
+
             <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/ll_testpaper_list_left"
-                    android:layout_weight="1" android:paddingTop="7dp" android:paddingLeft="7dp"
-                    android:paddingBottom="7dp">
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:background="@drawable/ll_main_view_box"
+                    android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/ll_testpaper_list_left"
+                        android:layout_weight="1" android:paddingTop="7dp" android:paddingLeft="7dp"
+                        android:paddingBottom="7dp">
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/ll_testpaper_list_right"
+                        android:layout_weight="1" android:paddingTop="7dp" android:paddingBottom="7dp"
+                        android:paddingRight="7dp">
+                </LinearLayout>
+
             </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/ll_testpaper_list_right"
-                    android:layout_weight="1" android:paddingTop="7dp" android:paddingBottom="7dp"
-                    android:paddingRight="7dp">
-            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

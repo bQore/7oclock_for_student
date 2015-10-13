@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:background="@drawable/ll_testpaper_rank_list"
+            android:gravity="center_vertical">
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:text="1"
+                android:id="@+id/tv_testpaper_rank_list_index" android:layout_margin="10dp" android:background="#34495e"
+                android:textColor="#FFFFFF" android:gravity="center_vertical|center_horizontal"
+                android:textSize="12sp"/>
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/iv_testpaper_rank_list_pic"
+                    android:src="@drawable/default_user" android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp" android:layout_marginBottom="10dp"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_testpaper_rank_list_crown" android:src="@drawable/testpaper_result_rank_crown"
+                    android:layout_gravity="center_horizontal" android:layout_marginRight="5dp"
+                    android:layout_marginTop="3dp" android:visibility="gone"/>
+        </FrameLayout>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="홍길동"
+                android:id="@+id/tv_testpaper_rank_list_name" android:textSize="15sp" android:textColor="#333333"
+                android:textStyle="bold"/>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100점"
+                android:id="@+id/tv_testpaper_rank_list_score" android:gravity="right" android:textColor="#999999"
+                android:textSize="25sp" android:textStyle="bold" android:layout_marginRight="20dp"/>
+    </LinearLayout>
+</LinearLayout>

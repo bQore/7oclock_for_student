@@ -1,7 +1,6 @@
 package net.sevenoclock.mobile.main;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.androidquery.AQuery;
@@ -11,8 +10,6 @@ import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
 public class MenudrawerView extends LinearLayout {
-
-    private AQuery aq;
     private Context con;
 
     private ImageView iv_main_menudrawer_profilepic;
@@ -30,7 +27,6 @@ public class MenudrawerView extends LinearLayout {
         super(context);
         values = (Values) context.getApplicationContext();
         con = context;
-        aq = new AQuery(context);
 
         inflate(getContext(), R.layout.view_main_menudrawer, this);
         setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -47,9 +43,9 @@ public class MenudrawerView extends LinearLayout {
         ll_main_menudrawer_tablist_setting.setOnClickListener((OnClickListener)con);
         ll_main_menudrawer_tablist_logout.setOnClickListener((OnClickListener)con);
 
-        aq.id(iv_main_menudrawer_profilepic).image(Functions.borderRadius(Functions.DOMAIN + values.user_info.get("src", ""), 1000));
-        aq.id(tv_main_menudrawer_username).text(values.user_info.get("first_name", "다시 로그인해주세요."));
-        aq.id(tv_main_menudrawer_schoolname).text(String.format("%s %s학년 %s반"
+        values.aq.id(iv_main_menudrawer_profilepic).image(Functions.borderRadius(Functions.DOMAIN + values.user_info.get("src", ""), 1000));
+        values.aq.id(tv_main_menudrawer_username).text(values.user_info.get("first_name", "다시 로그인해주세요."));
+        values.aq.id(tv_main_menudrawer_schoolname).text(String.format("%s %s학년 %s반"
                 , values.user_info.get("school_name", "-")
                 , values.user_info.get("school_year", "")
                 , values.user_info.get("school_room", "")));

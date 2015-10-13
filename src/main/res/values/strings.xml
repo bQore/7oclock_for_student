@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">7o\'clock</string>
-    <string name="menu_search">Search</string>
-    <string name="title_mypage">내 보관함</string>
-    <string name="title_setting">설정</string>
-    <string name="title_logout">로그아웃</string>
-    <string name="title_mainpage">메인화면</string>
-    <string name="title_login">로그인</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">OKOKOK</string>
-    <string name="action_settings">settings</string>
+    <string name="error_thumbnail_view">There was an error initializing the YouTubeThumbnailView (%1$s)</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
-    <string name="tag_testpaper_list_id">tag_testpaper_list_id</string>
-    <string name="tag_testpaper_list_title">tag_testpaper_list_title</string>
-    <string name="tag_testpaper_list_school_name">tag_testpaper_list_school_name</string>
-    <string name="tag_testpaper_list_user">tag_testpaper_list_user</string>
+    <string name="tag_main_title">tag_main_title</string>
+    <string name="tag_main_subtitle">tag_main_subtitle</string>
 
-    <string name="tag_testpaper_question_list_id">tag_testpaper_question_list_id</string>
-    <string name="tag_testpaper_question_list_src">tag_testpaper_question_list_src</string>
-    <string name="tag_testpaper_question_list_explain">tag_testpaper_question_list_explain</string>
-    <string name="tag_testpaper_question_list_video">tag_testpaper_question_list_video</string>
-
-
-    <string name="ic_main_actionvar_menu">&#xe607;</string>
-
-    <string name="ic_question_fragment_up">&#xe6fc;</string>
-    <string name="ic_question_fragment_down">&#xe6fd;</string>
-    <string name="ic_question_fragment_save">&#xe656;</string>
+    <string name="ic_main_actionbar_default_menu">&#xe607;</string>
+    <string name="ic_main_actionbar_default_search">&#xe63b;</string>
+    <string name="ic_main_actionbar_search_back">&#xe625;</string>
 
     <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
     <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
     <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>
     <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
     <string name="ic_main_menudrawer_list_search">&#xe63b;</string>
+
+    <string name="ic_question_fragment_up">&#xe6fc;</string>
+    <string name="ic_question_fragment_down">&#xe6fd;</string>
+    <string name="ic_question_fragment_save">&#xe656;</string>
+    <string name="ic_question_video_play">&#xe631;</string>
+
+    <string name="ic_testpaper_question_list_quickanswer">&#xe67b;</string>
+    <string name="ic_testpaper_question_list_quickresult">&#xe715;</string>
+    <string name="ic_testpaper_question_list_quickrank">&#xe7df;</string>
+
+    <string name="ic_testpaper_result_quick_o">&#xe88c;</string>
+    <string name="ic_testpaper_result_quick_x">&#xe616;</string>
 </resources>
