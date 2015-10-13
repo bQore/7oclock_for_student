@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <net.sevenoclock.mobile.customobj.RefreshScrollView
             android:layout_width="match_parent"
@@ -98,13 +98,13 @@
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
-                    android:id="@+id/ll_testpaper_question_list_quickanswer"
+                    android:id="@+id/ll_testpaper_question_list_quickinput"
                     android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
-                    android:clickable="true">
+                    android:visibility="gone" android:clickable="true">
                 <net.sevenoclock.mobile.customobj.IconTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/ic_testpaper_question_list_quickanswer"
+                        android:text="@string/ic_testpaper_question_list_quickinput"
                         android:textSize="15sp" android:textColor="#666666"
                         android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
                 <net.sevenoclock.mobile.customobj.FontTextView
@@ -146,7 +146,7 @@
                     android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
                     android:id="@+id/ll_testpaper_question_list_quickrank"
                     android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
-                    android:clickable="true">
+                    android:visibility="gone" android:clickable="true">
                 <net.sevenoclock.mobile.customobj.IconTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,6 +157,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="랭킹보기"
+                        android:textSize="13sp" android:textColor="#666666"
+                        android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal"
+                    android:id="@+id/ll_testpaper_question_list_quickanswer"
+                    android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:visibility="gone" android:clickable="true">
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_testpaper_question_list_quickanswer"
+                        android:textSize="15sp" android:textColor="#666666"
+                        android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="빠른 답안 보기"
                         android:textSize="13sp" android:textColor="#666666"
                         android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
             </LinearLayout>

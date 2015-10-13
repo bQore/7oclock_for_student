@@ -22,10 +22,11 @@
     <string name="ic_question_fragment_save">&#xe656;</string>
     <string name="ic_question_video_play">&#xe631;</string>
 
-    <string name="ic_testpaper_question_list_quickanswer">&#xe67b;</string>
+    <string name="ic_testpaper_question_list_quickinput">&#xe67b;</string>
     <string name="ic_testpaper_question_list_quickresult">&#xe715;</string>
     <string name="ic_testpaper_question_list_quickrank">&#xe7df;</string>
+    <string name="ic_testpaper_question_list_quickanswer">&#xe715;</string>
 
-    <string name="ic_testpaper_result_quick_o">&#xe88c;</string>
-    <string name="ic_testpaper_result_quick_x">&#xe616;</string>
+    <string name="ic_testpaper_input_result_quick_o">&#xe88c;</string>
+    <string name="ic_testpaper_input_result_quick_x">&#xe616;</string>
 </resources>

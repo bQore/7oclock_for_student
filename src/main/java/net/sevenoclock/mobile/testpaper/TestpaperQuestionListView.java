@@ -32,9 +32,10 @@ public class TestpaperQuestionListView extends LinearLayout {
     private LinearLayout ll_testpaper_question_list_right;
     private RefreshScrollView sv_testpaper_question_list_scrollview;
 
-    private LinearLayout ll_testpaper_question_list_quickanswer;
+    private LinearLayout ll_testpaper_question_list_quickinput;
     private LinearLayout ll_testpaper_question_list_quickresult;
     private LinearLayout ll_testpaper_question_list_quickrank;
+    private LinearLayout ll_testpaper_question_list_quickanswer;
 
     private int element_count = 0;
     private boolean semaphore = true;
@@ -60,9 +61,10 @@ public class TestpaperQuestionListView extends LinearLayout {
         ll_testpaper_question_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_right);
         sv_testpaper_question_list_scrollview = (RefreshScrollView)findViewById(R.id.sv_testpaper_question_list_scrollview);
 
-        ll_testpaper_question_list_quickanswer = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickanswer);
+        ll_testpaper_question_list_quickinput = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickinput);
         ll_testpaper_question_list_quickresult = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickresult);
         ll_testpaper_question_list_quickrank = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickrank);
+        ll_testpaper_question_list_quickanswer = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickanswer);
 
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
         tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
@@ -82,17 +84,17 @@ public class TestpaperQuestionListView extends LinearLayout {
             }
         });
 
-        ll_testpaper_question_list_quickanswer.setOnClickListener(new OnClickListener() {
+        ll_testpaper_question_list_quickinput.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+                Functions.history_go(con, new TestpaperInputQuickView(con, tcjo));
             }
         });
 
         ll_testpaper_question_list_quickresult.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+                Functions.history_go(con, new TestpaperInputQuickView(con, tcjo));
             }
         });
 
@@ -100,6 +102,13 @@ public class TestpaperQuestionListView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Functions.history_go(con, new TestpaperRankView(con, tcjo));
+            }
+        });
+
+        ll_testpaper_question_list_quickanswer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperAnswerQuickView(con, ja_question));
             }
         });
 
@@ -162,7 +171,7 @@ public class TestpaperQuestionListView extends LinearLayout {
                                                     })
                                                     .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+                                                            Functions.history_go(con, new TestpaperInputQuickView(con, tcjo));
                                                             return;
                                                         }
                                                     }).show();
@@ -182,19 +191,34 @@ public class TestpaperQuestionListView extends LinearLayout {
                         }
 
                         try {
-                            if (ja_question.getJSONObject(0).getInt("is_solved") == 1){
-                                is_solved = true;
-                                ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
-                                ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                            if (ja_question.getJSONObject(0).getInt("purpose") == 0){
+                                try {
+                                    if (ja_question.getJSONObject(0).getInt("is_solved") == 1){
+                                        is_solved = true;
+                                        ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
+                                        ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                                    }else{
+                                        is_solved = false;
+                                        ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
+                                        ll_testpaper_question_list_quickinput.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }else{
-                                is_solved = false;
+                                is_solved = true;
                                 ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickrank.setVisibility(View.GONE);
                                 ll_testpaper_question_list_quickanswer.setVisibility(View.VISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                         count_left = ll_testpaper_question_list_left.getChildCount();
                         count_right = ll_testpaper_question_list_right.getChildCount();
                         MainActivity.setSubtitle("총 " + (count_left+count_right) + "개 표시 중");

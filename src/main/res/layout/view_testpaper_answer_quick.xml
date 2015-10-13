@@ -11,7 +11,7 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:id="@+id/ll_testpaper_answer_quick_list">
+                android:layout_height="fill_parent" android:id="@+id/ll_testpaper_input_quick_list">
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
@@ -22,54 +22,11 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" android:id="@+id/ll_testpaper_answer_quick_forms"
-                        android:background="@drawable/ll_testpaper_answer_form_bg" android:layout_margin="10dp"
+                        android:background="@drawable/ll_testpaper_input_form_bg" android:layout_margin="10dp"
                         android:padding="1dp">
                 </LinearLayout>
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="제출하기"
-                        android:id="@+id/btn_testpaper_answer_quick_submit" android:textColor="#FFF" android:background="#2ecc71"
-                        android:textSize="16sp" android:layout_marginBottom="10dp" android:visibility="gone"/>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_weight="0" android:gravity="center_vertical"
-            android:id="@+id/ll_testpaper_answer_quick_btns" android:visibility="gone"
-            android:background="@drawable/ll_testpaper_answer_btns_bg" android:padding="5dp">
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="√"
-                android:id="@+id/btn_testpaper_answer_quick_key0"
-                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="π"
-                android:id="@+id/btn_testpaper_answer_quick_key1"
-                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/"
-                android:id="@+id/btn_testpaper_answer_quick_key2"
-                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="."
-                android:id="@+id/btn_testpaper_answer_quick_key3"
-                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=","
-                android:id="@+id/btn_testpaper_answer_quick_key4"
-                android:background="@drawable/btn_testpaper_answer_btns" android:layout_marginRight="5dp"/>
-    </LinearLayout>
 </LinearLayout>
