@@ -81,7 +81,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         view_main_search = new MainSearchView(this);
 
         Functions.history_set_home(this, view_testpaper_list);
-
     }
 
     private void setActionBar(){
@@ -109,6 +108,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         menuDrawer.setDropShadowEnabled(false);
     }
 
+    public static void setTitle(String str){
+        MainActivity.tv_main_main_title.setText(str);
+    }
     public static void setSubtitle(String str){
         MainActivity.tv_main_main_subtitle.setText(str);
     }

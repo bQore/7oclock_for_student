@@ -81,7 +81,6 @@ public class InventoryListView extends LinearLayout {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                Log.i("@@@@@@@@@@@@", "get_inventory_list&uid=" + ja_book.length());
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -90,8 +89,6 @@ public class InventoryListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
                                 ibv = new InventoryBookView(con, tcjo);
-                                ibv.setTag(R.string.tag_inventory_list_id, tcjo.get("id", "0"));
-                                ibv.setTag(R.string.tag_inventory_list_title, tcjo.get("title", "0"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -106,9 +103,7 @@ public class InventoryListView extends LinearLayout {
                                 ibv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Functions.history_go(con, new InventoryQuestionListView(con
-                                                , Integer.parseInt(v.getTag(R.string.tag_inventory_list_id).toString())
-                                                ,v.getTag(R.string.tag_inventory_list_title).toString()));
+                                        Functions.history_go(con, new InventoryQuestionListView(con,((InventoryBookView)v).tcjo));
                                     }
                                 });
                             }

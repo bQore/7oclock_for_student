@@ -45,22 +45,12 @@ public class MainSearchBoxListView extends LinearLayout {
         for(int i=0; i<len; i++){
             TryCatchJO tcjo = new TryCatchJO(jo_questions.getJSONObject(i));
             MainSearchBoxListQuestionView msblqv = new MainSearchBoxListQuestionView(con,tcjo);
-            msblqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
-            msblqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit", "-"));
-            msblqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
-            msblqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
-            msblqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
             msblqv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     MainActivity.imm.hideSoftInputFromWindow(MainActivity.view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
                     MainActivity.actionBar.setCustomView(MainActivity.view_actionbar_default, MainActivity.actionbar_lp);
-                    Functions.history_go(con, new QuestionFragmentView(con
-                            , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
-                            , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
-                            , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
-                            , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
-                            , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
+                    Functions.history_go(con, new QuestionFragmentView(con,((MainSearchBoxListQuestionView)v).tcjo));
                 }
             });
             if(i == 0) ll_main_search_box_list_list_left.addView(msblqv);

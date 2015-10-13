@@ -11,16 +11,19 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 public class TestpaperBookView extends LinearLayout {
     private Context con;
 
+    public TryCatchJO tcjo;
+
     private FontTextView tv_testpaper_list_book_title;
     private FontTextView tv_testpaper_list_book_date;
 
     public TestpaperBookView(Context context,TryCatchJO jo) {
         super(context);
         con = context;
+        tcjo = jo;
         setLayout();
 
-        tv_testpaper_list_book_title.setText(jo.get("title", ""));
-        tv_testpaper_list_book_date.setText(jo.get("date", ""));
+        tv_testpaper_list_book_title.setText(tcjo.get("title", ""));
+        tv_testpaper_list_book_date.setText(tcjo.get("date", ""));
     }
 
     private void setLayout(){

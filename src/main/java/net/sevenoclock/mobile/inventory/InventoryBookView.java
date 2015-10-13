@@ -11,16 +11,19 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 public class InventoryBookView extends LinearLayout {
     private Context con;
 
+    TryCatchJO tcjo;
+
     private FontTextView tv_testpaper_list_book_title;
     private FontTextView tv_testpaper_list_book_count;
 
     public InventoryBookView(Context context, TryCatchJO jo) {
         super(context);
         con = context;
+        tcjo = jo;
         setLayout();
 
-        tv_testpaper_list_book_title.setText(jo.get("title", ""));
-        tv_testpaper_list_book_count.setText("총 " + jo.get("count", "") + "개 문제");
+        tv_testpaper_list_book_title.setText(tcjo.get("title", ""));
+        tv_testpaper_list_book_count.setText("총 " + tcjo.get("count", "") + "개 문제");
     }
 
     private void setLayout(){

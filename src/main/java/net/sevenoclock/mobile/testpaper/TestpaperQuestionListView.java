@@ -1,6 +1,8 @@
 package net.sevenoclock.mobile.testpaper;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +21,8 @@ import org.json.JSONException;
 public class TestpaperQuestionListView extends LinearLayout {
 
     private Context con;
-    private int tpid_id;
+    private TryCatchJO tcjo;
+    private JSONArray ja_question;
 
     private FontTextView tv_testpaper_question_list_title;
     private FontTextView tv_testpaper_question_list_school;
@@ -29,15 +32,20 @@ public class TestpaperQuestionListView extends LinearLayout {
     private LinearLayout ll_testpaper_question_list_right;
     private RefreshScrollView sv_testpaper_question_list_scrollview;
 
+    private LinearLayout ll_testpaper_question_list_quickanswer;
+    private LinearLayout ll_testpaper_question_list_quickresult;
+    private LinearLayout ll_testpaper_question_list_quickrank;
+
     private int element_count = 0;
     private boolean semaphore = true;
+    private boolean is_solved = false;
 
     Values values;
 
-    public TestpaperQuestionListView(Context context, int tpid_id, String title, String school_name, String user) {
+    public TestpaperQuestionListView(Context context, final TryCatchJO tcjo) {
         super(context);
         this.con = context;
-        this.tpid_id = tpid_id;
+        this.tcjo = tcjo;
 
         values = (Values) context.getApplicationContext();
 
@@ -52,11 +60,15 @@ public class TestpaperQuestionListView extends LinearLayout {
         ll_testpaper_question_list_right = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_right);
         sv_testpaper_question_list_scrollview = (RefreshScrollView)findViewById(R.id.sv_testpaper_question_list_scrollview);
 
-        tv_testpaper_question_list_title.setText(title);
-        tv_testpaper_question_list_school.setText(school_name);
-        tv_testpaper_question_list_teacher.setText(user+" 선생님");
+        ll_testpaper_question_list_quickanswer = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickanswer);
+        ll_testpaper_question_list_quickresult = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickresult);
+        ll_testpaper_question_list_quickrank = (LinearLayout)findViewById(R.id.ll_testpaper_question_list_quickrank);
 
-        setTag(R.string.tag_main_title, title);
+        tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
+        tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
+        tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
+
+        setTag(R.string.tag_main_title, tcjo.get("title", ""));
         setTag(R.string.tag_main_subtitle, "총 0개 표시 중");
 
         sv_testpaper_question_list_scrollview.setOnScrollViewListener(new RefreshScrollView.OnScrollViewListener() {
@@ -68,7 +80,28 @@ public class TestpaperQuestionListView extends LinearLayout {
                     if (view_count >= element_count && semaphore) readMore();
                 }
             }
-        } );
+        });
+
+        ll_testpaper_question_list_quickanswer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+            }
+        });
+
+        ll_testpaper_question_list_quickresult.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+            }
+        });
+
+        ll_testpaper_question_list_quickrank.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new TestpaperRankView(con, tcjo));
+            }
+        });
 
         new AddQuestionTask().execute(null, null, null);
     }
@@ -76,6 +109,7 @@ public class TestpaperQuestionListView extends LinearLayout {
     public void reflesh(){
         ll_testpaper_question_list_left.removeAllViews();
         ll_testpaper_question_list_right.removeAllViews();
+        element_count = 0;
         new AddQuestionTask().execute(null, null, null);
     }
 
@@ -84,7 +118,6 @@ public class TestpaperQuestionListView extends LinearLayout {
     }
 
     class AddQuestionTask extends AsyncTask<Void, Void, Boolean> {
-        JSONArray ja_question;
         int count_left;
         int count_right;
 
@@ -96,7 +129,7 @@ public class TestpaperQuestionListView extends LinearLayout {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_question = Functions.GET("get_testpaper_question_list&tpid=" + tpid_id + "&limit="+element_count+":"+(element_count+10));
+            ja_question = Functions.GET("get_testpaper_question_list&uid="+values.user_id+"&tpid=" + tcjo.get("id", "") + "&limit="+element_count+":"+(element_count+10));
             if(ja_question == null) return false;
             element_count += 10;
             return true;
@@ -111,23 +144,29 @@ public class TestpaperQuestionListView extends LinearLayout {
                         for (i = 0; i < ja_question.length(); i++) {
                             TestpaperQuestionView tqv = null;
                             try {
-                                TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
-                                tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo);
-                                tqv.setTag(R.string.tag_QuestionFragmentView_id, tcjo.get("id", "0"));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_title, tcjo.get("unit_title", "-"));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_src, tcjo.get("src", ""));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_explain, tcjo.get("explain", ""));
-                                tqv.setTag(R.string.tag_QuestionFragmentView_video, tcjo.get("video", ""));
+                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
+                                tqv = new TestpaperQuestionView(con, element_count+i-10, tcjo_question);
 
                                 tqv.setOnClickListener(new OnClickListener() {
                                     @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionFragmentView(con
-                                                , v.getTag(R.string.tag_QuestionFragmentView_id).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_title).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_src).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_explain).toString()
-                                                , v.getTag(R.string.tag_QuestionFragmentView_video).toString()));
+                                    public void onClick(final View v) {
+                                        if (is_solved){
+                                            Functions.history_go(con, new QuestionFragmentView(con,((TestpaperQuestionView)v).tcjo));
+                                        }else{
+                                            new AlertDialog.Builder(con).setTitle("답안 미입력")
+                                                    .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")
+                                                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            return;
+                                                        }
+                                                    })
+                                                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            Functions.history_go(con, new TestpaperAnswerQuickView(con, tcjo));
+                                                            return;
+                                                        }
+                                                    }).show();
+                                        }
                                     }
                                 });
 
@@ -141,6 +180,21 @@ public class TestpaperQuestionListView extends LinearLayout {
                             if (count_left > count_right) ll_testpaper_question_list_right.addView(tqv);
                             else ll_testpaper_question_list_left.addView(tqv);
                         }
+
+                        try {
+                            if (ja_question.getJSONObject(0).getInt("is_solved") == 1){
+                                is_solved = true;
+                                ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
+                                ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                            }else{
+                                is_solved = false;
+                                ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickanswer.setVisibility(View.VISIBLE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         count_left = ll_testpaper_question_list_left.getChildCount();
                         count_right = ll_testpaper_question_list_right.getChildCount();
                         MainActivity.setSubtitle("총 " + (count_left+count_right) + "개 표시 중");

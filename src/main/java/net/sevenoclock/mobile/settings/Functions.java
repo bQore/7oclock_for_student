@@ -14,6 +14,7 @@ import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.inventory.InventoryQuestionListView;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.testpaper.TestpaperListView;
+import net.sevenoclock.mobile.testpaper.TestpaperQuestionListView;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -28,7 +29,7 @@ import java.net.URL;
  */
 public class Functions {
 
-    public static final String YOUTUBE_KEY = "AIzaSyBk3tlGV5gSLEwyp7A4PGaEfSC0XMcEUfQ";
+    public static final String YOUTUBE_KEY = "AIzaSyA5ajaURV7840WCtQsHMFUKZFsR1kLMA2A";
     public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
@@ -95,6 +96,10 @@ public class Functions {
             if(v.getRootView().getClass().getName().endsWith("InventoryQuestionListView")){
                 InventoryQuestionListView lqlv = (InventoryQuestionListView)v;
                 lqlv.reflesh();
+            }
+            if(v.getRootView().getClass().getName().endsWith("TestpaperQuestionListView")){
+                TestpaperQuestionListView tqlv = (TestpaperQuestionListView)v;
+                tqlv.reflesh();
             }
             MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
             MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());

@@ -60,7 +60,8 @@ public class TestpaperListView extends LinearLayout {
         protected Boolean doInBackground(Void... Void) {
             ja_book = Functions.GET("get_testpaper_list&school=" + values.user_info.get("school_id","")
                     + "&year=" + values.user_info.get("school_year","")
-                    + "&room=" + values.user_info.get("school_room",""));
+                    + "&room=" + values.user_info.get("school_room","")
+                    + "&uid=" + values.user_id);
             if(ja_book == null) return false;
             return true;
         }
@@ -75,10 +76,6 @@ public class TestpaperListView extends LinearLayout {
                             try {
                                 TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
                                 tbv = new TestpaperBookView(con, tcjo);
-                                tbv.setTag(R.string.tag_testpaper_list_id, tcjo.get("id", "0"));
-                                tbv.setTag(R.string.tag_testpaper_list_title, tcjo.get("title", "-"));
-                                tbv.setTag(R.string.tag_testpaper_list_school_name, tcjo.get("school_name", "-"));
-                                tbv.setTag(R.string.tag_testpaper_list_user, tcjo.get("user", "-"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -93,11 +90,7 @@ public class TestpaperListView extends LinearLayout {
                                 tbv.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Functions.history_go(con, new TestpaperQuestionListView(con
-                                                , Integer.parseInt(v.getTag(R.string.tag_testpaper_list_id).toString())
-                                                , v.getTag(R.string.tag_testpaper_list_title).toString()
-                                                , v.getTag(R.string.tag_testpaper_list_school_name).toString()
-                                                , v.getTag(R.string.tag_testpaper_list_user).toString()));
+                                        Functions.history_go(con, new TestpaperQuestionListView(con,((TestpaperBookView)v).tcjo));
                                     }
                                 });
                             }

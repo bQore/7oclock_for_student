@@ -82,11 +82,9 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.rb_home_signup_gender_0:
                 gender = 0;
-                Log.i("@@@@@@@@@@", ""+gender);
                 break;
             case R.id.rb_home_signup_gender_1:
                 gender = 1;
-                Log.i("@@@@@@@@@@", ""+gender);
                 break;
             case R.id.btn_home_signup_search:
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
