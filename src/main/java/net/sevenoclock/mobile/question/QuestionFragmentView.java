@@ -190,9 +190,9 @@ public class QuestionFragmentView extends LinearLayout {
             super(fm);
             tcjo = jo;
 
-            qdv = new QuestionDetailView().newInstance(tcjo.get("src",""));
-            qev = new QuestionExplainView().newInstance(tcjo.get("explain",""));
-            qvv = new QuestionVideoView().newInstance(tcjo.get("video",""));
+            qdv = new QuestionDetailView().newInstance(tcjo.get("id",0), tcjo.get("src",""));
+            qev = new QuestionExplainView().newInstance(tcjo.get("id",0), tcjo.get("explain",""));
+            qvv = new QuestionVideoView().newInstance(tcjo.get("id",0), tcjo.get("video",""));
         }
 
         @Override

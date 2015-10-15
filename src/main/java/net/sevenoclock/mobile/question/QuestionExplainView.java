@@ -1,13 +1,18 @@
 package net.sevenoclock.mobile.question;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,6 +25,7 @@ import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
 import java.io.File;
+import java.util.List;
 
 public class QuestionExplainView extends Fragment {
 
@@ -34,6 +40,30 @@ public class QuestionExplainView extends Fragment {
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
+
+        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_detail_error);
+        btn_question_detail_error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator Vibe = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                Vibe.vibrate(30);
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com","storm0812@hanmail.net","tellme0218@naver.com"});
+                email.putExtra(Intent.EXTRA_SUBJECT, "[모두를위한수학]오류신고합니다!");
+                email.putExtra(Intent.EXTRA_TEXT, "제목 : "+getArguments().getInt("qid")+"번 해설 오류신고합니다!\n\n내용 : 내용을 입력하십시오.");
+                email.setType("text/plain");
+                final PackageManager pm = getActivity().getPackageManager();
+                final List<ResolveInfo> matches = pm.queryIntentActivities(email, 0);
+                ResolveInfo best = null;
+                for(final ResolveInfo info : matches)
+                    if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                        best = info;
+                if (best != null)
+                    email.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                getActivity().startActivity(email);
+            }
+        });
+
         values.aq = new AQuery(getActivity(), view);
 
         if(MainActivity.app_width>=800){
@@ -62,10 +92,11 @@ public class QuestionExplainView extends Fragment {
         return view;
     }
 
-    public static QuestionExplainView newInstance(String url) {
+    public static QuestionExplainView newInstance(int qid, String url) {
         QuestionExplainView view = new QuestionExplainView();
         Bundle args = new Bundle();
         args.putString("url", url);
+        args.putInt("qid", qid);
         view.setArguments(args);
         return view;
     }

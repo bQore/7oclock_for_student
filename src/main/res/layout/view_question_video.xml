@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오류신고하기"
-            android:id="@+id/button" android:layout_gravity="left" android:textSize="12sp"
+            android:id="@+id/btn_question_detail_error" android:layout_gravity="left" android:textSize="12sp"
             android:layout_marginBottom="80dp" android:background="@drawable/ll_question_fragment_feedback_bg"
             android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
