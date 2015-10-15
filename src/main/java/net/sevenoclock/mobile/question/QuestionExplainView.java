@@ -50,7 +50,7 @@ public class QuestionExplainView extends Fragment {
                 Intent email = new Intent(Intent.ACTION_SEND);
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com","storm0812@hanmail.net","tellme0218@naver.com"});
                 email.putExtra(Intent.EXTRA_SUBJECT, "[모두를위한수학]오류신고합니다!");
-                email.putExtra(Intent.EXTRA_TEXT, "제목 : "+getArguments().getInt("qid")+"번 해설 오류신고합니다!\n\n내용 : 내용을 입력하십시오.");
+                email.putExtra(Intent.EXTRA_TEXT, "제목 : "+getArguments().getInt("qid")+"번 해설 오류신고합니다!\n\n내용 : ");
                 email.setType("text/plain");
                 final PackageManager pm = getActivity().getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(email, 0);
