@@ -27,9 +27,9 @@ public class QuestionFragmentView extends LinearLayout {
 
     private Context con;
     private String feedback_state = "";
-    private String save_state = "";
     TryCatchJO tcjo;
     TryCatchJO tcjo_feedback = null;
+    TryCatchJO tcjo_save = null;
 
     private ViewPager pager;
     private TabPageIndicator indicator;
@@ -99,10 +99,13 @@ public class QuestionFragmentView extends LinearLayout {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator) getContext().getSystemService(getContext().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                if (save_state == "add") Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 MainActivity.view_inventory_list.reflesh();
-                setSaveBtn();
+                try {
+                    tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + tcjo.get("id",0)).getJSONObject(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                setSaveBtn(true);
             }
         });
 
@@ -114,24 +117,23 @@ public class QuestionFragmentView extends LinearLayout {
         indicator.setViewPager(pager);
 
         setFeedbackBtn();
-        setSaveBtn();
-
-    }
-
-    private void setSaveBtn(){
-        TryCatchJO tcjo_save = null;
         try {
-            tcjo_save = new TryCatchJO(Functions.GET("set_invenroty&uid=" + values.user_id + "&qid=" + tcjo.get("id",0) + "&method=" + save_state).getJSONObject(0));
+            tcjo_save = new TryCatchJO(Functions.GET("get_invenroty&uid=" + values.user_id + "&qid=" + tcjo.get("id",0)).getJSONObject(0));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        setSaveBtn(false);
+
+    }
+
+    private void setSaveBtn(boolean is_clicked){
         if (tcjo_save.get("question",0) == 0){
+            if(is_clicked) Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
             setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, false);
-            save_state = "add";
             return;
         }
+        if(is_clicked) Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
         setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, true);
-        save_state = "delete";
         return;
     }
 

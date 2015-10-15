@@ -25,6 +25,8 @@ public class TestpaperInputFormView extends LinearLayout {
     FontTextView tv_testpaper_input_form_index;
     LinearLayout ll_testpaper_input_form_view;
 
+    public EditText et_answer;
+
     Values values;
 
     public TestpaperInputFormView(Context context, int index, TryCatchJO jo) {
@@ -50,7 +52,7 @@ public class TestpaperInputFormView extends LinearLayout {
     }
 
     void setSingular(){
-        final EditText et_answer = new EditText(con);
+        et_answer = new EditText(con);
         LinearLayout.LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         lp.setMargins(0, 5, 0, 5);
         et_answer.setLayoutParams(lp);

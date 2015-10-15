@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,6 +40,7 @@ public class TestpaperInputQuickView extends LinearLayout {
     TestpaperInputFormView[] tafv;
     TestpaperInputResultQuickView[] trqv;
 
+    private InputMethodManager imm;
     Values values;
 
     public TestpaperInputQuickView(Context context, TryCatchJO jo) {
@@ -57,6 +59,8 @@ public class TestpaperInputQuickView extends LinearLayout {
 
         setTag(R.string.tag_main_title, "");
         setTag(R.string.tag_main_subtitle, tcjo_info.get("title", ""));
+
+        imm = (InputMethodManager)con.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         new TestpaperSubmitTask().execute(null, null, null);
 
@@ -88,6 +92,11 @@ public class TestpaperInputQuickView extends LinearLayout {
 
                                     Map<String, Object> params = new HashMap<String, Object>();
                                     params.put("answer", jo_answer.toString());
+
+                                    for(int i=0; i<tafv.length;i++){
+                                        if(tafv[i].et_answer != null)
+                                            imm.hideSoftInputFromWindow(tafv[i].et_answer.getWindowToken(), 0);
+                                    }
 
                                     values.aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                                         @Override

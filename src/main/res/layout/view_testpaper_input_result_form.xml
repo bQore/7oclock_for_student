@@ -41,4 +41,11 @@
                 android:text="New Text"
                 android:id="@+id/tv_testpaper_input_result_quick_o" android:textSize="16sp" android:textStyle="bold"/>
     </LinearLayout>
+    <net.sevenoclock.mobile.customobj.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=">"
+            android:textSize="16sp" android:layout_weight="0" android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" android:gravity="center_vertical|center_horizontal"
+            android:textColor="#999999"/>
 </LinearLayout>

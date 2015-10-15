@@ -58,8 +58,21 @@ public class TestpaperAnswerResultQuickView extends LinearLayout {
         tv_testpaper_answer_result_quick_answer.setTypeface(Typeface.DEFAULT_BOLD);
         tv_testpaper_answer_result_quick_answer.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
         LayoutParams layout_360 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+        layout_360.weight = 1;
         tv_testpaper_answer_result_quick_answer.setLayoutParams(layout_360);
         addView(tv_testpaper_answer_result_quick_answer);
+
+        FontTextView textView_184 = new FontTextView(con);
+        textView_184.setText(">");
+        textView_184.setTextSize(16);
+        textView_184.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+        textView_184.setTextColor(Color.parseColor("#999999"));
+        LayoutParams layout_698 = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
+        layout_698.weight = 0;
+        layout_698.leftMargin = 10*den;
+        layout_698.rightMargin = 10*den;
+        textView_184.setLayoutParams(layout_698);
+        addView(textView_184);
 
         if(qid != 0){
             tv_testpaper_answer_result_quick_index.setText("" + (index + 1));

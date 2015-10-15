@@ -15,6 +15,7 @@ public class TestpaperBookView extends LinearLayout {
 
     private FontTextView tv_testpaper_list_book_title;
     private FontTextView tv_testpaper_list_book_date;
+    private FontTextView tv_testpaper_list_book_purpose;
 
     public TestpaperBookView(Context context,TryCatchJO jo) {
         super(context);
@@ -24,6 +25,7 @@ public class TestpaperBookView extends LinearLayout {
 
         tv_testpaper_list_book_title.setText(tcjo.get("title", ""));
         tv_testpaper_list_book_date.setText(tcjo.get("date", ""));
+        tv_testpaper_list_book_purpose.setText(tcjo.get("purpose", ""));
     }
 
     private void setLayout(){
@@ -37,5 +39,6 @@ public class TestpaperBookView extends LinearLayout {
 
         tv_testpaper_list_book_title = (FontTextView)findViewById(R.id.tv_testpaper_list_book_title);
         tv_testpaper_list_book_date = (FontTextView)findViewById(R.id.tv_testpaper_list_book_date);
+        tv_testpaper_list_book_purpose = (FontTextView)findViewById(R.id.tv_testpaper_list_book_purpose);
     }
 }
