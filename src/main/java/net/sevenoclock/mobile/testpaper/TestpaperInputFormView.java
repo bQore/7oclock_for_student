@@ -20,6 +20,7 @@ public class TestpaperInputFormView extends LinearLayout {
 
     public int qid = 0;
     public int items = 0;
+    public int answer_len = 0;
     public String answer = "";
 
     FontTextView tv_testpaper_input_form_index;
@@ -36,6 +37,8 @@ public class TestpaperInputFormView extends LinearLayout {
 
         qid = tcjo_info.get("id",0);
         items = tcjo_info.get("items",1);
+        String answer_mobile = tcjo_info.get("answer_mobile","");
+        answer_len = answer_mobile.length();
 
         values = (Values) context.getApplicationContext();
         inflate(getContext(), R.layout.view_testpaper_input_form, this);
@@ -110,18 +113,35 @@ public class TestpaperInputFormView extends LinearLayout {
             btn[i].setTextColor(Color.parseColor("#666666"));
             btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
             btn[i].setText("" + (i + 1));
+            btn[i].setTag(false);
             ll_testpaper_input_form_view.addView(btn[i]);
 
             btn[i].setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    for(int i=0; i<items; i++){
-                        btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
-                        btn[i].setTextColor(Color.parseColor("#666666"));
+                    Button this_btn = ((Button)v);
+                    if(answer_len < 2){
+                        for(int i=0; i<items; i++){
+                            btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            btn[i].setTextColor(Color.parseColor("#666666"));
+                        }
+                        this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                        this_btn.setTextColor(Color.parseColor("#c0392b"));
+                        answer = this_btn.getText().toString();
+                    }else{
+                        if(this_btn.getTag().equals(false)){
+                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                            this_btn.setTextColor(Color.parseColor("#c0392b"));
+                            answer += ","+this_btn.getText().toString();
+                            this_btn.setTag(true);
+                        }else{
+                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            this_btn.setTextColor(Color.parseColor("#666666"));
+                            answer = answer.replace(this_btn.getText().toString(),"");
+                            this_btn.setTag(false);
+                        }
                     }
-                    ((Button)v).setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
-                    ((Button)v).setTextColor(Color.parseColor("#c0392b"));
-                    answer = ((Button)v).getText().toString();
+
                 }
             });
         }

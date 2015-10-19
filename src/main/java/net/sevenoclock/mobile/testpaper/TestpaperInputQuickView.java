@@ -74,7 +74,8 @@ public class TestpaperInputQuickView extends LinearLayout {
                     int len = tafv.length;
 
                     for (int i = 0; i < len; i++) {
-                        if (tafv[i].answer.equals("")) return;
+                        if (tafv[i].answer.equals("")) tafv[i].answer = "-";
+                        if (tafv[i].answer.startsWith(",")) tafv[i].answer = tafv[i].answer.substring(1);
                         jo_answer.put("" + tafv[i].qid, tafv[i].answer);
                     }
 
