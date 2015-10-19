@@ -71,7 +71,7 @@ public class TestpaperQuestionListView extends LinearLayout {
         tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
 
         setTag(R.string.tag_main_title, tcjo.get("title", ""));
-        setTag(R.string.tag_main_subtitle, "총 0개 표시 중");
+        setTag(R.string.tag_main_subtitle, "총 "+tcjo.get("question_len", 0)+"개 문제가 있습니다.");
 
         sv_testpaper_question_list_scrollview.setOnScrollViewListener(new RefreshScrollView.OnScrollViewListener() {
             public void onScrollChanged(RefreshScrollView v, int l, int t, int oldl, int oldt) {
@@ -221,7 +221,6 @@ public class TestpaperQuestionListView extends LinearLayout {
                         }
                         count_left = ll_testpaper_question_list_left.getChildCount();
                         count_right = ll_testpaper_question_list_right.getChildCount();
-                        MainActivity.setSubtitle("총 " + (count_left+count_right) + "개 표시 중");
                     }
                 });
             }else{
