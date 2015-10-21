@@ -211,8 +211,9 @@ public class Functions {
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인
         ConnectivityManager connect = (ConnectivityManager)con.getSystemService(con.CONNECTIVITY_SERVICE);
-        if (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED ) {
+        if (connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+            return true;
+        }else if (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
             return true;
         } else {
             return false;

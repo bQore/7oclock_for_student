@@ -49,7 +49,20 @@ public class TestpaperInputResultQuickView extends LinearLayout {
 
         if(qid != 0){
             tv_testpaper_input_result_quick_index.setText("" + (index + 1));
-            setAnswer(answer_correct.equals(answer_user));
+            String[] answers = answer_correct.split(";");
+            if(answers.length > 1){
+                answer_correct = String.format("%s 또는 %s",answers[0],answers[1]);
+                if(answers[0].equals(answer_user) || answers[1].equals(answer_user)){
+                    setAnswer(true);
+                    return;
+                }
+            }else{
+                if(answer_correct.equals(answer_user)){
+                    setAnswer(true);
+                    return;
+                }
+            }
+            setAnswer(false);
         }
     }
 
@@ -58,13 +71,14 @@ public class TestpaperInputResultQuickView extends LinearLayout {
             tv_testpaper_input_result_quick_icon.setText(R.string.ic_testpaper_input_result_quick_o);
             tv_testpaper_input_result_quick_icon.setTextColor(Color.parseColor("#2ecc71"));
             tv_testpaper_input_result_quick_x.setVisibility(View.GONE);
+            tv_testpaper_input_result_quick_o.setText(answer_user);
         }else{
             tv_testpaper_input_result_quick_icon.setText(R.string.ic_testpaper_input_result_quick_x);
             tv_testpaper_input_result_quick_icon.setTextColor(Color.parseColor("#e74c3c"));
             tv_testpaper_input_result_quick_x.setPaintFlags(tv_testpaper_input_result_quick_x.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             tv_testpaper_input_result_quick_x.setText(answer_user);
+            tv_testpaper_input_result_quick_o.setText(answer_correct);
         }
-        tv_testpaper_input_result_quick_o.setText(answer_correct);
     }
 }
 
