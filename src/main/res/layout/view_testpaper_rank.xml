@@ -5,49 +5,42 @@
               android:layout_height="match_parent"
         >
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView5">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
-                    android:background="@drawable/ll_main_view_box" android:paddingLeft="10dp" android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
-                <net.sevenoclock.mobile.customobj.FontTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="나의 현재 순위" android:textSize="15sp" android:textColor="#666666"
-                        android:layout_marginBottom="5dp"/>
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" android:id="@+id/ll_testpaper_rank_myrank">
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
-                    android:background="@drawable/ll_main_view_box" android:paddingLeft="10dp" android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
-                <net.sevenoclock.mobile.customobj.FontTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="전체 순위" android:textColor="#666666" android:textSize="15sp"
-                        android:layout_marginBottom="5dp"/>
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" android:id="@+id/ll_testpaper_rank_ranks">
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+                android:background="@drawable/ll_main_view_box" android:paddingLeft="10dp" android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나의 현재 순위" android:textSize="15sp" android:textColor="#666666"
+                    android:layout_marginBottom="5dp"/>
+            <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lv_testpaper_rank_myrank" android:dividerHeight="0dp" android:divider="#00000000"/>
         </LinearLayout>
-    </ScrollView>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+                android:background="@drawable/ll_main_view_box" android:paddingLeft="10dp" android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체 순위" android:textColor="#666666" android:textSize="15sp"
+                    android:layout_marginBottom="5dp"/>
+            <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lv_testpaper_rank_ranks" android:dividerHeight="0dp" android:divider="#00000000"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

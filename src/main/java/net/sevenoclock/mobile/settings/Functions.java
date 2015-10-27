@@ -114,9 +114,9 @@ public class Functions {
         return values.view_history.size();
     }
 
-    public static Bitmap borderRadius(String src, int pixels) {
+    public static Bitmap borderRadius(String src, int pixels) { return borderRadius(getBitmapFromURL(src), pixels); }
 
-        Bitmap bitmap = getBitmapFromURL(src);
+    public static Bitmap borderRadius(Bitmap bitmap, int pixels) {
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);

@@ -2,12 +2,13 @@ package net.sevenoclock.mobile.testpaper;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.question.QuestionFragmentView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
@@ -19,8 +20,11 @@ public class TestpaperRankView extends LinearLayout {
     private Context con;
     public TryCatchJO tcjo_info;
 
-    private LinearLayout ll_testpaper_rank_myrank;
-    private LinearLayout ll_testpaper_rank_ranks;
+    private ListView lv_testpaper_rank_myrank;
+    private ListView lv_testpaper_rank_ranks;
+
+    private TestpaperRankAdapter tra_myrank;
+    private TestpaperRankAdapter tra_ranks;
 
     public int qid = 0;
 
@@ -35,11 +39,16 @@ public class TestpaperRankView extends LinearLayout {
         inflate(getContext(), R.layout.view_testpaper_rank, this);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
-        ll_testpaper_rank_myrank = (LinearLayout)findViewById(R.id.ll_testpaper_rank_myrank);
-        ll_testpaper_rank_ranks = (LinearLayout)findViewById(R.id.ll_testpaper_rank_ranks);
+        lv_testpaper_rank_myrank = (ListView)findViewById(R.id.lv_testpaper_rank_myrank);
+        lv_testpaper_rank_ranks = (ListView)findViewById(R.id.lv_testpaper_rank_ranks);
 
         setTag(R.string.tag_main_title, "");
         setTag(R.string.tag_main_subtitle, "");
+
+        tra_myrank = new TestpaperRankAdapter(true);
+        lv_testpaper_rank_myrank.setAdapter(tra_myrank);
+        tra_ranks = new TestpaperRankAdapter(false);
+        lv_testpaper_rank_ranks.setAdapter(tra_ranks);
 
         new TestpaperRankTask().execute(null, null, null);
     }
@@ -73,10 +82,14 @@ public class TestpaperRankView extends LinearLayout {
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ll_testpaper_rank_myrank.addView(new TestpaperRankListView(con, jo_myrank, true), 0);
+                        try{
+                            tra_myrank.add(new TryCatchJO(jo_myrank));
+                        }catch (Exception e){
+
+                        }
                         for (int i = 0; i < jo_ranks.length(); i++) {
                             try {
-                                ll_testpaper_rank_ranks.addView(new TestpaperRankListView(con, jo_ranks.getJSONObject(i), false));
+                                tra_ranks.add(new TryCatchJO(jo_ranks.getJSONObject(i)));
                             }catch(Exception e){
                                 e.printStackTrace();
                             }
@@ -87,7 +100,6 @@ public class TestpaperRankView extends LinearLayout {
                 });
                 return;
             }
-            ll_testpaper_rank_myrank.addView(new TestpaperRankListView(con, null, true), 0);
             MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             return;
         }
