@@ -17,6 +17,8 @@
     <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
     <string name="ic_main_menudrawer_list_search">&#xe63b;</string>
 
+    <string name="ic_main_mypage_picicon">&#xe72c;</string>
+
     <string name="ic_question_fragment_up">&#xe6fc;</string>
     <string name="ic_question_fragment_down">&#xe6fd;</string>
     <string name="ic_question_fragment_save">&#xe656;</string>

@@ -12,6 +12,7 @@ import net.sevenoclock.mobile.settings.Values;
 public class MenudrawerView extends LinearLayout {
     private Context con;
 
+    private LinearLayout ll_main_menudrawer_profile;
     private ImageView iv_main_menudrawer_profilepic;
     private FontTextView tv_main_menudrawer_username;
     private FontTextView tv_main_menudrawer_schoolname;
@@ -31,6 +32,7 @@ public class MenudrawerView extends LinearLayout {
         inflate(getContext(), R.layout.view_main_menudrawer, this);
         setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
+        ll_main_menudrawer_profile = (LinearLayout)findViewById(R.id.ll_main_menudrawer_profile);
         iv_main_menudrawer_profilepic = (ImageView)findViewById(R.id.iv_main_menudrawer_profilepic);
         tv_main_menudrawer_username = (FontTextView)findViewById(R.id.tv_main_menudrawer_username);
         tv_main_menudrawer_schoolname = (FontTextView)findViewById(R.id.tv_main_menudrawer_schoolname);
@@ -40,6 +42,7 @@ public class MenudrawerView extends LinearLayout {
         ll_main_menudrawer_tablist_setting = (LinearLayout)findViewById(R.id.ll_main_menudrawer_tablist_setting);
         ll_main_menudrawer_tablist_logout = (LinearLayout)findViewById(R.id.ll_main_menudrawer_tablist_logout);
 
+        ll_main_menudrawer_profile.setOnClickListener((OnClickListener)con);
         ll_main_menudrawer_tablist_setting.setOnClickListener((OnClickListener)con);
         ll_main_menudrawer_tablist_logout.setOnClickListener((OnClickListener)con);
 
