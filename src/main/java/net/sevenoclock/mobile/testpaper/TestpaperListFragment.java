@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
@@ -21,8 +24,10 @@ public class TestpaperListFragment extends Fragment {
 
     private Context con;
 
-    private LinearLayout ll_testpaper_list_left;
-    private LinearLayout ll_testpaper_list_right;
+    private TestpaperListAdapter tla;
+    private GridView gv_testpaper_list_grid;
+
+    private JSONArray ja_book;
 
     Values values;
 
@@ -33,11 +38,22 @@ public class TestpaperListFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_testpaper_list, container, false);
 
-        ll_testpaper_list_left = (LinearLayout)v.findViewById(R.id.ll_testpaper_list_left);
-        ll_testpaper_list_right = (LinearLayout)v.findViewById(R.id.ll_testpaper_list_right);
+        gv_testpaper_list_grid = (GridView) v.findViewById(R.id.gv_testpaper_list_grid);
 
         MainActivity.setTitle("출제문제지");
         MainActivity.setSubtitle( "총 0개의 문제지가 있습니다.");
+
+        tla = new TestpaperListAdapter();
+        gv_testpaper_list_grid.setAdapter(tla);
+        gv_testpaper_list_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                try {
+                    Functions.history_go(con, new TestpaperQuestionListFragment().newInstance(new TryCatchJO(ja_book.getJSONObject(position))));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         new AddBookTask().execute(null, null, null);
 
@@ -50,13 +66,12 @@ public class TestpaperListFragment extends Fragment {
     }
 
     public void reflesh(){
-        ll_testpaper_list_left.removeAllViews();
-        ll_testpaper_list_right.removeAllViews();
+        tla.reflesh();
+        tla.notifyDataSetChanged();
         new AddBookTask().execute(null, null, null);
     }
 
     class AddBookTask extends AsyncTask<Void, Void, Boolean> {
-        JSONArray ja_book;
 
         @Override
         protected void onPreExecute() {
@@ -76,28 +91,10 @@ public class TestpaperListFragment extends Fragment {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_book.length(); i++) {
-                            TestpaperBookView tbv = null;
                             try {
-                                TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
-                                tbv = new TestpaperBookView(con, tcjo);
+                                tla.add(new TryCatchJO(ja_book.getJSONObject(i)));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                            }
-
-                            if (tbv != null) {
-                                int count_left = ll_testpaper_list_left.getChildCount();
-                                int count_right = ll_testpaper_list_right.getChildCount();
-
-                                if (count_left > count_right) ll_testpaper_list_right.addView(tbv);
-                                else ll_testpaper_list_left.addView(tbv);
-
-                                tbv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new TestpaperQuestionListFragment().newInstance(((TestpaperBookView)v).tcjo));
-                                    }
-                                });
-
                             }
                         }
 
