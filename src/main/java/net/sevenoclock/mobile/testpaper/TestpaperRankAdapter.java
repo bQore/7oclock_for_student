@@ -98,9 +98,10 @@ public class TestpaperRankAdapter extends BaseAdapter {
         else values.aq.id(iv_testpaper_rank_list_pic).image(Functions.DOMAIN + m_List.get(pos).get("src", ""), options);
         tv_testpaper_rank_list_name.setText(m_List.get(pos).get("username", ""));
 
-        if (tv_testpaper_rank_list_index.getText().equals("0")) {
+        if (m_List.get(pos).get("rank", 0) == 0) {
             setNull();
-        }else if (tv_testpaper_rank_list_index.getText().equals("1")) {
+            return convertView;
+        }else if (m_List.get(pos).get("rank", 0) == 1) {
             tv_testpaper_rank_list_index.setBackgroundColor(Color.parseColor("#f1c40f"));
             iv_testpaper_rank_list_crown.setVisibility(View.VISIBLE);
         }else{

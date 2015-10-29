@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:focusableInTouchMode="true" >
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" android:background="@drawable/ll_main_view_box"
+                    android:padding="20dp">
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이름" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_info_name" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="이름" android:layout_marginBottom="15dp" android:inputType="textPersonName"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이메일" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_info_email" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="이메일" android:layout_marginBottom="15dp" android:inputType="textEmailAddress"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="연락처" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_info_phone" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="연락처" android:layout_marginBottom="15dp" android:inputType="textPhonetic"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성별" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <RadioGroup
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal"
+                        android:layout_marginBottom="15dp" android:id="@+id/rg_mypage_info_gender">
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="남자"
+                            android:id="@+id/rb_mypage_info_gender_0"
+                            android:layout_marginRight="20dp" android:checked="true"/>
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="여자"
+                            android:id="@+id/rb_mypage_info_gender_1"/>
+                </RadioGroup>
+
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="변경하기"
+                        android:id="@+id/btn_mypage_info_submit" android:textColor="#FFF" android:background="#2ecc71"
+                        android:textSize="16sp" android:visibility="visible"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

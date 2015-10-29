@@ -136,7 +136,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                 return;
             }
             ll_home_landing_loading.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
             return;
         }
     }

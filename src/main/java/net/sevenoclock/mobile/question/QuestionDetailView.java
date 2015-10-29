@@ -79,12 +79,12 @@ public class QuestionDetailView extends Fragment {
                             Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
                             values.aq.id(iv_question_detail_img).image(buttonImages);
                         } else {
-                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
             }catch (Exception e){
-                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
             }
         } else if(MainActivity.app_width<800){
             values.aq.id(iv_question_detail_img).image(Functions.DOMAIN + getArguments().getString("url"));

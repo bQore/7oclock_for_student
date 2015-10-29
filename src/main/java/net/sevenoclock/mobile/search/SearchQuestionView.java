@@ -44,7 +44,7 @@ public class SearchQuestionView extends LinearLayout {
                         Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
                         valeus.aq.id(iv_search_question_list_question_img).image(buttonImages);
                     } else {
-                        Toast.makeText(getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                     }
                 }
             });

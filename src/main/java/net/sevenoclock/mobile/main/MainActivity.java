@@ -12,7 +12,6 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,6 +19,7 @@ import android.widget.LinearLayout;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import net.sevenoclock.mobile.Mypage.MypageMainView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public static ActionbarDefaultView view_actionbar_default;
     public static ActionbarSearchView view_actionbar_search;
-    public static MainMypageView view_main_mypage;
+    public static MypageMainView view_main_mypage;
     public static TestpaperListView view_testpaper_list;
     public static InventoryListView view_inventory_list;
     public static SearchFragmentView view_search_fragment;
@@ -86,7 +86,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         view_actionbar_default = new ActionbarDefaultView(this);
         view_actionbar_search = new ActionbarSearchView(this);
-        view_main_mypage = new MainMypageView(this);
+        view_main_mypage = new MypageMainView(this);
         view_testpaper_list = new TestpaperListView(this);
         view_inventory_list = new InventoryListView(this);
         view_search_fragment = new SearchFragmentView(this,0,Functions.GET("get_question_unit"), 0, values.user_info.get("school_name",""));
@@ -189,7 +189,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Vibe.vibrate(30);
 
             switch (v.getId()){
-                case R.id.fl_main_mypage_upload:
+                case R.id.fl_mypage_main_upload:
                     Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                     photoPickerIntent.setType("image/*");
                     startActivityForResult(photoPickerIntent, 100);

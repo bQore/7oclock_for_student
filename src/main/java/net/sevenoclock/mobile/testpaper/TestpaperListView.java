@@ -98,7 +98,7 @@ public class TestpaperListView extends LinearLayout {
                     }
                 });
             }else{
-                Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                 MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             }
             return;

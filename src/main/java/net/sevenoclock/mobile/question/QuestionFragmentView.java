@@ -128,11 +128,11 @@ public class QuestionFragmentView extends LinearLayout {
 
     private void setSaveBtn(boolean is_clicked){
         if (tcjo_save.get("question",0) == 0){
-            if(is_clicked) Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_SHORT).show();
+            if(is_clicked) Toast.makeText(con, "저장 취소되었습니다.", Toast.LENGTH_LONG).show();
             setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, false);
             return;
         }
-        if(is_clicked) Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+        if(is_clicked) Toast.makeText(con, "저장되었습니다.", Toast.LENGTH_LONG).show();
         setFeedbackFont(itv_question_fragment_save, ftv_question_fragment_save, true);
         return;
     }
