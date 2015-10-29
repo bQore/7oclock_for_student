@@ -68,11 +68,11 @@ public class TestpaperInputFormView extends LinearLayout {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    TestpaperInputQuickView.et_focused = et_answer;
-                    TestpaperInputQuickView.ll_testpaper_input_quick_btns.setVisibility(View.VISIBLE);
+                    TestpaperInputQuickFragment.et_focused = et_answer;
+                    TestpaperInputQuickFragment.ll_testpaper_input_quick_btns.setVisibility(View.VISIBLE);
                 } else {
-                    TestpaperInputQuickView.et_focused = null;
-                    TestpaperInputQuickView.ll_testpaper_input_quick_btns.setVisibility(View.GONE);
+                    TestpaperInputQuickFragment.et_focused = null;
+                    TestpaperInputQuickFragment.ll_testpaper_input_quick_btns.setVisibility(View.GONE);
                 }
 
             }

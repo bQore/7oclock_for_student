@@ -1,4 +1,4 @@
-package net.sevenoclock.mobile.question;
+package net.sevenoclock.mobile.customobj;
 
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.PageIndicator;
