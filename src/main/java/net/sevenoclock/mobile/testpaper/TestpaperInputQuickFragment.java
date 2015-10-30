@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +34,14 @@ public class TestpaperInputQuickFragment extends Fragment {
     private TryCatchJO tcjo_info;
 
     public static LinearLayout ll_testpaper_input_quick_btns;
-    private LinearLayout ll_testpaper_input_quick_forms;
+    private ListView lv_testpaper_input_quick_list;
     private Button btn_testpaper_input_quick_submit;
+
+    private TestpaperInputResultQuickAdapter trqa;
 
     public static EditText et_focused = null;
 
     TestpaperInputFormView[] tafv;
-    TestpaperInputResultQuickView[] trqv;
 
     private InputMethodManager imm;
     Values values;
@@ -68,8 +70,11 @@ public class TestpaperInputQuickFragment extends Fragment {
         MainActivity.setSubtitle(tcjo_info.get("title", ""));
 
         ll_testpaper_input_quick_btns = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns);
-        ll_testpaper_input_quick_forms = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_forms);
+        lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
         btn_testpaper_input_quick_submit = (Button) v.findViewById(R.id.btn_testpaper_input_quick_submit);
+
+        trqa = new TestpaperInputResultQuickAdapter();
+        lv_testpaper_input_quick_list.setAdapter(trqa);
 
         imm = (InputMethodManager)con.getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -167,7 +172,7 @@ public class TestpaperInputQuickFragment extends Fragment {
     }
 
     public void reflesh(){
-        if(ll_testpaper_input_quick_forms.getChildCount() > 0) ll_testpaper_input_quick_forms.removeAllViews();
+        trqa.reflesh();
         new TestpaperSubmitTask().execute(null, null, null);
     }
 
@@ -203,18 +208,9 @@ public class TestpaperInputQuickFragment extends Fragment {
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        trqv = new TestpaperInputResultQuickView[ja_submit.length()];
                         for (int i = 0; i < ja_submit.length(); i++) {
                             try {
-                                TryCatchJO tcjo_question = new TryCatchJO(ja_submit.getJSONObject(i));
-                                trqv[i] = new TestpaperInputResultQuickView(con, i, tcjo_question);
-                                trqv[i].setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperInputResultQuickView) v).tcjo_info));
-                                    }
-                                });
-                                ll_testpaper_input_quick_forms.addView(trqv[i]);
+                                trqa.add(new TryCatchJO(ja_submit.getJSONObject(i)));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -254,9 +250,7 @@ public class TestpaperInputQuickFragment extends Fragment {
                         tafv = new TestpaperInputFormView[ja_question.length()];
                         for (int i = 0; i < ja_question.length(); i++) {
                             try{
-                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
-                                tafv[i] = new TestpaperInputFormView(con,i,tcjo_question);
-                                ll_testpaper_input_quick_forms.addView(tafv[i]);
+                                trqa.add(new TryCatchJO(ja_question.getJSONObject(i)));
                             }catch (Exception e){
                                 e.printStackTrace();
                             }

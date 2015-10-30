@@ -23,7 +23,8 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" android:layout_margin="10dp"
-                        android:background="@drawable/ll_testpaper_question_list_box">
+                        android:background="@drawable/ll_testpaper_question_list_box"
+                        android:gravity="center_horizontal">
                     <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
@@ -79,6 +80,10 @@
                                 android:paddingRight="7dp">
                         </LinearLayout>
                     </LinearLayout>
+                    <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pb_testpaper_question_list_loading" android:visibility="gone"/>
                 </LinearLayout>
 
             </LinearLayout>

@@ -53,7 +53,7 @@ public class TestpaperAnswerQuickFragment extends Fragment {
         MainActivity.setSubtitle("");
 
         ll_testpaper_input_quick_btns = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns);
-        ll_testpaper_input_quick_forms = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_forms);
+        //ll_testpaper_input_quick_forms = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_forms);
 
         MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
         Handler handler = new Handler();

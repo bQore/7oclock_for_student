@@ -4,37 +4,33 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView4" android:layout_weight="1">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:background="@drawable/ll_main_view_box"
+            android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:id="@+id/ll_testpaper_input_quick_list">
-            <LinearLayout
-                    android:orientation="vertical"
+                android:layout_height="fill_parent"
+                android:background="@drawable/ll_main_view_box"
+                android:layout_weight="1">
+            <ListView
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" android:background="@drawable/ll_main_view_box"
-                    android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
-
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" android:id="@+id/ll_testpaper_input_quick_forms"
-                        android:background="@drawable/ll_testpaper_input_form_bg" android:layout_margin="10dp"
-                        android:padding="1dp">
-                </LinearLayout>
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="제출하기"
-                        android:id="@+id/btn_testpaper_input_quick_submit" android:textColor="#FFF" android:background="#2ecc71"
-                        android:textSize="16sp" android:layout_marginBottom="10dp" android:visibility="gone"/>
-
-            </LinearLayout>
+                    android:layout_height="fill_parent"
+                    android:id="@+id/lv_testpaper_input_quick_list"
+                    android:divider="#00000000" android:dividerHeight="0dp"/>
         </LinearLayout>
-    </ScrollView>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="제출하기"
+                android:id="@+id/btn_testpaper_input_quick_submit" android:textColor="#FFF" android:background="#2ecc71"
+                android:textSize="16sp" android:layout_marginBottom="10dp" android:visibility="gone"
+                android:layout_weight="0"/>
+
+    </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
