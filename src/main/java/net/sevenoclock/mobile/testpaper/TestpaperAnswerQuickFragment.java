@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
@@ -22,10 +24,9 @@ public class TestpaperAnswerQuickFragment extends Fragment {
     private Context con;
     private JSONArray ja_question;
 
-    public static LinearLayout ll_testpaper_input_quick_btns;
-    private LinearLayout ll_testpaper_input_quick_forms;
+    private ListView lv_testpaper_input_quick_list;
 
-    TestpaperAnswerResultQuickView[] tarqv;
+    TestpaperAnswerResultQuickAdapter tarq;
 
     Values values;
 
@@ -52,33 +53,27 @@ public class TestpaperAnswerQuickFragment extends Fragment {
         MainActivity.setTitle("빠른 정답 보기");
         MainActivity.setSubtitle("");
 
-        ll_testpaper_input_quick_btns = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns);
-        //ll_testpaper_input_quick_forms = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_forms);
+        lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
 
-        MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            public void run() {
-                tarqv = new TestpaperAnswerResultQuickView[ja_question.length()];
-                for (int i = 0; i < ja_question.length(); i++) {
-                    try {
-                        TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
-                        tarqv[i] = new TestpaperAnswerResultQuickView(con, i, tcjo_question);
-                        tarqv[i].setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperAnswerResultQuickView) v).tcjo_info));
-                            }
-                        });
-                        ll_testpaper_input_quick_forms.addView(tarqv[i]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        tarq = new TestpaperAnswerResultQuickAdapter();
+        lv_testpaper_input_quick_list.setAdapter(tarq);
+        lv_testpaper_input_quick_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                try {
+                    Functions.history_go(con, new QuestionPagerFragment().newInstance(new TryCatchJO(ja_question.getJSONObject(position))));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             }
-        };
-        handler.postDelayed(r, 1);
+        });
+
+        for (int i = 0; i < ja_question.length(); i++) {
+            try {
+                tarq.add(new TryCatchJO(ja_question.getJSONObject(i)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return v;
     }

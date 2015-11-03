@@ -35,6 +35,7 @@ public class TestpaperInputQuickFragment extends Fragment {
 
     public static LinearLayout ll_testpaper_input_quick_btns;
     private ListView lv_testpaper_input_quick_list;
+    private LinearLayout ll_testpaper_input_quick_list;
     private Button btn_testpaper_input_quick_submit;
 
     private TestpaperInputResultQuickAdapter trqa;
@@ -71,6 +72,7 @@ public class TestpaperInputQuickFragment extends Fragment {
 
         ll_testpaper_input_quick_btns = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns);
         lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
+        ll_testpaper_input_quick_list = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_list);
         btn_testpaper_input_quick_submit = (Button) v.findViewById(R.id.btn_testpaper_input_quick_submit);
 
         trqa = new TestpaperInputResultQuickAdapter();
@@ -173,6 +175,7 @@ public class TestpaperInputQuickFragment extends Fragment {
 
     public void reflesh(){
         trqa.reflesh();
+        if(ll_testpaper_input_quick_list.getChildCount() > 0) ll_testpaper_input_quick_list.removeAllViews();
         new TestpaperSubmitTask().execute(null, null, null);
     }
 
@@ -201,10 +204,21 @@ public class TestpaperInputQuickFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
+                lv_testpaper_input_quick_list.setVisibility(View.VISIBLE);
+                ll_testpaper_input_quick_list.setVisibility(View.GONE);
                 if(ja_submit.length() < 1) {
                     new TestpaperQuestionTask().execute(null, null, null);
                     return;
                 }
+                lv_testpaper_input_quick_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                        try {
+                            Functions.history_go(con, new QuestionPagerFragment().newInstance(new TryCatchJO(ja_submit.getJSONObject(position))));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -244,13 +258,17 @@ public class TestpaperInputQuickFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
+                lv_testpaper_input_quick_list.setVisibility(View.GONE);
+                ll_testpaper_input_quick_list.setVisibility(View.VISIBLE);
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         tafv = new TestpaperInputFormView[ja_question.length()];
                         for (int i = 0; i < ja_question.length(); i++) {
                             try{
-                                trqa.add(new TryCatchJO(ja_question.getJSONObject(i)));
+                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
+                                tafv[i] = new TestpaperInputFormView(con,i,tcjo_question);
+                                ll_testpaper_input_quick_list.addView(tafv[i]);
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
