@@ -6,8 +6,6 @@ import android.widget.LinearLayout;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
-import net.sevenoclock.mobile.question.QuestionFragmentView;
-import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +48,7 @@ public class MainSearchBoxListView extends LinearLayout {
                 public void onClick(View v) {
                     MainActivity.imm.hideSoftInputFromWindow(MainActivity.view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
                     MainActivity.actionBar.setCustomView(MainActivity.view_actionbar_default, MainActivity.actionbar_lp);
-                    Functions.history_go(con, new QuestionFragmentView(con,((MainSearchBoxListQuestionView)v).tcjo));
+                    //Functions.history_go(con, new QuestionPagerFragment(con,((MainSearchBoxListQuestionView)v).tcjo));
                 }
             });
             if(i == 0) ll_main_search_box_list_list_left.addView(msblqv);

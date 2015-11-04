@@ -19,7 +19,7 @@
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" android:background="@drawable/ll_main_menudrawer_profilebox"
-                    android:layout_weight="0">
+                    android:layout_weight="0" android:id="@+id/ll_main_menudrawer_profile">
                 <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -44,6 +44,13 @@
                             android:id="@+id/tv_main_menudrawer_schoolname" android:textSize="14sp"
                             android:textColor="#f39c12"/>
                 </LinearLayout>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=">"
+                        android:textSize="16sp" android:layout_weight="0" android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp" android:gravity="center_vertical|center_horizontal"
+                        android:textColor="#999999"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="vertical"
@@ -64,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center_vertical|center_horizontal"
                 android:paddingBottom="10dp" android:paddingTop="10dp"
-                android:background="@drawable/ll_main_menudrawer_tablist">
+                android:background="@drawable/ll_main_menudrawer_tablist" android:visibility="gone">
             <net.sevenoclock.mobile.customobj.IconTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +87,7 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="1dp"
-                android:layout_height="fill_parent" android:background="#DDDDDD">
+                android:layout_height="fill_parent" android:background="#DDDDDD" android:visibility="gone">
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/ll_main_menudrawer_tablist_logout"

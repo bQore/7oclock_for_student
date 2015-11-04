@@ -22,8 +22,8 @@ android {
         applicationId "net.sevenoclock.mobile"
         minSdkVersion 15
         targetSdkVersion 15
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.4"
     }
 
     compileOptions {

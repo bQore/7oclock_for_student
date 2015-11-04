@@ -39,7 +39,7 @@ public class ActionbarSearchView extends FrameLayout {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                     Vibe.vibrate(30);
-                    MainActivity.view_main_search.search(et_main_actionbar_search_form.getText().toString());
+                    MainActivity.fragment_main_search.search(et_main_actionbar_search_form.getText().toString());
                     return true;
                 }
                 return false;
@@ -51,7 +51,7 @@ public class ActionbarSearchView extends FrameLayout {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                MainActivity.view_main_search.search(et_main_actionbar_search_form.getText().toString());
+                MainActivity.fragment_main_search.search(et_main_actionbar_search_form.getText().toString());
             }
         });
     }

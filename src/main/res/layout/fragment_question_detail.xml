@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dp"
+                    android:background="@drawable/ll_main_view_box" android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal" android:weightSum="1" android:layout_marginBottom="10dp">
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_question_detail_img"
+                        android:scaleType="fitStart"
+                        android:baselineAlignBottom="false" android:clickable="false"
+                        android:focusableInTouchMode="false" android:longClickable="false"/>
+            </LinearLayout>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="오류신고하기"
+                    android:id="@+id/btn_question_detail_error" android:layout_gravity="left" android:textSize="12sp"
+                    android:layout_marginBottom="80dp" android:background="@drawable/ll_question_fragment_feedback_bg"
+                    android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:focusableInTouchMode="true" >
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" android:background="@drawable/ll_main_view_box"
+                    android:padding="20dp">
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="현재 비밀번호" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_pw_now" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="현재 비밀번호" android:layout_marginBottom="15dp"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="새 비밀번호" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_pw_new" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="새 비밀번호" android:layout_marginBottom="5dp"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/et_mypage_pw_new_" android:background="@drawable/et_home_signup_userinput"
+                        android:hint="새 비밀번호 확인" android:layout_marginBottom="15dp"/>
+
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="변경하기"
+                        android:id="@+id/btn_mypage_pw_submit" android:textColor="#FFF" android:background="#2ecc71"
+                        android:textSize="16sp" android:visibility="visible"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

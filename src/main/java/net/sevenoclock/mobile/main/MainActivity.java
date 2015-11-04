@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
@@ -14,16 +17,26 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
-import net.sevenoclock.mobile.inventory.InventoryListView;
-import net.sevenoclock.mobile.search.SearchFragmentView;
+import net.sevenoclock.mobile.inventory.InventoryListFragment;
+import net.sevenoclock.mobile.mypage.MypageMainFragment;
+import net.sevenoclock.mobile.search.SearchPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import net.sevenoclock.mobile.testpaper.TestpaperListView;
+import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -41,10 +54,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public static ActionbarDefaultView view_actionbar_default;
     public static ActionbarSearchView view_actionbar_search;
-    public static TestpaperListView view_testpaper_list;
-    public static InventoryListView view_inventory_list;
-    public static SearchFragmentView view_search_fragment;
-    public static MainSearchView view_main_search;
+    public static MainSearchFragment fragment_main_search;
 
     Values values;
     public static InputMethodManager imm;
@@ -75,12 +85,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         view_actionbar_default = new ActionbarDefaultView(this);
         view_actionbar_search = new ActionbarSearchView(this);
-        view_testpaper_list = new TestpaperListView(this);
-        view_inventory_list = new InventoryListView(this);
-        view_search_fragment = new SearchFragmentView(this,0,Functions.GET("get_question_unit"), 0, values.user_info.get("school_name",""));
-        view_main_search = new MainSearchView(this);
+        fragment_main_search = new MainSearchFragment().newInstance();
 
-        Functions.history_set_home(this, view_testpaper_list);
+        Functions.history_set_home(this, new TestpaperListFragment().newInstance());
     }
 
     private void setActionBar(){
@@ -108,6 +115,51 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         menuDrawer.setDropShadowEnabled(false);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case 100:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+
+                    HashMap<String, Object> params = new HashMap<String, Object>();
+
+                    InputStream iStream = null;
+                    try {
+                        iStream = getContentResolver().openInputStream(selectedImage);
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        opts.inPurgeable = true;
+                        Bitmap profilepic = BitmapFactory.decodeStream(iStream, null, opts);
+                        profilepic = Functions.getResizedBitmap(profilepic, 256, 256);
+                        params.put("picture", bitmapToByteArray(profilepic));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    values.aq.ajax(Functions.DOMAIN+"/mobile/?mode=set_user_profilepic&uid=" + values.user_id, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                        @Override
+                        public void callback(String url, JSONObject object,AjaxStatus status) {
+                            values.user_info = null;
+                            values.user_id = 0;
+                            startActivity(new Intent(MainActivity.this, LoadingActivity.class));
+                            MainActivity.this.finish();
+                        }
+                    });
+                }
+        }
+    }
+
+    public byte[] bitmapToByteArray( Bitmap $bitmap ) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
+        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
+        byte[] byteArray = stream.toByteArray() ;
+        return byteArray ;
+    }
+
     public static void setTitle(String str){
         MainActivity.tv_main_main_title.setText(str);
     }
@@ -122,10 +174,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
                 Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-                view_inventory_list.reflesh();
-                Functions.history_go(this, view_inventory_list);
+                Functions.history_go(this, new InventoryListFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
-                Functions.history_go(this, view_search_fragment);
+                Functions.history_go(this, new SearchPagerFragment().newInstance(Functions.GET("get_question_unit"), 0, 0, values.user_info.get("school_name","")));
             }
             menuDrawer.closeMenu();
         }else{
@@ -133,10 +184,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Vibe.vibrate(30);
 
             switch (v.getId()){
+                case R.id.fl_mypage_main_upload:
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    photoPickerIntent.setType("image/*");
+                    startActivityForResult(photoPickerIntent, 100);
+                    break;
                 case R.id.tv_main_actionbar_searchbtn:
                     actionBar.setCustomView(view_actionbar_search, actionbar_lp);
-                    view_main_search.reset();
-                    Functions.history_go(this, view_main_search);
+                    fragment_main_search.reset();
+                    Functions.history_go(this, fragment_main_search);
                     view_actionbar_search.et_main_actionbar_search_form.setText("");
                     view_actionbar_search.et_main_actionbar_search_form.requestFocus();
                     imm.showSoftInput(view_actionbar_search.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
@@ -145,6 +201,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     Functions.history_back(this);
                     imm.hideSoftInputFromWindow(view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
                     actionBar.setCustomView(view_actionbar_default, actionbar_lp);
+                    break;
+                case R.id.ll_main_menudrawer_profile:
+                    menuDrawer.closeMenu();
+                    Functions.history_go(this, new MypageMainFragment().newInstance());
                     break;
                 case R.id.ll_main_menudrawer_tablist_setting:
                     break;

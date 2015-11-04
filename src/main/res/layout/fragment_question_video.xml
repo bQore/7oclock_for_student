@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="5dp" android:layout_marginBottom="10dp"
+            android:background="@drawable/ll_main_view_box" android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal" >
+        <FrameLayout
+                android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+                android:id="@+id/fl_question_video_fragment"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:background="#00000000"
+                android:id="@+id/ll_question_video_fullscreen">
+            <net.sevenoclock.mobile.customobj.IconTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#ff1ce7a0" android:textSize="80sp" android:text="@string/ic_question_video_play"/>
+        </LinearLayout>
+    </FrameLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오류신고하기"
+            android:id="@+id/btn_question_detail_error" android:layout_gravity="left" android:textSize="12sp"
+            android:layout_marginBottom="80dp" android:background="@drawable/ll_question_fragment_feedback_bg"
+            android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+</LinearLayout>

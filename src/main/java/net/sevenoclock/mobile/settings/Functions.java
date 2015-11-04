@@ -8,13 +8,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.os.Vibrator;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.inventory.InventoryQuestionListView;
-import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.testpaper.TestpaperListView;
-import net.sevenoclock.mobile.testpaper.TestpaperQuestionListView;
+import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
+import net.sevenoclock.mobile.testpaper.TestpaperQuestionListFragment;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -30,20 +30,17 @@ import java.net.URL;
 public class Functions {
 
     public static final String YOUTUBE_KEY = "AIzaSyA5ajaURV7840WCtQsHMFUKZFsR1kLMA2A";
-    public static final String DOMAIN = "http://storm1113.cafe24.com";
+    public static final String DOMAIN = "http://yan3140.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
     private static Values values;
 
-    public static void history_go(Context con, View v){
+    public static void history_go(Context con, Fragment fragment){
         try{
             Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            values.view_history.add(v);
-            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
-            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
-            MainActivity.ll_main_main_mainview.removeAllViews();
-            MainActivity.ll_main_main_mainview.addView(values.view_history.get(values.view_history.size()-1));
+            values.fragment_history.add(fragment);
+            fragmentReplace(con, fragment);
         }catch (Exception e){
             Log.i("history_go_Error",e.getMessage());
         }
@@ -53,29 +50,23 @@ public class Functions {
         try{
             Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            TestpaperListView home = (TestpaperListView)values.view_history.get(0);
+            TestpaperListFragment home = (TestpaperListFragment)values.fragment_history.get(0);
             home.reflesh();
-            values.view_history.clear();
-            values.view_history.add(home);
-            MainActivity.tv_main_main_title.setText(home.getTag(R.string.tag_main_title).toString());
-            MainActivity.tv_main_main_subtitle.setText(home.getTag(R.string.tag_main_subtitle).toString());
-            MainActivity.ll_main_main_mainview.removeAllViews();
-            MainActivity.ll_main_main_mainview.addView(values.view_history.get(0));
+            values.fragment_history.clear();
+            values.fragment_history.add(home);
+            fragmentReplace(con, home);
         }catch (Exception e){
             Log.i("history_go_home_Error",e.getMessage());
         }
     }
 
-    public static void history_set_home(Context con, View v){
+    public static void history_set_home(Context con, Fragment fragment){
         try{
             values = (Values)con.getApplicationContext();
             Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
-            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
-            values.view_history.add(0, v);
-            MainActivity.ll_main_main_mainview.removeAllViews();
-            MainActivity.ll_main_main_mainview.addView(v);
+            values.fragment_history.add(0, fragment);
+            fragmentReplace(con, fragment);
         }catch (Exception e){
             Log.i("history_set_home_Error",e.getMessage());
         }
@@ -91,32 +82,36 @@ public class Functions {
                 Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
             }
-            values.view_history.remove(values.view_history.size() - 1);
-            View v = values.view_history.get(values.view_history.size() - 1);
-            if(v.getRootView().getClass().getName().endsWith("InventoryQuestionListView")){
-                InventoryQuestionListView lqlv = (InventoryQuestionListView)v;
-                lqlv.reflesh();
-            }
-            if(v.getRootView().getClass().getName().endsWith("TestpaperQuestionListView")){
-                TestpaperQuestionListView tqlv = (TestpaperQuestionListView)v;
-                tqlv.reflesh();
-            }
-            MainActivity.tv_main_main_title.setText(v.getTag(R.string.tag_main_title).toString());
-            MainActivity.tv_main_main_subtitle.setText(v.getTag(R.string.tag_main_subtitle).toString());
-            MainActivity.ll_main_main_mainview.removeAllViews();
-            MainActivity.ll_main_main_mainview.addView(v);
+            values.fragment_history.remove(values.fragment_history.size() - 1);
+            Fragment fragment = values.fragment_history.get(values.fragment_history.size() - 1);
+//            if(fragment.getView().getRootView().getClass().getName().endsWith("InventoryQuestionListFragment")){
+//                InventoryQuestionListFragment lqlv = (InventoryQuestionListFragment)fragment;
+//                lqlv.reflesh();
+//            }
+//            if(fragment.getView().getRootView().getClass().getName().endsWith("TestpaperQuestionListFragment")){
+//                TestpaperQuestionListFragment tqlv = (TestpaperQuestionListFragment)fragment;
+//                tqlv.reflesh();
+//            }
+            fragmentReplace(con, fragment);
         }catch (Exception e){
             Log.i("history_back_Error",e.getMessage());
         }
     }
 
     public static int history_length(){
-        return values.view_history.size();
+        return values.fragment_history.size();
     }
 
-    public static Bitmap borderRadius(String src, int pixels) {
+    public static void fragmentReplace(Context con, Fragment newFragment) {
+        FragmentActivity activity = (FragmentActivity)con;
+        final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ll_main_main_mainview, newFragment);
+        transaction.commit();
+    }
 
-        Bitmap bitmap = getBitmapFromURL(src);
+    public static Bitmap borderRadius(String src, int pixels) { return borderRadius(getBitmapFromURL(src), pixels); }
+
+    public static Bitmap borderRadius(Bitmap bitmap, int pixels) {
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);
@@ -156,6 +151,20 @@ public class Functions {
         }finally{
             if(connection!=null)connection.disconnect();
         }
+    }
+
+    public static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap;
     }
 
     public static JSONArray GET(String var){
@@ -211,8 +220,9 @@ public class Functions {
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인
         ConnectivityManager connect = (ConnectivityManager)con.getSystemService(con.CONNECTIVITY_SERVICE);
-        if (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED ) {
+        if (connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+            return true;
+        }else if (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
             return true;
         } else {
             return false;

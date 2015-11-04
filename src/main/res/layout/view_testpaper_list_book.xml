@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" android:background="#FFFFFF">
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:background="@drawable/ll_testpaper_list_book"
             android:minHeight="150dp"
-            android:layout_margin="7dp" android:gravity="center_horizontal" android:paddingTop="40dp"
-            android:paddingLeft="10dp" android:paddingRight="10dp">
+            android:gravity="center_horizontal" android:paddingTop="40dp"
+            android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_margin="5dp">
         <net.sevenoclock.mobile.customobj.FontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,6 +24,12 @@
                 android:layout_height="wrap_content"
                 android:text="2015.01.01"
                 android:id="@+id/tv_testpaper_list_book_date" android:textColor="#ffffff" android:layout_marginTop="7dp"
+                android:textSize="12sp" android:gravity="center_vertical|center_horizontal"/>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/tv_testpaper_list_book_purpose" android:textColor="#ffffff" android:layout_marginTop="7dp"
                 android:textSize="12sp" android:gravity="center_vertical|center_horizontal"/>
     </LinearLayout>
 </LinearLayout>

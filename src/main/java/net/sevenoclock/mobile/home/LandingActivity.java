@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -22,6 +24,8 @@ import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 
+import java.util.List;
+
 public class LandingActivity extends Activity implements View.OnClickListener {
 
     static Context context;
@@ -30,6 +34,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
     private EditText et_home_landing_userpw;
     private Button btn_home_landing_login;
     private LinearLayout ll_home_landing_signup;
+    private LinearLayout ll_home_landing_email;
     private LinearLayout ll_home_landing_loading;
 
     Values values;
@@ -47,10 +52,12 @@ public class LandingActivity extends Activity implements View.OnClickListener {
         et_home_landing_userpw = (EditText) findViewById(R.id.et_home_landing_userpw);
         btn_home_landing_login = (Button) findViewById(R.id.btn_home_landing_login);
         ll_home_landing_signup = (LinearLayout) findViewById(R.id.ll_home_landing_signup);
+        ll_home_landing_email= (LinearLayout) findViewById(R.id.ll_home_landing_email);
         ll_home_landing_loading = (LinearLayout) findViewById(R.id.ll_home_landing_loading);
 
         btn_home_landing_login.setOnClickListener((View.OnClickListener) this);
         ll_home_landing_signup.setOnClickListener((View.OnClickListener) this);
+        ll_home_landing_email.setOnClickListener((View.OnClickListener) this);
 
         ll_home_landing_loading.setVisibility(View.GONE);
     }
@@ -67,6 +74,22 @@ public class LandingActivity extends Activity implements View.OnClickListener {
             case R.id.ll_home_landing_signup:
                 Intent intent = new Intent(this, SignupActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_home_landing_email:
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com","storm0812@hanmail.net","tellme0218@naver.com"});
+                email.putExtra(Intent.EXTRA_SUBJECT, "[모두를위한수학]회원정보를 찾습니다!");
+                email.putExtra(Intent.EXTRA_TEXT, "제목 : 회원정보를 찾습니다!\n\n내용 : ");
+                email.setType("text/plain");
+                final PackageManager pm = getPackageManager();
+                final List<ResolveInfo> matches = pm.queryIntentActivities(email, 0);
+                ResolveInfo best = null;
+                for(final ResolveInfo info : matches)
+                    if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                        best = info;
+                if (best != null)
+                    email.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                startActivity(email);
                 break;
         }
     }
@@ -113,7 +136,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                 return;
             }
             ll_home_landing_loading.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
             return;
         }
     }

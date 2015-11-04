@@ -81,13 +81,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp" android:layout_marginBottom="30dp">
+                    android:gravity="center_horizontal">
 
                 <net.sevenoclock.mobile.customobj.FontTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="아직 회원이 아니십니까?"
+                        android:text="아직 회원이 아니세요?"
                         android:textColor="#111"
                         android:textSize="15sp"/>
 
@@ -97,6 +96,31 @@
                         android:layout_marginLeft="5dp"
 
                         android:text="가입하기"
+                        android:background="@android:color/transparent"
+                        android:textColor="#111"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/ll_home_landing_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal" android:layout_marginBottom="30dp">
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="회원정보를 잊어버리셨나요?"
+                        android:textColor="#111"
+                        android:textSize="15sp"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+
+                        android:text="회원정보 찾기"
                         android:background="@android:color/transparent"
                         android:textColor="#111"
                         android:textSize="17sp"
