@@ -25,8 +25,8 @@ public class TestpaperQuestionView extends LinearLayout {
         super(context);
         try{
             tcjo = jo;
-            final Values valeus = (Values)context.getApplicationContext();
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, valeus.book_height * 2 - 100);
+            final Values values = (Values)context.getApplicationContext();
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, values.book_height * 2 - 100);
             lp.setMargins(7, 7, 7, 7);
             setLayoutParams(lp);
             setOrientation(VERTICAL);
@@ -41,14 +41,14 @@ public class TestpaperQuestionView extends LinearLayout {
             iv_testpaper_question_list_question_img.setScaleType(ImageView.ScaleType.FIT_START);
             iv_testpaper_question_list_question_img.setBackgroundResource(R.drawable.ll_testpaper_question_list_question);
 
-            valeus.aq.ajax(Functions.DOMAIN + tcjo.get("src", ""), File.class, new AjaxCallback<File>() {
+            values.aq.ajax(Functions.DOMAIN + tcjo.get("src", ""), File.class, new AjaxCallback<File>() {
                 public void callback(String url, File file, AjaxStatus status) {
                     if (file != null) {
                         BitmapFactory.Options opts = new BitmapFactory.Options();
                         opts.inSampleSize = 2;
                         opts.inPurgeable = true;
                         Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                        valeus.aq.id(iv_testpaper_question_list_question_img).image(buttonImages);
+                        values.aq.id(iv_testpaper_question_list_question_img).image(buttonImages);
                     } else {
                         Toast.makeText(getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,7 +111,7 @@ public class TestpaperInputFormView extends LinearLayout {
             btn_lp.setMargins(0,0,5,0);
             btn[i].setLayoutParams(btn_lp);
             btn[i].setTextColor(Color.parseColor("#666666"));
-            btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+            btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
             btn[i].setText("" + (i + 1));
             btn[i].setTag(false);
             ll_testpaper_input_form_view.addView(btn[i]);
@@ -123,20 +122,20 @@ public class TestpaperInputFormView extends LinearLayout {
                     Button this_btn = ((Button)v);
                     if(answer_len < 2){
                         for(int i=0; i<items; i++){
-                            btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             btn[i].setTextColor(Color.parseColor("#666666"));
                         }
-                        this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                        this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                         this_btn.setTextColor(Color.parseColor("#c0392b"));
                         answer = this_btn.getText().toString();
                     }else{
                         if(this_btn.getTag().equals(false)){
-                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                            this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                             this_btn.setTextColor(Color.parseColor("#c0392b"));
                             answer += ","+this_btn.getText().toString();
                             this_btn.setTag(true);
                         }else{
-                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             this_btn.setTextColor(Color.parseColor("#666666"));
                             answer = answer.replace(this_btn.getText().toString(),"");
                             this_btn.setTag(false);

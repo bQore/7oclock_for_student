@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,7 +159,7 @@ public class TestpaperInputQuickFragment extends Fragment {
     private Button NewBtn(String str){
         Button btn = new Button(con);
         btn.setText(str);
-        btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+        btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
         LinearLayout.LayoutParams layout_113 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layout_113.rightMargin = 5;
         btn.setLayoutParams(layout_113);

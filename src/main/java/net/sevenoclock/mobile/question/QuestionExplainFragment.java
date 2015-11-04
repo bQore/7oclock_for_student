@@ -41,7 +41,7 @@ public class QuestionExplainFragment extends Fragment {
 
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
 
-        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_detail_error);
+        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_text_error);
         btn_question_detail_error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

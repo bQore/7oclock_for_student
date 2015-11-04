@@ -27,9 +27,9 @@ import net.sevenoclock.mobile.settings.Values;
 import java.io.File;
 import java.util.List;
 
-public class QuestionDetailFragment extends Fragment {
+public class QuestionTextFragment extends Fragment {
 
-    private ImageView iv_question_detail_img;
+    private ImageView iv_question_text_img;
 
     private Values values;
 
@@ -37,26 +37,26 @@ public class QuestionDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         values = (Values)container.getContext().getApplicationContext();
 
-        View view = inflater.inflate(R.layout.fragment_question_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_question_text, container, false);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-        iv_question_detail_img = (ImageView)view.findViewById(R.id.iv_question_detail_img);
+        iv_question_text_img = (ImageView)view.findViewById(R.id.iv_question_text_img);
 
-        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_detail_error);
-        btn_question_detail_error.setOnClickListener(new View.OnClickListener() {
+        Button btn_question_text_error = (Button)view.findViewById(R.id.btn_question_text_error);
+        btn_question_text_error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
                 Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com","storm0812@hanmail.net","tellme0218@naver.com"});
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com", "storm0812@hanmail.net", "tellme0218@naver.com"});
                 email.putExtra(Intent.EXTRA_SUBJECT, "[모두를위한수학]오류신고합니다!");
-                email.putExtra(Intent.EXTRA_TEXT, "제목 : "+getArguments().getInt("qid")+"번 문제 오류신고합니다!\n\n내용 : ");
+                email.putExtra(Intent.EXTRA_TEXT, "제목 : " + getArguments().getInt("qid") + "번 문제 오류신고합니다!\n\n내용 : ");
                 email.setType("text/plain");
                 final PackageManager pm = getActivity().getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(email, 0);
                 ResolveInfo best = null;
-                for(final ResolveInfo info : matches)
+                for (final ResolveInfo info : matches)
                     if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
                         best = info;
                 if (best != null)
@@ -78,7 +78,7 @@ public class QuestionDetailFragment extends Fragment {
                             opts.inPurgeable = true;
                             opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
                             Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                            values.aq.id(iv_question_detail_img).image(buttonImages);
+                            values.aq.id(iv_question_text_img).image(buttonImages);
                         } else {
                             Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                         }
@@ -88,14 +88,14 @@ public class QuestionDetailFragment extends Fragment {
                 Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
             }
         } else if(MainActivity.app_width<800){
-            values.aq.id(iv_question_detail_img).image(Functions.DOMAIN + getArguments().getString("url"));
+            values.aq.id(iv_question_text_img).image(Functions.DOMAIN + getArguments().getString("url"));
         }
 
         return view;
     }
 
-    public static QuestionDetailFragment newInstance(int qid, String url) {
-        QuestionDetailFragment view = new QuestionDetailFragment();
+    public static QuestionTextFragment newInstance(int qid, String url) {
+        QuestionTextFragment view = new QuestionTextFragment();
         Bundle args = new Bundle();
         args.putString("url", url);
         args.putInt("qid", qid);

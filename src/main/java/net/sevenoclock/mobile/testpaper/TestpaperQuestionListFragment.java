@@ -18,6 +18,7 @@ import net.sevenoclock.mobile.customobj.RefreshScrollView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.question.QuestionPagerFragment;
+import net.sevenoclock.mobile.quiz.QuizPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
@@ -99,7 +100,8 @@ public class TestpaperQuestionListFragment extends Fragment {
         ll_testpaper_question_list_quickinput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.history_go(con, new TestpaperInputQuickFragment().newInstance(tcjo));
+                MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+                Functions.history_go(con, new QuizPagerFragment().newInstance(tcjo,ja_question));
             }
         });
 
@@ -168,7 +170,8 @@ public class TestpaperQuestionListFragment extends Fragment {
                                 @Override
                                 public void onClick(final View v) {
                                     if (is_solved){
-                                        Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperQuestionView) v).tcjo));
+                                        MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+                                        Functions.history_go(con, new QuizPagerFragment().newInstance(tcjo,ja_question));
                                     }else{
                                         new AlertDialog.Builder(con).setTitle("답안 미입력")
                                                 .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")

@@ -7,7 +7,7 @@
 
     <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent" android:layout_weight="1">
 
         <LinearLayout
                 android:orientation="vertical"
@@ -26,7 +26,7 @@
                 <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/iv_question_detail_img"
+                        android:id="@+id/iv_quiz_text_img"
                         android:scaleType="fitStart"
                         android:baselineAlignBottom="false" android:clickable="false"
                         android:focusableInTouchMode="false" android:longClickable="false"/>
@@ -35,10 +35,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="오류신고하기"
-                    android:id="@+id/btn_question_detail_error" android:layout_gravity="left" android:textSize="12sp"
-                    android:layout_marginBottom="80dp" android:background="@drawable/ll_question_fragment_feedback_bg"
+                    android:id="@+id/btn_quiz_text_error" android:layout_gravity="left" android:textSize="12sp"
+                    android:layout_marginBottom="20dp" android:background="@drawable/ll_question_fragment_feedback_bg"
                     android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:background="@drawable/ll_testpaper_input_form_bg">
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="1"
+                android:id="@+id/tv_quize_text_input_index" android:gravity="center_vertical|center_horizontal"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="1dp"
+                android:layout_height="match_parent" android:background="#DDDDDD">
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" android:layout_weight="1"
+                android:id="@+id/ll_quize_text_form_input_view">
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

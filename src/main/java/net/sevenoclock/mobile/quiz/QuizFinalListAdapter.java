@@ -1,4 +1,4 @@
-package net.sevenoclock.mobile.testpaper;
+package net.sevenoclock.mobile.quiz;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,11 +13,11 @@ import net.sevenoclock.mobile.settings.Values;
 
 import java.util.ArrayList;
 
-public class TestpaperAnswerResultQuickAdapter extends BaseAdapter {
+public class QuizFinalListAdapter extends BaseAdapter {
 
-    private ArrayList<TryCatchJO> m_List;
+    private ArrayList<String[]> m_List;
 
-    public int qid = 0;
+    public String qid = "";
     public String answer = "";
 
     FontTextView tv_quiz_final_list_index;
@@ -26,8 +26,8 @@ public class TestpaperAnswerResultQuickAdapter extends BaseAdapter {
 
     Values values;
 
-    public TestpaperAnswerResultQuickAdapter() {
-        m_List = new ArrayList<TryCatchJO>();
+    public QuizFinalListAdapter() {
+        m_List = new ArrayList<String[]>();
     }
 
     @Override
@@ -72,20 +72,20 @@ public class TestpaperAnswerResultQuickAdapter extends BaseAdapter {
             tv_quiz_final_list_more = holder._tv_quiz_final_list_more;
         }
 
-        qid = m_List.get(pos).get("id", 0);
-        answer = m_List.get(pos).get("answer_mobile","");
+        qid = m_List.get(pos)[0];
+        answer = m_List.get(pos)[1];
 
-        if(qid != 0){
+        if(qid != ""){
             tv_quiz_final_list_index.setText("" + (pos + 1));
             tv_quiz_final_list_answer.setText(answer);
-            tv_quiz_final_list_more.setVisibility(View.VISIBLE);
+            tv_quiz_final_list_more.setVisibility(View.GONE);
         }
 
         return convertView;
     }
 
-    public void add(TryCatchJO obj) {
-        m_List.add(obj);
+    public void add(String[] arr) {
+        m_List.add(arr);
     }
 
     public void remove(int _position) {
