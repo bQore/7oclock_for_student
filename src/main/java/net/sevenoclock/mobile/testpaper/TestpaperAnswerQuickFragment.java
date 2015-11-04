@@ -1,6 +1,7 @@
 package net.sevenoclock.mobile.testpaper;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -56,25 +57,51 @@ public class TestpaperAnswerQuickFragment extends Fragment {
         lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
 
         tarq = new TestpaperAnswerResultQuickAdapter();
-        lv_testpaper_input_quick_list.setAdapter(tarq);
-        lv_testpaper_input_quick_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                try {
-                    Functions.history_go(con, new QuestionPagerFragment().newInstance(new TryCatchJO(ja_question.getJSONObject(position))));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
-        for (int i = 0; i < ja_question.length(); i++) {
-            try {
-                tarq.add(new TryCatchJO(ja_question.getJSONObject(i)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        new LayoutTask().execute(null, null, null);
 
         return v;
+    }
+
+    class LayoutTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+            super.onPreExecute();
+        }
+
+        protected Boolean doInBackground(Void... Void) {
+            return true;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if(result) {
+                lv_testpaper_input_quick_list.setAdapter(tarq);
+                lv_testpaper_input_quick_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                        try {
+                            Functions.history_go(con, new QuestionPagerFragment().newInstance(new TryCatchJO(ja_question.getJSONObject(position))));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                MainActivity.activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < ja_question.length(); i++) {
+                            try {
+                                tarq.add(new TryCatchJO(ja_question.getJSONObject(i)));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    }
+                });
+            }
+            return;
+        }
     }
 }

@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.customobj.RefreshScrollView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
@@ -66,8 +67,6 @@ public class TestpaperListFragment extends Fragment {
     }
 
     public void reflesh(){
-        tla.reflesh();
-        tla.notifyDataSetChanged();
         new AddBookTask().execute(null, null, null);
     }
 
@@ -90,6 +89,8 @@ public class TestpaperListFragment extends Fragment {
                 MainActivity.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        tla.reflesh();
+                        tla.notifyDataSetChanged();
                         for (int i = 0; i < ja_book.length(); i++) {
                             try {
                                 tla.add(new TryCatchJO(ja_book.getJSONObject(i)));

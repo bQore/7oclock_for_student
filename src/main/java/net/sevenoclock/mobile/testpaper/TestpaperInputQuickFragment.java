@@ -3,6 +3,7 @@ package net.sevenoclock.mobile.testpaper;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -34,6 +35,7 @@ public class TestpaperInputQuickFragment extends Fragment {
     private TryCatchJO tcjo_info;
 
     public static LinearLayout ll_testpaper_input_quick_btns;
+    public LinearLayout ll_testpaper_input_quick_btns_inner;
     private ListView lv_testpaper_input_quick_list;
     private LinearLayout ll_testpaper_input_quick_list;
     private Button btn_testpaper_input_quick_submit;
@@ -71,16 +73,27 @@ public class TestpaperInputQuickFragment extends Fragment {
         MainActivity.setSubtitle(tcjo_info.get("title", ""));
 
         ll_testpaper_input_quick_btns = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns);
+        ll_testpaper_input_quick_btns_inner = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_btns_inner);
         lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
         ll_testpaper_input_quick_list = (LinearLayout) v.findViewById(R.id.ll_testpaper_input_quick_list);
-        btn_testpaper_input_quick_submit = (Button) v.findViewById(R.id.btn_testpaper_input_quick_submit);
+
+        btn_testpaper_input_quick_submit = new Button(con);
+        btn_testpaper_input_quick_submit.setText("제출하기");
+        btn_testpaper_input_quick_submit.setTextColor(Color.WHITE);
+        btn_testpaper_input_quick_submit.setBackgroundColor(Color.parseColor("#2ecc71"));
+        btn_testpaper_input_quick_submit.setTextSize(16);
+        btn_testpaper_input_quick_submit.setVisibility(View.GONE);
+        LinearLayout.LayoutParams layout_527 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout_527.bottomMargin = 10;
+        layout_527.weight = 0;
+        btn_testpaper_input_quick_submit.setLayoutParams(layout_527);
 
         trqa = new TestpaperInputResultQuickAdapter();
         lv_testpaper_input_quick_list.setAdapter(trqa);
 
         imm = (InputMethodManager)con.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        new TestpaperSubmitTask().execute(null, null, null);
+        reflesh();
 
         btn_testpaper_input_quick_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,43 +147,30 @@ public class TestpaperInputQuickFragment extends Fragment {
             }
         });
 
-        Button btn_testpaper_input_quick_key0 = (Button) v.findViewById(R.id.btn_testpaper_input_quick_key0);
-        btn_testpaper_input_quick_key0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_focused != null) et_focused.append(((Button) v).getText());
-            }
-        });
-        Button btn_testpaper_input_quick_key1 = (Button) v.findViewById(R.id.btn_testpaper_input_quick_key1);
-        btn_testpaper_input_quick_key1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_focused != null) et_focused.append(((Button) v).getText());
-            }
-        });
-        Button btn_testpaper_input_quick_key2 = (Button) v.findViewById(R.id.btn_testpaper_input_quick_key2);
-        btn_testpaper_input_quick_key2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_focused != null) et_focused.append(((Button) v).getText());
-            }
-        });
-        Button btn_testpaper_input_quick_key3 = (Button) v.findViewById(R.id.btn_testpaper_input_quick_key3);
-        btn_testpaper_input_quick_key3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_focused != null) et_focused.append(((Button) v).getText());
-            }
-        });
-        Button btn_testpaper_input_quick_key4 = (Button) v.findViewById(R.id.btn_testpaper_input_quick_key4);
-        btn_testpaper_input_quick_key4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et_focused != null) et_focused.append(((Button) v).getText());
-            }
-        });
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("√"));
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("π"));
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("/"));
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("."));
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("+"));
+        ll_testpaper_input_quick_btns_inner.addView(NewBtn("-"));
 
         return v;
+    }
+
+    private Button NewBtn(String str){
+        Button btn = new Button(con);
+        btn.setText(str);
+        btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+        LinearLayout.LayoutParams layout_113 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout_113.rightMargin = 5;
+        btn.setLayoutParams(layout_113);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_focused != null) et_focused.append(((Button) v).getText());
+            }
+        });
+        return btn;
     }
 
     public void reflesh(){
@@ -273,6 +273,7 @@ public class TestpaperInputQuickFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         }
+                        ll_testpaper_input_quick_list.addView(btn_testpaper_input_quick_submit);
                         btn_testpaper_input_quick_submit.setVisibility(View.VISIBLE);
                         MainActivity.setTitle("빠른 답안 입력");
                     }
@@ -282,6 +283,15 @@ public class TestpaperInputQuickFragment extends Fragment {
             }
             MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             return;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        for(int i=0; i<tafv.length;i++){
+            if(tafv[i].et_answer != null)
+                imm.hideSoftInputFromWindow(tafv[i].et_answer.getWindowToken(), 0);
         }
     }
 
