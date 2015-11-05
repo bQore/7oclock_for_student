@@ -105,7 +105,7 @@ public class SearchQuestionListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                MainActivity.activity.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_question.length(); i++) {

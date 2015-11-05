@@ -43,12 +43,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static ActionBar actionBar;
     public static ActionBar.LayoutParams actionbar_lp;
     public static MenuDrawer menuDrawer;
-    public static Activity activity;
 
-    public static LinearLayout ll_main_main_mainview;
+    public LinearLayout ll_main_main_mainview;
     public static LinearLayout ll_main_main_loading;
 
-    public static LinearLayout ll_main_main_title;
+    public LinearLayout ll_main_main_title;
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
@@ -58,13 +57,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     Values values;
     public static InputMethodManager imm;
-    public static int app_width = 0;
+    public int app_width = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_main);
-        activity = (Activity) this;
         values = (Values) getApplicationContext();
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         values.aq = new AQuery(this);

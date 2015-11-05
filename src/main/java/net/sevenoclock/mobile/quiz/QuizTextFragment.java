@@ -50,6 +50,8 @@ public class QuizTextFragment extends Fragment {
 
     public EditText et_answer;
 
+    private Bitmap buttonImages;
+
     private Values values;
 
     @Override
@@ -81,28 +83,10 @@ public class QuizTextFragment extends Fragment {
 
         values.aq = new AQuery(getActivity(), view);
 
-        if(MainActivity.app_width>=800){
-            try{
-                values.aq.ajax(Functions.DOMAIN + str_url, File.class, new AjaxCallback<File>() {
-                    public void callback(String url, File file, AjaxStatus status) {
-                        if (file != null) {
-                            BitmapFactory.Options opts = new BitmapFactory.Options();
-                            opts.inScaled = true;
-                            opts.inDensity = DisplayMetrics.DENSITY_HIGH;
-                            opts.inPurgeable = true;
-                            opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
-                            Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                            values.aq.id(iv_quiz_text_img).image(buttonImages);
-                        } else {
-                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }catch (Exception e){
-                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
-            }
-        } else if(MainActivity.app_width<800){
+        try{
             values.aq.id(iv_quiz_text_img).image(Functions.DOMAIN + str_url);
+        }catch (Exception e){
+            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
         }
 
         if(qid != 0){
@@ -199,13 +183,13 @@ public class QuizTextFragment extends Fragment {
         });
     }
 
-    void setPlural(){
+    void setPlural() {
         final Button[] btn = new Button[items];
-        for(int i = 0; i<items; i++){
+        for (int i = 0; i < items; i++) {
             btn[i] = new Button(con);
             LinearLayout.LayoutParams btn_lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             btn_lp.weight = 1;
-            btn_lp.setMargins(0,0,5,0);
+            btn_lp.setMargins(0, 0, 5, 0);
             btn[i].setLayoutParams(btn_lp);
             btn[i].setTextColor(Color.parseColor("#666666"));
             btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
@@ -216,25 +200,25 @@ public class QuizTextFragment extends Fragment {
             btn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Button this_btn = ((Button)v);
-                    if(answer_len < 2){
-                        for(int i=0; i<items; i++){
+                    Button this_btn = ((Button) v);
+                    if (answer_len < 2) {
+                        for (int i = 0; i < items; i++) {
                             btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             btn[i].setTextColor(Color.parseColor("#666666"));
                         }
                         this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                         this_btn.setTextColor(Color.parseColor("#c0392b"));
                         answer = this_btn.getText().toString();
-                    }else{
-                        if(this_btn.getTag().equals(false)){
+                    } else {
+                        if (this_btn.getTag().equals(false)) {
                             this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                             this_btn.setTextColor(Color.parseColor("#c0392b"));
-                            answer += ","+this_btn.getText().toString();
+                            answer += "," + this_btn.getText().toString();
                             this_btn.setTag(true);
-                        }else{
+                        } else {
                             this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             this_btn.setTextColor(Color.parseColor("#666666"));
-                            answer = answer.replace(this_btn.getText().toString(),"");
+                            answer = answer.replace(this_btn.getText().toString(), "");
                             this_btn.setTag(false);
                         }
                     }

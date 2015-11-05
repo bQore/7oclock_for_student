@@ -92,7 +92,7 @@ public class InventoryQuestionListFragment extends Fragment {
                     MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                     return;
                 }
-                MainActivity.activity.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_question.length(); i++) {

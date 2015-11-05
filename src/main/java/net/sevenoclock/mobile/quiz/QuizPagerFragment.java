@@ -36,7 +36,7 @@ public class QuizPagerFragment extends Fragment {
     public static LinearLayout ll_quiz_text_input_quick_btns;
     public LinearLayout ll_quiz_text_input_quick_btns_inner;
 
-    private QuizTextFragment qtf[];
+    public QuizTextFragment qtf[];
     private QuizFinalFragment qff;
 
     public static EditText et_focused = null;
@@ -77,7 +77,7 @@ public class QuizPagerFragment extends Fragment {
 
         pager.setOffscreenPageLimit(ja_questions.length()+1);
 
-        QuizFragmentAdapter adapter = new QuizFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), ja_questions);
+        QuizFragmentAdapter adapter = new QuizFragmentAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager(), ja_questions);
         adapter.notifyDataSetChanged();
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);

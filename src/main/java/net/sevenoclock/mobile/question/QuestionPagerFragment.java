@@ -123,7 +123,7 @@ public class QuestionPagerFragment extends Fragment {
 
         pager.setOffscreenPageLimit(10);
 
-        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), tcjo);
+        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager(), tcjo);
         adapter.notifyDataSetChanged();
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
@@ -231,5 +231,4 @@ public class QuestionPagerFragment extends Fragment {
             return CONTENT.length;
         }
     }
-
 }

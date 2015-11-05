@@ -120,8 +120,8 @@ public class MypageChangeInfoFragment extends Fragment {
                             Toast.makeText(con, "개인정보 수정 완료", Toast.LENGTH_LONG).show();
                             values.user_info = null;
                             values.user_id = 0;
-                            con.startActivity(new Intent(MainActivity.activity, LoadingActivity.class));
-                            MainActivity.activity.finish();
+                            con.startActivity(new Intent(getActivity(), LoadingActivity.class));
+                            getActivity().finish();
                         } else {
                             Toast.makeText(con, "개인정보 수정 실패\n" +
                                     "입력을 다시 확인해주세요.", Toast.LENGTH_LONG).show();

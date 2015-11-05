@@ -41,6 +41,7 @@ public class Functions {
             Vibe.vibrate(30);
             values.fragment_history.add(fragment);
             fragmentReplace(con, fragment);
+            System.gc();
         }catch (Exception e){
             Log.i("history_go_Error",e.getMessage());
         }
@@ -55,6 +56,7 @@ public class Functions {
             values.fragment_history.clear();
             values.fragment_history.add(home);
             fragmentReplace(con, home);
+            System.gc();
         }catch (Exception e){
             Log.i("history_go_home_Error",e.getMessage());
         }
@@ -67,6 +69,7 @@ public class Functions {
             Vibe.vibrate(30);
             values.fragment_history.add(0, fragment);
             fragmentReplace(con, fragment);
+            System.gc();
         }catch (Exception e){
             Log.i("history_set_home_Error",e.getMessage());
         }
@@ -84,15 +87,8 @@ public class Functions {
             }
             values.fragment_history.remove(values.fragment_history.size() - 1);
             Fragment fragment = values.fragment_history.get(values.fragment_history.size() - 1);
-//            if(fragment.getView().getRootView().getClass().getName().endsWith("InventoryQuestionListFragment")){
-//                InventoryQuestionListFragment lqlv = (InventoryQuestionListFragment)fragment;
-//                lqlv.reflesh();
-//            }
-//            if(fragment.getView().getRootView().getClass().getName().endsWith("TestpaperQuestionListFragment")){
-//                TestpaperQuestionListFragment tqlv = (TestpaperQuestionListFragment)fragment;
-//                tqlv.reflesh();
-//            }
             fragmentReplace(con, fragment);
+            System.gc();
         }catch (Exception e){
             Log.i("history_back_Error",e.getMessage());
         }
