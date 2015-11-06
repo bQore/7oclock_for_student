@@ -81,10 +81,28 @@ public class QuizTextFragment extends Fragment {
 
         values.aq = new AQuery(getActivity(), view);
 
-        try{
+        if(MainActivity.app_width>=800){
+            try{
+                values.aq.ajax(Functions.DOMAIN + str_url, File.class, new AjaxCallback<File>() {
+                    public void callback(String url, File file, AjaxStatus status) {
+                        if (file != null) {
+                            BitmapFactory.Options opts = new BitmapFactory.Options();
+                            opts.inScaled = true;
+                            opts.inDensity = DisplayMetrics.DENSITY_HIGH;
+                            opts.inPurgeable = true;
+                            opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
+                            Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
+                            values.aq.id(iv_quiz_text_img).image(buttonImages);
+                        } else {
+                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }catch (Exception e){
+                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
+            }
+        } else if(MainActivity.app_width<800){
             values.aq.id(iv_quiz_text_img).image(Functions.DOMAIN + str_url);
-        }catch (Exception e){
-            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
         }
 
         if(qid != 0){

@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     Values values;
     public static InputMethodManager imm;
-    public int app_width = 0;
+    public static int app_width = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
