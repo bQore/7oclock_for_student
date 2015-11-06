@@ -50,8 +50,6 @@ public class QuizTextFragment extends Fragment {
 
     public EditText et_answer;
 
-    private Bitmap buttonImages;
-
     private Values values;
 
     @Override

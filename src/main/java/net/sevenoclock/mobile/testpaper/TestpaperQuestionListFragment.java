@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.RefreshScrollView;
@@ -79,6 +81,7 @@ public class TestpaperQuestionListFragment extends Fragment {
         ll_testpaper_question_list_quickresult = (LinearLayout) v.findViewById(R.id.ll_testpaper_question_list_quickresult);
         ll_testpaper_question_list_quickrank = (LinearLayout) v.findViewById(R.id.ll_testpaper_question_list_quickrank);
         ll_testpaper_question_list_quickanswer = (LinearLayout) v.findViewById(R.id.ll_testpaper_question_list_quickanswer);
+
 
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
         tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));

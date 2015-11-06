@@ -92,8 +92,8 @@ public class QuizPagerFragment extends Fragment {
                 if (position == ja_questions.length()) {
                     qff.qfla.reflesh();
                     for (int i = 0; i < ja_questions.length(); i++) {
-                        if(qtf[i].answer.equals("")) qff.qfla.add(new String[]{"" + (i + 1), "-"});
-                        else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer});
+                        if(qtf[i].answer.equals("")) qff.qfla.add(new String[]{"" + (i + 1), "-",""+qtf[i].qid});
+                        else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer,""+qtf[i].qid});
                     }
                     qff.qfla.notifyDataSetChanged();
                 }
@@ -151,12 +151,7 @@ public class QuizPagerFragment extends Fragment {
                 }
             }
 
-            try {
-                TryCatchJO tcjo_tmp = new TryCatchJO(ja.getJSONObject(0));
-                qff = new QuizFinalFragment().newInstance();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            qff = new QuizFinalFragment().newInstance(tcjo.get("id",0),tcjo.toString());
 
         }
 

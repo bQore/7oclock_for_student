@@ -1,6 +1,5 @@
 package net.sevenoclock.mobile.main;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +18,9 @@ import android.widget.LinearLayout;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
@@ -66,6 +68,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         values = (Values) getApplicationContext();
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         values.aq = new AQuery(this);
+        values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
+        values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
+                , values.user_info.get("school_name", "-")
+                , values.user_info.get("school_year", "")
+                , values.user_info.get("school_room", "")), null).build());
 
         setActionBar();
         setMenuDrawer();
@@ -263,5 +270,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 break;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onDestroy(){
+        values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
+                , values.user_info.get("school_name", "-")
+                , values.user_info.get("school_year", "")
+                , values.user_info.get("school_room", "")),null).build());
+        super.onDestroy();
     }
 }

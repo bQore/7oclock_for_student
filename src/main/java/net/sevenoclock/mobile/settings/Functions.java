@@ -12,7 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
 import net.sevenoclock.mobile.testpaper.TestpaperQuestionListFragment;
 import org.json.JSONArray;
@@ -23,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Created by Administrator on 2015-09-03.
@@ -94,6 +98,14 @@ public class Functions {
         }
     }
 
+    public static void history_back_delete(Context con){
+        try{
+            values.fragment_history.remove(values.fragment_history.size() - 1);
+        }catch (Exception e){
+            Log.i("history_back_Error",e.getMessage());
+        }
+    }
+
     public static int history_length(){
         return values.fragment_history.size();
     }
@@ -103,6 +115,8 @@ public class Functions {
         final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.ll_main_main_mainview, newFragment);
         transaction.commit();
+        values.tracker.send(MapBuilder.createEvent("UserAction", "PageMove", newFragment.getClass().toString(), null).build());
+        values.tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, newFragment.getClass().toString().replaceAll("net.sevenoclock.mobile.","")).build());
     }
 
     public static Bitmap borderRadius(String src, int pixels) { return borderRadius(getBitmapFromURL(src), pixels); }

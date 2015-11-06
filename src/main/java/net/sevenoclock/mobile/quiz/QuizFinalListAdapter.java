@@ -17,8 +17,9 @@ public class QuizFinalListAdapter extends BaseAdapter {
 
     private ArrayList<String[]> m_List;
 
-    public String qid = "";
+    public String index = "";
     public String answer = "";
+    public String qid = "";
 
     FontTextView tv_quiz_final_list_index;
     FontTextView tv_quiz_final_list_answer;
@@ -36,7 +37,7 @@ public class QuizFinalListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public String[] getItem(int position) {
         return m_List.get(position);
     }
 
@@ -72,8 +73,9 @@ public class QuizFinalListAdapter extends BaseAdapter {
             tv_quiz_final_list_more = holder._tv_quiz_final_list_more;
         }
 
-        qid = m_List.get(pos)[0];
+        index = m_List.get(pos)[0];
         answer = m_List.get(pos)[1];
+        qid = m_List.get(pos)[2];
 
         if(qid != ""){
             tv_quiz_final_list_index.setText("" + (pos + 1));
