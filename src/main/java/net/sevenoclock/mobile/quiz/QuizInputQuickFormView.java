@@ -1,4 +1,4 @@
-package net.sevenoclock.mobile.testpaper;
+package net.sevenoclock.mobile.quiz;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.settings.Values;
 
-public class TestpaperInputFormView extends LinearLayout {
+public class QuizInputQuickFormView extends LinearLayout {
 
     private Context con;
     private TryCatchJO tcjo_info;
@@ -24,14 +24,14 @@ public class TestpaperInputFormView extends LinearLayout {
     public int answer_len = 0;
     public String answer = "";
 
-    FontTextView tv_testpaper_input_form_index;
-    LinearLayout ll_testpaper_input_form_view;
+    FontTextView tv_quiz_input_form_index;
+    LinearLayout ll_quiz_input_form_view;
 
     public EditText et_answer;
 
     Values values;
 
-    public TestpaperInputFormView(Context context, int index, TryCatchJO jo) {
+    public QuizInputQuickFormView(Context context, int index, TryCatchJO jo) {
         super(context);
         this.con = context;
         this.tcjo_info = jo;
@@ -42,14 +42,14 @@ public class TestpaperInputFormView extends LinearLayout {
         answer_len = answer_mobile.length();
 
         values = (Values) context.getApplicationContext();
-        inflate(getContext(), R.layout.view_testpaper_input_form, this);
+        inflate(getContext(), R.layout.view_quiz_input_form, this);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
-        tv_testpaper_input_form_index = (FontTextView)findViewById(R.id.tv_testpaper_input_form_index);
-        ll_testpaper_input_form_view = (LinearLayout)findViewById(R.id.ll_testpaper_input_form_view);
+        tv_quiz_input_form_index = (FontTextView)findViewById(R.id.tv_quiz_input_form_index);
+        ll_quiz_input_form_view = (LinearLayout)findViewById(R.id.ll_quiz_input_form_view);
 
         if(qid != 0){
-            tv_testpaper_input_form_index.setText("" + (index + 1));
+            tv_quiz_input_form_index.setText("" + (index + 1));
             if(items == 1) setSingular();
             else  setPlural();
         }
@@ -63,17 +63,17 @@ public class TestpaperInputFormView extends LinearLayout {
         et_answer.setSingleLine();
         et_answer.setHint("ex) 답");
         et_answer.setBackgroundColor(Color.WHITE);
-        ll_testpaper_input_form_view.addView(et_answer);
+        ll_quiz_input_form_view.addView(et_answer);
 
         et_answer.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    TestpaperInputQuickFragment.et_focused = et_answer;
-                    TestpaperInputQuickFragment.ll_testpaper_input_quick_btns.setVisibility(View.VISIBLE);
+                    QuizInputQuickFragment.et_focused = et_answer;
+                    QuizInputQuickFragment.ll_quiz_input_quick_btns.setVisibility(View.VISIBLE);
                 } else {
-                    TestpaperInputQuickFragment.et_focused = null;
-                    TestpaperInputQuickFragment.ll_testpaper_input_quick_btns.setVisibility(View.GONE);
+                    QuizInputQuickFragment.et_focused = null;
+                    QuizInputQuickFragment.ll_quiz_input_quick_btns.setVisibility(View.GONE);
                 }
 
             }
@@ -112,10 +112,10 @@ public class TestpaperInputFormView extends LinearLayout {
             btn_lp.setMargins(0,0,5,0);
             btn[i].setLayoutParams(btn_lp);
             btn[i].setTextColor(Color.parseColor("#666666"));
-            btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+            btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
             btn[i].setText("" + (i + 1));
             btn[i].setTag(false);
-            ll_testpaper_input_form_view.addView(btn[i]);
+            ll_quiz_input_form_view.addView(btn[i]);
 
             btn[i].setOnClickListener(new OnClickListener() {
                 @Override
@@ -123,20 +123,20 @@ public class TestpaperInputFormView extends LinearLayout {
                     Button this_btn = ((Button)v);
                     if(answer_len < 2){
                         for(int i=0; i<items; i++){
-                            btn[i].setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            btn[i].setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             btn[i].setTextColor(Color.parseColor("#666666"));
                         }
-                        this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                        this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                         this_btn.setTextColor(Color.parseColor("#c0392b"));
                         answer = this_btn.getText().toString();
                     }else{
                         if(this_btn.getTag().equals(false)){
-                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns_clicked);
+                            this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns_clicked);
                             this_btn.setTextColor(Color.parseColor("#c0392b"));
                             answer += ","+this_btn.getText().toString();
                             this_btn.setTag(true);
                         }else{
-                            this_btn.setBackgroundResource(R.drawable.btn_testpaper_input_btns);
+                            this_btn.setBackgroundResource(R.drawable.btn_quiz_text_input_btns);
                             this_btn.setTextColor(Color.parseColor("#666666"));
                             answer = answer.replace(this_btn.getText().toString(),"");
                             this_btn.setTag(false);

@@ -3,13 +3,11 @@ package net.sevenoclock.mobile.testpaper;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
@@ -49,12 +47,12 @@ public class TestpaperAnswerQuickFragment extends Fragment {
             e.printStackTrace();
         }
 
-        View v = inflater.inflate(R.layout.fragment_testpaper_input_quick, container, false);
+        View v = inflater.inflate(R.layout.fragment_quiz_input_quick, container, false);
 
         MainActivity.setTitle("빠른 정답 보기");
         MainActivity.setSubtitle("");
 
-        lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_testpaper_input_quick_list);
+        lv_testpaper_input_quick_list = (ListView) v.findViewById(R.id.lv_quiz_input_quick_list);
 
         tarq = new TestpaperAnswerResultQuickAdapter();
 
@@ -87,7 +85,7 @@ public class TestpaperAnswerQuickFragment extends Fragment {
                         }
                     }
                 });
-                MainActivity.activity.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_question.length(); i++) {

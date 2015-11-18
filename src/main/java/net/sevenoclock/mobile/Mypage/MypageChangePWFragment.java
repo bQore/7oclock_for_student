@@ -84,8 +84,8 @@ public class MypageChangePWFragment extends Fragment {
                             values.user_info = null;
                             values.user_id = 0;
                             Functions.remove_pref(con);
-                            con.startActivity(new Intent(MainActivity.activity, LoadingActivity.class));
-                            MainActivity.activity.finish();
+                            con.startActivity(new Intent(getActivity(), LoadingActivity.class));
+                            getActivity().finish();
                         } else {
                             Toast.makeText(con, "비밀번호 재설정 실패\n" +
                                     "현재 비밀번호 및 새 비밀번호를 다시 확인해주세요.", Toast.LENGTH_LONG).show();

@@ -41,7 +41,7 @@ public class QuestionExplainFragment extends Fragment {
 
         iv_question_explain_img = (ImageView)view.findViewById(R.id.iv_question_explain_img);
 
-        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_detail_error);
+        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_text_error);
         btn_question_detail_error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,29 +66,7 @@ public class QuestionExplainFragment extends Fragment {
 
         values.aq = new AQuery(getActivity(), view);
 
-        if(MainActivity.app_width>=800){
-            try{
-                values.aq.ajax(Functions.DOMAIN + getArguments().getString("url"), File.class, new AjaxCallback<File>() {
-                    public void callback(String url, File file, AjaxStatus status) {
-                        if (file != null) {
-                            BitmapFactory.Options opts = new BitmapFactory.Options();
-                            opts.inScaled = true;
-                            opts.inDensity = DisplayMetrics.DENSITY_HIGH;
-                            opts.inTargetDensity = container.getContext().getResources().getDisplayMetrics().densityDpi;
-                            opts.inPurgeable = true;
-                            Bitmap buttonImages = BitmapFactory.decodeFile(file.getPath(), opts);
-                            values.aq.id(iv_question_explain_img).image(buttonImages);
-                        } else {
-                            Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }catch (Exception e){
-                Toast.makeText(container.getContext(), "이미지 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
-            }
-        } else if(MainActivity.app_width<800){
-            values.aq.id(iv_question_explain_img).image(Functions.DOMAIN + getArguments().getString("url"));
-        }
+        values.aq.id(iv_question_explain_img).image(Functions.DOMAIN + getArguments().getString("url"));
 
         return view;
     }

@@ -35,7 +35,7 @@ public class QuestionVideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question_video, container, false);
         url = getArguments().getString("url");
 
-        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_detail_error);
+        Button btn_question_detail_error = (Button)view.findViewById(R.id.btn_question_text_error);
         btn_question_detail_error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

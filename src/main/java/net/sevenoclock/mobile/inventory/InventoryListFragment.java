@@ -81,7 +81,7 @@ public class InventoryListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                MainActivity.activity.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         for (int i = 0; i < ja_book.length(); i++) {

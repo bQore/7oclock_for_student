@@ -3,6 +3,7 @@ package net.sevenoclock.mobile.settings;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 import com.androidquery.AQuery;
+import com.google.analytics.tracking.android.Tracker;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 
 import java.util.ArrayList;
@@ -17,4 +18,5 @@ public class Values extends Application {
 
     public int book_height = 0;
     public AQuery aq = null;
+    public Tracker tracker;
 }

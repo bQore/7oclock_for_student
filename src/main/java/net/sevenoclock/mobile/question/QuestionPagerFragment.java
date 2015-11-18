@@ -123,7 +123,7 @@ public class QuestionPagerFragment extends Fragment {
 
         pager.setOffscreenPageLimit(10);
 
-        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), tcjo);
+        QuestionFragmentAdapter adapter = new QuestionFragmentAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager(), tcjo);
         adapter.notifyDataSetChanged();
         pager.setAdapter(adapter);
         indicator.setViewPager(pager);
@@ -193,7 +193,7 @@ public class QuestionPagerFragment extends Fragment {
 
     class QuestionFragmentAdapter extends FragmentStatePagerAdapter {
 
-        private QuestionDetailFragment qdv;
+        private QuestionTextFragment qdv;
         private QuestionExplainFragment qev;
         private QuestionVideoFragment qvv;
 
@@ -203,7 +203,7 @@ public class QuestionPagerFragment extends Fragment {
             super(fm);
             tcjo = jo;
 
-            qdv = new QuestionDetailFragment().newInstance(tcjo.get("id",0), tcjo.get("src",""));
+            qdv = new QuestionTextFragment().newInstance(tcjo.get("id",0), tcjo.get("src",""));
             qev = new QuestionExplainFragment().newInstance(tcjo.get("id",0), tcjo.get("explain",""));
             qvv = new QuestionVideoFragment().newInstance(tcjo.get("id",0), tcjo.get("video",""));
         }
@@ -231,5 +231,4 @@ public class QuestionPagerFragment extends Fragment {
             return CONTENT.length;
         }
     }
-
 }

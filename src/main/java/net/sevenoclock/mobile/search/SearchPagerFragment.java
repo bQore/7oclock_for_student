@@ -67,7 +67,7 @@ public class SearchPagerFragment extends Fragment {
         pager.setOffscreenPageLimit(ja_unit.length());
 
         if(ja_unit != null){
-            SearchFragmentAdapter adapter = new SearchFragmentAdapter(((FragmentActivity) MainActivity.activity).getSupportFragmentManager(), ja_unit, unit_level);
+            SearchFragmentAdapter adapter = new SearchFragmentAdapter(((FragmentActivity) getActivity()).getSupportFragmentManager(), ja_unit, unit_level);
             adapter.notifyDataSetChanged();
             pager.setAdapter(adapter);
             pager.postDelayed(new Runnable() {

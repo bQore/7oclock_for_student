@@ -12,12 +12,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.RefreshScrollView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.question.QuestionPagerFragment;
+import net.sevenoclock.mobile.quiz.QuizPagerFragment;
+import net.sevenoclock.mobile.quiz.QuizInputQuickFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
@@ -78,6 +82,7 @@ public class TestpaperQuestionListFragment extends Fragment {
         ll_testpaper_question_list_quickrank = (LinearLayout) v.findViewById(R.id.ll_testpaper_question_list_quickrank);
         ll_testpaper_question_list_quickanswer = (LinearLayout) v.findViewById(R.id.ll_testpaper_question_list_quickanswer);
 
+
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
         tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
         tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
@@ -99,14 +104,14 @@ public class TestpaperQuestionListFragment extends Fragment {
         ll_testpaper_question_list_quickinput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.history_go(con, new TestpaperInputQuickFragment().newInstance(tcjo));
+                Functions.history_go(con, new QuizInputQuickFragment().newInstance(tcjo));
             }
         });
 
         ll_testpaper_question_list_quickresult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.history_go(con, new TestpaperInputQuickFragment().newInstance(tcjo));
+                Functions.history_go(con, new QuizInputQuickFragment().newInstance(tcjo));
             }
         });
 
@@ -153,12 +158,12 @@ public class TestpaperQuestionListFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             semaphore = false;
             pb_testpaper_question_list_loading.setVisibility(View.VISIBLE);
-            MainActivity.activity.runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    int max = element_count+10;
+                    int max = element_count + 10;
                     for (; element_count < max; element_count++) {
-                        if(element_count>=ja_question.length()) break;
+                        if (element_count >= ja_question.length()) break;
                         TestpaperQuestionView tqv = null;
                         try {
                             TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(element_count));
@@ -167,9 +172,9 @@ public class TestpaperQuestionListFragment extends Fragment {
                             tqv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(final View v) {
-                                    if (is_solved){
+                                    if (is_solved) {
                                         Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperQuestionView) v).tcjo));
-                                    }else{
+                                    } else {
                                         new AlertDialog.Builder(con).setTitle("답안 미입력")
                                                 .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")
                                                 .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -179,7 +184,8 @@ public class TestpaperQuestionListFragment extends Fragment {
                                                 })
                                                 .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        Functions.history_go(con, new TestpaperInputQuickFragment().newInstance(tcjo));
+                                                        MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+                                                        Functions.history_go(con, new QuizPagerFragment().newInstance(tcjo, ja_question));
                                                         return;
                                                     }
                                                 }).show();
@@ -199,15 +205,15 @@ public class TestpaperQuestionListFragment extends Fragment {
                     }
 
                     try {
-                        if (ja_question.getJSONObject(0).getInt("purpose") == 0){
+                        if (ja_question.getJSONObject(0).getInt("purpose") == 0) {
                             try {
-                                if (ja_question.getJSONObject(0).getInt("is_solved") == 1){
+                                if (ja_question.getJSONObject(0).getInt("is_solved") == 1) {
                                     is_solved = true;
                                     ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
                                     ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
                                     ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
                                     ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
-                                }else{
+                                } else {
                                     is_solved = false;
                                     ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
                                     ll_testpaper_question_list_quickinput.setVisibility(View.VISIBLE);
@@ -217,7 +223,7 @@ public class TestpaperQuestionListFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }else{
+                        } else {
                             is_solved = true;
                             ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
                             ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
