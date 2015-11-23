@@ -3,8 +3,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical" android:background="#0083cfff">
-
-
         <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -23,7 +21,7 @@
                                 <EditText
                                         android:id="@+id/et_home_signup_userid"
                                         android:layout_width="match_parent"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:layout_height="wrap_content"
                                         android:singleLine="true"
                                         android:ems="20"
@@ -31,7 +29,7 @@
                                 <EditText
                                         android:id="@+id/et_home_signup_userpw"
                                         android:layout_width="match_parent"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:layout_height="wrap_content"
                                         android:singleLine="true"
                                         android:layout_marginTop="5dp"
@@ -44,7 +42,7 @@
                                 <EditText
                                         android:id="@+id/et_home_signup_userpw_ck"
                                         android:layout_width="match_parent"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="5dp"
                                         android:singleLine="true"
@@ -69,7 +67,7 @@
                                 <EditText
                                         android:id="@+id/et_home_signup_username"
                                         android:layout_width="match_parent"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:layout_height="wrap_content"
                                         android:singleLine="true"
                                         android:ems="10"
@@ -79,7 +77,7 @@
                                 <EditText
                                         android:id="@+id/et_home_signup_useremail"
                                         android:layout_width="match_parent"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:singleLine="true"
                                         android:layout_marginTop="5dp"
                                         android:layout_height="wrap_content"
@@ -91,7 +89,7 @@
                                         android:id="@+id/et_home_signup_userphone"
                                         android:layout_width="match_parent"
                                         android:layout_marginTop="5dp"
-                                        android:background="@drawable/et_home_signup_userinput"
+                                        android:background="@drawable/et_flat"
                                         android:layout_height="wrap_content"
                                         android:singleLine="true"
                                         android:ems="10"
@@ -136,7 +134,7 @@
                                         <EditText
                                                 android:id="@+id/et_home_signup_userschool"
                                                 android:layout_width="match_parent"
-                                                android:background="@drawable/et_home_signup_userinput"
+                                                android:background="@drawable/et_flat"
                                                 android:layout_height="wrap_content"
                                                 android:singleLine="true"
                                                 android:ems="9"
@@ -168,7 +166,7 @@
                                                 android:singleLine="true"
                                                 android:layout_gravity="right"
                                                 android:digits="0123456789"
-                                                android:background="@drawable/et_home_signup_userinput"
+                                                android:background="@drawable/et_flat"
                                                 android:ems="5"
                                                 android:hint="학년"
                                                 android:inputType="number"
@@ -181,7 +179,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:singleLine="true"
                                                 android:layout_gravity="center"
-                                                android:background="@drawable/et_home_signup_userinput"
+                                                android:background="@drawable/et_flat"
                                                 android:layout_marginLeft="5dp"
                                                 android:digits="0123456789"
                                                 android:ems="5"

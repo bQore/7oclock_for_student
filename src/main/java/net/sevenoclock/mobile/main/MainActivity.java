@@ -15,15 +15,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.home.LoadingActivity;
+import net.sevenoclock.mobile.home.SignupActivity;
+import net.sevenoclock.mobile.home.Step1Activity;
 import net.sevenoclock.mobile.inventory.InventoryListFragment;
 import net.sevenoclock.mobile.mypage.MypageMainFragment;
 import net.sevenoclock.mobile.search.SearchPagerFragment;
@@ -32,6 +32,7 @@ import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +68,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main_main);
         values = (Values) getApplicationContext();
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        values.aq = new AQuery(this);
         values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
         values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
                 , values.user_info.get("school_name", "-")
@@ -274,10 +274,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onDestroy(){
-        values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")),null).build());
+        try{
+            values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
+                    , values.user_info.get("school_name", "-")
+                    , values.user_info.get("school_year", "")
+                    , values.user_info.get("school_room", "")),null).build());
+        }catch (Exception e){
+            e.getStackTrace();
+        }
         super.onDestroy();
     }
 }

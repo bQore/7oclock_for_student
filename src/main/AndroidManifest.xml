@@ -18,6 +18,8 @@
             android:theme="@style/MyTheme"
             android:name="net.sevenoclock.mobile.settings.Values" >
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity android:name=".home.LoadingActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait">
@@ -27,8 +29,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".home.LandingActivity" android:screenOrientation="portrait" />
-        <activity android:name=".home.SignupActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.facebook.FacebookActivity"
+                  android:configChanges=
+                          "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:label="@string/app_name" />
+
+        <activity android:name=".home.LandingActivity" android:screenOrientation="portrait"
+                  android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".home.SignupActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.Dialog" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".home.Step1Activity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".home.Step2Activity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".home.Step2SchoolDialogActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity android:name=".home.Step3Activity" android:configChanges="orientation|screenSize" />
         <activity android:name=".main.MainActivity" android:configChanges="orientation|screenSize" />
 
     </application>

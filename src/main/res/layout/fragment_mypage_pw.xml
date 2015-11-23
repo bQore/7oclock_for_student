@@ -29,7 +29,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:ems="10"
-                        android:id="@+id/et_mypage_pw_now" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_pw_now" android:background="@drawable/et_flat"
                         android:hint="현재 비밀번호" android:layout_marginBottom="15dp"/>
 
                 <net.sevenoclock.mobile.customobj.FontTextView
@@ -42,14 +42,14 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:ems="10"
-                        android:id="@+id/et_mypage_pw_new" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_pw_new" android:background="@drawable/et_flat"
                         android:hint="새 비밀번호" android:layout_marginBottom="5dp"/>
                 <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:ems="10"
-                        android:id="@+id/et_mypage_pw_new_" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_pw_new_" android:background="@drawable/et_flat"
                         android:hint="새 비밀번호 확인" android:layout_marginBottom="15dp"/>
 
                 <Button

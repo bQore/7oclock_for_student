@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="30dp" android:background="#FFFFFF">
+    <net.sevenoclock.mobile.customobj.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학교명" android:layout_marginBottom="5dp" android:textSize="16sp"
+            android:textColor="#666"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_home_step2_schooldialog_text" android:background="@drawable/et_flat"
+                android:layout_marginRight="10dp" android:layout_marginBottom="20dp"
+                android:layout_weight="1" android:textSize="18sp" android:hint="학교명" android:lines="1"
+                android:singleLine="true"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색"
+                android:id="@+id/btn_home_step2_schooldialog_search" android:layout_weight="0" android:textColor="#FFF"
+                android:background="#2ecc71" android:textSize="16sp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="1px" android:background="#dddddd"
+            android:layout_marginTop="20dp">
+    </LinearLayout>
+    <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_home_step2_schooldialog_loading"/>
+    <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_home_step2_schooldialog_list" android:visibility="visible"/>
+</LinearLayout>

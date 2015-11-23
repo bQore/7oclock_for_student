@@ -2,6 +2,7 @@ package net.sevenoclock.mobile.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import com.androidquery.AQuery;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
@@ -12,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
 import net.sevenoclock.mobile.R;
+import org.json.JSONException;
 
 public class LoadingActivity extends Activity {
     Values values;
@@ -23,6 +25,7 @@ public class LoadingActivity extends Activity {
         setContentView(R.layout.activity_home_loading);
 
         values = (Values) getApplicationContext();
+        values.aq = new AQuery(this);
 
         if(Functions.chkNetwork(this))
             new LoginTask().execute(null, null, null);
@@ -68,8 +71,17 @@ public class LoadingActivity extends Activity {
 
         protected void onPostExecute(Integer result) {
             if(result.intValue() == 1){
-                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
-                LoadingActivity.this.finish();
+                try {
+                    if(values.user_info.get("grade_code").equals("")){
+                        startActivity(new Intent(LoadingActivity.this, Step1Activity.class));
+                        LoadingActivity.this.finish();
+                    }else {
+                        startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                        LoadingActivity.this.finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }else if(result.intValue() == 2){
                 startActivity(new Intent(LoadingActivity.this, LandingActivity.class));
                 LoadingActivity.this.finish();

@@ -34,7 +34,7 @@ import java.util.HashMap;
 public class Functions {
 
     public static final String YOUTUBE_KEY = "AIzaSyA5ajaURV7840WCtQsHMFUKZFsR1kLMA2A";
-    public static final String DOMAIN = "http://yan3140.cafe24.com";
+    public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
     private static Values values;

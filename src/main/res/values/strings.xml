@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">모두를 위한 수학</string>
+    <string name="facebook_app_id">420251894830228</string>
     <string name="error_thumbnail_view">There was an error initializing the YouTubeThumbnailView (%1$s)</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <string name="tag_main_title">tag_main_title</string>
     <string name="tag_main_subtitle">tag_main_subtitle</string>
+
+    <string name="ic_home_landing_login_mosu">&#xe90b;</string>
+    <string name="ic_home_landing_login_facebook">&#xeac7;</string>
+    <string name="ic_home_landing_login_kakao">&#xead6;</string>
+
+    <string name="ic_home_set3_ok">&#xe92b;</string>
 
     <string name="ic_main_actionbar_default_menu">&#xe607;</string>
     <string name="ic_main_actionbar_default_search">&#xe63b;</string>
