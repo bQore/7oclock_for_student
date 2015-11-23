@@ -69,10 +69,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         values.aq = new AQuery(this);
         values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
-        values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
+        values.tracker.send(MapBuilder.createEvent("Enter", String.format("%s %s학년 %s반"
                 , values.user_info.get("school_name", "-")
                 , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")), null).build());
+                , values.user_info.get("school_room", "")), null, null).build());
 
         setActionBar();
         setMenuDrawer();
@@ -274,10 +274,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onDestroy(){
-        values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")),null).build());
         super.onDestroy();
     }
 }

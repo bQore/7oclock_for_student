@@ -115,7 +115,7 @@ public class Functions {
         final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.ll_main_main_mainview, newFragment);
         transaction.commit();
-        values.tracker.send(MapBuilder.createEvent("UserAction", "PageMove", newFragment.getClass().toString(), null).build());
+        //values.tracker.send(MapBuilder.createEvent("UserAction", "PageMove", newFragment.getClass().toString(), null).build());
         values.tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, newFragment.getClass().toString().replaceAll("net.sevenoclock.mobile.","")).build());
     }
 
