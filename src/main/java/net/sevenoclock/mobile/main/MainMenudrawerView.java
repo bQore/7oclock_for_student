@@ -3,19 +3,18 @@ package net.sevenoclock.mobile.main;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
-public class MenudrawerView extends LinearLayout {
+public class MainMenudrawerView extends LinearLayout {
     private Context con;
 
     private LinearLayout ll_main_menudrawer_profile;
     private ImageView iv_main_menudrawer_profilepic;
     private FontTextView tv_main_menudrawer_username;
-    private FontTextView tv_main_menudrawer_schoolname;
+    private FontTextView tv_main_menudrawer_unionlevel;
 
     private LinearLayout ll_main_menudrawer_list;
 
@@ -24,7 +23,7 @@ public class MenudrawerView extends LinearLayout {
 
     Values values;
 
-    public MenudrawerView(Context context) {
+    public MainMenudrawerView(Context context) {
         super(context);
         values = (Values) context.getApplicationContext();
         con = context;
@@ -35,7 +34,7 @@ public class MenudrawerView extends LinearLayout {
         ll_main_menudrawer_profile = (LinearLayout)findViewById(R.id.ll_main_menudrawer_profile);
         iv_main_menudrawer_profilepic = (ImageView)findViewById(R.id.iv_main_menudrawer_profilepic);
         tv_main_menudrawer_username = (FontTextView)findViewById(R.id.tv_main_menudrawer_username);
-        tv_main_menudrawer_schoolname = (FontTextView)findViewById(R.id.tv_main_menudrawer_schoolname);
+        tv_main_menudrawer_unionlevel = (FontTextView)findViewById(R.id.tv_main_menudrawer_unionlevel);
 
         ll_main_menudrawer_list = (LinearLayout)findViewById(R.id.ll_main_menudrawer_list);
 
@@ -48,13 +47,11 @@ public class MenudrawerView extends LinearLayout {
 
         values.aq.id(iv_main_menudrawer_profilepic).image(Functions.borderRadius(Functions.DOMAIN + values.user_info.get("src", ""), 1000));
         values.aq.id(tv_main_menudrawer_username).text(values.user_info.get("first_name", "다시 로그인해주세요."));
-        values.aq.id(tv_main_menudrawer_schoolname).text(String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")));
+        values.aq.id(tv_main_menudrawer_unionlevel).text(values.union_info.get("level_title","-"));
 
-        ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_testpaper, "출제문제지"));
-        ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_inventory, "내 보관함"));
-        ll_main_menudrawer_list.addView(new MenudrawerListView(context, R.string.ic_main_menudrawer_list_search, "문제검색"));
+        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_dashboard, "대쉬보드"));
+        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_testpaper, "출제문제지"));
+        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_inventory, "내 보관함"));
+        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_search, "문제검색"));
     }
 }

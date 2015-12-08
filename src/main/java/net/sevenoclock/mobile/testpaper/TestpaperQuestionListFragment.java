@@ -84,7 +84,7 @@ public class TestpaperQuestionListFragment extends Fragment {
 
 
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
-        tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
+        tv_testpaper_question_list_school.setText(values.union_info.get("title","-"));
         tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
 
         MainActivity.setTitle(tcjo.get("title", ""));

@@ -8,14 +8,14 @@ import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.IconTextView;
 import net.sevenoclock.mobile.settings.Values;
 
-public class MenudrawerListView extends LinearLayout {
+public class MainMenudrawerListView extends LinearLayout {
 
     private IconTextView tv_main_menudrawer_list_icon;
     private FontTextView tv_main_menudrawer_list_title;
 
     Values values;
 
-    public MenudrawerListView(Context context, int str_icon, String title) {
+    public MainMenudrawerListView(Context context, int str_icon, String title) {
         super(context);
         values = (Values) context.getApplicationContext();
 

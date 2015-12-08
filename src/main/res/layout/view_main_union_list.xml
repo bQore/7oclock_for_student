@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/ll_testpaper_rank_list"
+              android:gravity="center_vertical" android:layout_marginLeft="20dp" android:layout_marginRight="20dp">
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/iv_main_union_list_icon"
+            android:src="@drawable/default_user" android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" android:layout_marginBottom="10dp"/>
+    <net.sevenoclock.mobile.customobj.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홍길동"
+            android:id="@+id/tv_main_union_list_title" android:textSize="15sp" android:textColor="#333333"
+            android:textStyle="bold"/>
+</LinearLayout>

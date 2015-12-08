@@ -23,6 +23,7 @@ public class TestpaperListAdapter extends BaseAdapter {
     private FontTextView tv_testpaper_list_book_title;
     private FontTextView tv_testpaper_list_book_date;
     private FontTextView tv_testpaper_list_book_purpose;
+    private FontTextView tv_testpaper_list_book_teacher;
 
     Values values;
 
@@ -66,22 +67,26 @@ public class TestpaperListAdapter extends BaseAdapter {
             tv_testpaper_list_book_title = (FontTextView) convertView.findViewById(R.id.tv_testpaper_list_book_title);
             tv_testpaper_list_book_date = (FontTextView) convertView.findViewById(R.id.tv_testpaper_list_book_date);
             tv_testpaper_list_book_purpose = (FontTextView) convertView.findViewById(R.id.tv_testpaper_list_book_purpose);
+            tv_testpaper_list_book_teacher = (FontTextView) convertView.findViewById(R.id.tv_testpaper_list_book_teacher);
 
             holder = new CustomHolder();
             holder._tv_testpaper_list_book_title = tv_testpaper_list_book_title;
             holder._tv_testpaper_list_book_date = tv_testpaper_list_book_date;
             holder._tv_testpaper_list_book_purpose = tv_testpaper_list_book_purpose;
+            holder._tv_testpaper_list_book_teacher = tv_testpaper_list_book_teacher;
             convertView.setTag(holder);
         }else {
             holder  = (CustomHolder) convertView.getTag();
             tv_testpaper_list_book_title = holder._tv_testpaper_list_book_title;
             tv_testpaper_list_book_date = holder._tv_testpaper_list_book_date;
             tv_testpaper_list_book_purpose = holder._tv_testpaper_list_book_purpose;
+            tv_testpaper_list_book_teacher = holder._tv_testpaper_list_book_teacher;
         }
 
         tv_testpaper_list_book_title.setText(m_List.get(pos).get("title", ""));
         tv_testpaper_list_book_date.setText(m_List.get(pos).get("date", ""));
         tv_testpaper_list_book_purpose.setText(m_List.get(pos).get("purpose", ""));
+        tv_testpaper_list_book_teacher.setText(m_List.get(pos).get("user", "")+" 선생님");
 
         return convertView;
     }
@@ -102,5 +107,6 @@ public class TestpaperListAdapter extends BaseAdapter {
         FontTextView _tv_testpaper_list_book_title;
         FontTextView _tv_testpaper_list_book_date;
         FontTextView _tv_testpaper_list_book_purpose;
+        FontTextView _tv_testpaper_list_book_teacher;
     }
 }

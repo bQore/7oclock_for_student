@@ -8,18 +8,17 @@
     <string name="tag_main_title">tag_main_title</string>
     <string name="tag_main_subtitle">tag_main_subtitle</string>
 
-    <string name="ic_home_landing_login_mosu">&#xe90b;</string>
-    <string name="ic_home_landing_login_facebook">&#xeac7;</string>
-    <string name="ic_home_landing_login_kakao">&#xead6;</string>
+    <string name="ic_home_landing_login_mosu">&#xe626;</string>
+    <string name="ic_home_landing_login_facebook">&#xe819;</string>
+    <string name="ic_home_landing_login_kakao">&#xe899;</string>
 
     <string name="ic_home_set3_ok">&#xe92b;</string>
 
-    <string name="ic_main_actionbar_default_menu">&#xe607;</string>
-    <string name="ic_main_actionbar_default_search">&#xe63b;</string>
-    <string name="ic_main_actionbar_search_back">&#xe625;</string>
+    <string name="ic_main_actionbar_menu">&#xe607;</string>
 
     <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
     <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
+    <string name="ic_main_menudrawer_list_dashboard">&#xe697;</string>
     <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>
     <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
     <string name="ic_main_menudrawer_list_search">&#xe63b;</string>

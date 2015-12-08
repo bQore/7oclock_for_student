@@ -31,5 +31,12 @@
                 android:text="-"
                 android:id="@+id/tv_testpaper_list_book_purpose" android:textColor="#ffffff" android:layout_marginTop="7dp"
                 android:textSize="12sp" android:gravity="center_vertical|center_horizontal"/>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:id="@+id/tv_testpaper_list_book_teacher" android:textColor="#ffffff"
+                android:textSize="12sp" android:gravity="bottom|center_vertical"
+                android:layout_marginBottom="30dp"/>
     </LinearLayout>
 </LinearLayout>

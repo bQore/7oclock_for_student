@@ -81,7 +81,7 @@ public class TestpaperListFragment extends Fragment {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_book = Functions.GET("get_testpaper_list&&uid=" + values.user_id);
+            ja_book = Functions.GET(String.format("get_testpaper_list&user_id=%d&union_id=%d", values.user_id, values.union_info.get("id",0)));
             if(ja_book == null) return false;
             return true;
         }

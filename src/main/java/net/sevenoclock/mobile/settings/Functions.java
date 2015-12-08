@@ -15,9 +15,7 @@ import android.util.Log;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
-import net.sevenoclock.mobile.testpaper.TestpaperQuestionListFragment;
+import net.sevenoclock.mobile.dashboard.DashboardFragment;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -26,7 +24,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 /**
  * Created by Administrator on 2015-09-03.
@@ -41,9 +38,10 @@ public class Functions {
 
     public static void history_go(Context con, Fragment fragment){
         try{
-            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            values.fragment_history.add(fragment);
+            Fragment fragment_now = values.fragment_history.get(values.fragment_history.size() - 1);
+            if(fragment_now != fragment) values.fragment_history.add(fragment);
             fragmentReplace(con, fragment);
             System.gc();
         }catch (Exception e){
@@ -55,7 +53,7 @@ public class Functions {
         try{
             Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            TestpaperListFragment home = (TestpaperListFragment)values.fragment_history.get(0);
+            DashboardFragment home = (DashboardFragment)values.fragment_history.get(0);
             home.reflesh();
             values.fragment_history.clear();
             values.fragment_history.add(home);

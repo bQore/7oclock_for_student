@@ -1,18 +1,18 @@
 package net.sevenoclock.mobile.home;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import com.androidquery.AQuery;
-import net.sevenoclock.mobile.customobj.TryCatchJO;
-import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.settings.Functions;
-import net.sevenoclock.mobile.settings.Values;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
+import com.androidquery.AQuery;
 import net.sevenoclock.mobile.R;
+import net.sevenoclock.mobile.customobj.TryCatchJO;
+import net.sevenoclock.mobile.main.MainActivity;
+import net.sevenoclock.mobile.settings.Functions;
+import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONException;
 
 public class LoadingActivity extends Activity {
@@ -25,7 +25,6 @@ public class LoadingActivity extends Activity {
         setContentView(R.layout.activity_home_loading);
 
         values = (Values) getApplicationContext();
-        values.aq = new AQuery(this);
 
         if(Functions.chkNetwork(this))
             new LoginTask().execute(null, null, null);
@@ -47,6 +46,7 @@ public class LoadingActivity extends Activity {
                 values.user_id = uid;
                 try {
                     values.user_info = new TryCatchJO(Functions.GET("get_user_info&uid="+values.user_id).getJSONObject(0));
+                    values.unions = values.user_info.getJSONArray("union");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     return 2;
@@ -76,6 +76,9 @@ public class LoadingActivity extends Activity {
                         startActivity(new Intent(LoadingActivity.this, Step1Activity.class));
                         LoadingActivity.this.finish();
                     }else {
+                        if (values.union_info == null && values.unions.length() > 0){
+                            values.union_info = new TryCatchJO(values.unions.getJSONObject(0));
+                        }
                         startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                         LoadingActivity.this.finish();
                     }

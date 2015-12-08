@@ -15,15 +15,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
+import net.sevenoclock.mobile.dashboard.DashboardFragment;
 import net.sevenoclock.mobile.home.LoadingActivity;
-import net.sevenoclock.mobile.home.SignupActivity;
-import net.sevenoclock.mobile.home.Step1Activity;
 import net.sevenoclock.mobile.inventory.InventoryListFragment;
 import net.sevenoclock.mobile.mypage.MypageMainFragment;
 import net.sevenoclock.mobile.search.SearchPagerFragment;
@@ -32,7 +32,6 @@ import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -54,9 +53,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    public static ActionbarDefaultView view_actionbar_default;
-    public static ActionbarSearchView view_actionbar_search;
-    public static MainSearchFragment fragment_main_search;
+    public static MainUnionFragment fragment_main_union;
 
     Values values;
     public static InputMethodManager imm;
@@ -68,6 +65,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main_main);
         values = (Values) getApplicationContext();
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        values.aq = new AQuery(this);
         values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
         values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
                 , values.user_info.get("school_name", "-")
@@ -88,17 +86,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         displayMetrics = getResources().getDisplayMetrics();
         values.book_height = (int) (90 * displayMetrics.density);
 
-        view_actionbar_default = new ActionbarDefaultView(this);
-        view_actionbar_search = new ActionbarSearchView(this);
-        fragment_main_search = new MainSearchFragment().newInstance();
+        fragment_main_union = new MainUnionFragment().newInstance();
 
-        Functions.history_set_home(this, new TestpaperListFragment().newInstance());
+        Functions.history_set_home(this, new DashboardFragment().newInstance());
     }
 
     private void setActionBar(){
         actionBar = getSupportActionBar();
         actionbar_lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(new ActionbarDefaultView(this), actionbar_lp);
+        actionBar.setCustomView(new MainActionbarView(this), actionbar_lp);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowCustomEnabled(true);
     }
@@ -116,7 +112,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         else if(app_width<640)
             menuDrawer.setMenuSize(400);
         menuDrawer.setContentView(R.layout.activity_main_main);
-        menuDrawer.setMenuView(new MenudrawerView(this));
+        menuDrawer.setMenuView(new MainMenudrawerView(this));
         menuDrawer.setDropShadowEnabled(false);
     }
 
@@ -176,8 +172,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v.getTag() != null){
             String tag = v.getTag().toString();
-            if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
+            if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_dashboard)){
                 Functions.history_go_home(this);
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
+                Functions.history_go(this, new TestpaperListFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
                 Functions.history_go(this, new InventoryListFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
@@ -194,18 +192,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     photoPickerIntent.setType("image/*");
                     startActivityForResult(photoPickerIntent, 100);
                     break;
-                case R.id.tv_main_actionbar_searchbtn:
-                    actionBar.setCustomView(view_actionbar_search, actionbar_lp);
-                    fragment_main_search.reset();
-                    Functions.history_go(this, fragment_main_search);
-                    view_actionbar_search.et_main_actionbar_search_form.setText("");
-                    view_actionbar_search.et_main_actionbar_search_form.requestFocus();
-                    imm.showSoftInput(view_actionbar_search.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
-                    break;
-                case R.id.tv_main_actionbar_search_backbtn:
-                    Functions.history_back(this);
-                    imm.hideSoftInputFromWindow(view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
-                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
+                case R.id.iv_main_actionbar_unionbtn:
+                    Functions.history_go(this, fragment_main_union);
                     break;
                 case R.id.ll_main_menudrawer_profile:
                     menuDrawer.closeMenu();
@@ -245,11 +233,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     menuDrawer.closeMenu();
                     return false;
                 }
-                if(actionBar.getCustomView() == view_actionbar_search){
-                    Functions.history_back(this);
-                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
-                    return false;
-                }
                 if (Functions.history_length() > 1) {
                     Functions.history_back(this);
                     return false;
@@ -274,14 +257,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onDestroy(){
-        try{
-            values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
-                    , values.user_info.get("school_name", "-")
-                    , values.user_info.get("school_year", "")
-                    , values.user_info.get("school_room", "")),null).build());
-        }catch (Exception e){
-            e.getStackTrace();
-        }
         super.onDestroy();
     }
 }
