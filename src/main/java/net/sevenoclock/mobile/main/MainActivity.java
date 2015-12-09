@@ -26,7 +26,6 @@ import net.sevenoclock.mobile.dashboard.DashboardFragment;
 import net.sevenoclock.mobile.home.LoadingActivity;
 import net.sevenoclock.mobile.inventory.InventoryListFragment;
 import net.sevenoclock.mobile.mypage.MypageMainFragment;
-import net.sevenoclock.mobile.search.SearchPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
@@ -178,8 +177,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 Functions.history_go(this, new TestpaperListFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
                 Functions.history_go(this, new InventoryListFragment().newInstance());
-            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
-                Functions.history_go(this, new SearchPagerFragment().newInstance(Functions.GET("get_question_unit"), 0, 0, values.user_info.get("school_name","")));
             }
             menuDrawer.closeMenu();
         }else{

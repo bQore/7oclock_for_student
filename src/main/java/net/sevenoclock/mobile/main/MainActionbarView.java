@@ -9,7 +9,6 @@ import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.IconTextView;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import org.json.JSONException;
 
 public class MainActionbarView extends FrameLayout {
 
@@ -26,11 +25,7 @@ public class MainActionbarView extends FrameLayout {
         ImageView iv_main_actionbar_unionbtn = (ImageView) findViewById(R.id.iv_main_actionbar_unionbtn);
         iv_main_actionbar_unionbtn.setOnClickListener((OnClickListener)context);
 
-        try {
-            values.aq.id(iv_main_actionbar_unionbtn).image(Functions.borderRadius(Functions.DOMAIN + values.union_info.getString("icon"), 1000));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        values.aq.id(iv_main_actionbar_unionbtn).image(Functions.borderRadius(Functions.DOMAIN + values.union_info.get("icon",""), 1000));
 
         ImageView iv_main_actionbar_logo = (ImageView)findViewById(R.id.iv_main_actionbar_logo);
         iv_main_actionbar_logo.setOnClickListener(new OnClickListener() {

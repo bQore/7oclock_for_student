@@ -87,18 +87,25 @@ public class QuizPagerFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 if (position == ja_questions.length()) {
-                    qff.qfla.reflesh();
-                    for (int i = 0; i < ja_questions.length(); i++) {
-                        if(qtf[i].answer.equals("")) qff.qfla.add(new String[]{"" + (i + 1), "-",""+qtf[i].qid});
-                        else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer,""+qtf[i].qid});
-                    }
-                    qff.qfla.notifyDataSetChanged();
+                    MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    int position = pager.getCurrentItem();
+                    if (position == ja_questions.length()) {
+                        qff.qfla.reflesh();
+                        for (int i = 0; i < ja_questions.length(); i++) {
+                            if (qtf[i].answer.equals(""))
+                                qff.qfla.add(new String[]{"" + (i + 1), "-", "" + qtf[i].qid});
+                            else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer, "" + qtf[i].qid});
+                        }
+                        qff.qfla.notifyDataSetChanged();
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    }
+                }
             }
         });
 

@@ -15,11 +15,7 @@ import android.widget.ListView;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.home.LoadingActivity;
-import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainUnionFragment extends Fragment {
 
@@ -83,20 +79,24 @@ public class MainUnionFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mua.notifyDataSetChanged();
-                        for (int i = 0; i < values.unions.length(); i++) {
-                            try {
-                                mua.add(new TryCatchJO(values.unions.getJSONObject(i)));
-                            }catch(Exception e){
-                                e.printStackTrace();
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mua.notifyDataSetChanged();
+                            for (int i = 0; i < values.unions.length(); i++) {
+                                try {
+                                    mua.add(new TryCatchJO(values.unions.getJSONObject(i)));
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
                             }
+                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                         }
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 return;
             }
             MainActivity.ll_main_main_loading.setVisibility(View.GONE);

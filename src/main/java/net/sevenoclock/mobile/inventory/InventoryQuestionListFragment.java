@@ -92,35 +92,39 @@ public class InventoryQuestionListFragment extends Fragment {
                     MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                     return;
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < ja_question.length(); i++) {
-                            InventoryQuestionView iqv = null;
-                            try {
-                                TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
-                                iqv = new InventoryQuestionView(con, tcjo);
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < ja_question.length(); i++) {
+                                InventoryQuestionView iqv = null;
+                                try {
+                                    TryCatchJO tcjo = new TryCatchJO(ja_question.getJSONObject(i));
+                                    iqv = new InventoryQuestionView(con, tcjo);
 
-                                iqv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new QuestionPagerFragment().newInstance(((InventoryQuestionView)v).tcjo));
-                                    }
-                                });
+                                    iqv.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Functions.history_go(con, new QuestionPagerFragment().newInstance(((InventoryQuestionView)v).tcjo));
+                                        }
+                                    });
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                int count_left = ll_inventory_question_list_left.getChildCount();
+                                int count_right = ll_inventory_question_list_right.getChildCount();
+
+                                if (count_left > count_right) ll_inventory_question_list_right.addView(iqv);
+                                else ll_inventory_question_list_left.addView(iqv);
                             }
-
-                            int count_left = ll_inventory_question_list_left.getChildCount();
-                            int count_right = ll_inventory_question_list_right.getChildCount();
-
-                            if (count_left > count_right) ll_inventory_question_list_right.addView(iqv);
-                            else ll_inventory_question_list_left.addView(iqv);
+                            MainActivity.setSubtitle("총 "+ja_question.length()+"개의 문제가 있습니다.");
                         }
-                        MainActivity.setSubtitle("총 "+ja_question.length()+"개의 문제가 있습니다.");
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
             }

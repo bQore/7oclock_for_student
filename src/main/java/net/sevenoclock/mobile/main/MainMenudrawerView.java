@@ -51,7 +51,7 @@ public class MainMenudrawerView extends LinearLayout {
 
         ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_dashboard, "대쉬보드"));
         ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_testpaper, "출제문제지"));
+        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_qna, "실시간질문"));
         ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_inventory, "내 보관함"));
-        ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_search, "문제검색"));
     }
 }

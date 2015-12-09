@@ -18,10 +18,10 @@
 
     <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
     <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
-    <string name="ic_main_menudrawer_list_dashboard">&#xe697;</string>
+    <string name="ic_main_menudrawer_list_dashboard">&#xe6b2;</string>
     <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>
+    <string name="ic_main_menudrawer_list_qna">&#xe6ec;</string>
     <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
-    <string name="ic_main_menudrawer_list_search">&#xe63b;</string>
 
     <string name="ic_main_mypage_picicon">&#xe72c;</string>
 

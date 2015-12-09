@@ -94,25 +94,29 @@ public class TestpaperRankFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            tra_myrank.add(new TryCatchJO(jo_myrank));
-                        }catch (Exception e){
-
-                        }
-                        for (int i = 0; i < jo_ranks.length(); i++) {
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             try {
-                                tra_ranks.add(new TryCatchJO(jo_ranks.getJSONObject(i)));
-                            }catch(Exception e){
-                                e.printStackTrace();
+                                tra_myrank.add(new TryCatchJO(jo_myrank));
+                            } catch (Exception e) {
+
                             }
+                            for (int i = 0; i < jo_ranks.length(); i++) {
+                                try {
+                                    tra_ranks.add(new TryCatchJO(jo_ranks.getJSONObject(i)));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            MainActivity.setTitle("랭킹보기");
+                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                         }
-                        MainActivity.setTitle("랭킹보기");
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 return;
             }
             MainActivity.ll_main_main_loading.setVisibility(View.GONE);
