@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -24,8 +27,10 @@ import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.dashboard.DashboardFragment;
 import net.sevenoclock.mobile.home.LoadingActivity;
-import net.sevenoclock.mobile.inventory.InventoryListFragment;
+import net.sevenoclock.mobile.home.Step2SchoolDialogActivity;
+import net.sevenoclock.mobile.inventory.InventoryPagerFragment;
 import net.sevenoclock.mobile.mypage.MypageMainFragment;
+import net.sevenoclock.mobile.qna.QnAPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
@@ -52,8 +57,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    public static MainUnionFragment fragment_main_union;
-
     Values values;
     public static InputMethodManager imm;
     public static int app_width = 0;
@@ -66,10 +69,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         values.aq = new AQuery(this);
         values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
-        values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")), null).build());
+//        values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
+//                , values.user_info.get("school_name", "-")
+//                , values.user_info.get("school_year", "")
+//                , values.user_info.get("school_room", "")), null).build());
 
         setActionBar();
         setMenuDrawer();
@@ -84,8 +87,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         DisplayMetrics displayMetrics = new DisplayMetrics();
         displayMetrics = getResources().getDisplayMetrics();
         values.book_height = (int) (90 * displayMetrics.density);
-
-        fragment_main_union = new MainUnionFragment().newInstance();
 
         Functions.history_set_home(this, new DashboardFragment().newInstance());
     }
@@ -175,8 +176,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 Functions.history_go_home(this);
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
                 Functions.history_go(this, new TestpaperListFragment().newInstance());
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_qna)){
+                Functions.history_go(this, new QnAPagerFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-                Functions.history_go(this, new InventoryListFragment().newInstance());
+                Functions.history_go(this, new InventoryPagerFragment().newInstance());
             }
             menuDrawer.closeMenu();
         }else{
@@ -184,13 +187,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Vibe.vibrate(30);
 
             switch (v.getId()){
+                case R.id.iv_qna_question_list_list_more:
+                    PopupMenu popup = new PopupMenu(MainActivity.this, v);
+                    popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+
+                    popup.show();
+                    break;
                 case R.id.fl_mypage_main_upload:
                     Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                     photoPickerIntent.setType("image/*");
                     startActivityForResult(photoPickerIntent, 100);
                     break;
                 case R.id.iv_main_actionbar_unionbtn:
-                    Functions.history_go(this, fragment_main_union);
+                    Intent intent = new Intent(this, MainUnionActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_main_menudrawer_profile:
                     menuDrawer.closeMenu();
@@ -208,6 +225,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                             })
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    values.union_info = null;
+                                    values.unions = null;
                                     values.user_info = null;
                                     values.user_id = 0;
                                     Functions.remove_pref(getApplicationContext());

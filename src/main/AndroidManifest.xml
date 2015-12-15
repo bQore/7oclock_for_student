@@ -43,6 +43,7 @@
         <activity android:name=".home.Step2SchoolDialogActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity android:name=".home.Step3Activity" android:configChanges="orientation|screenSize" />
         <activity android:name=".main.MainActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".main.MainUnionActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.Dialog" />
 
     </application>
 

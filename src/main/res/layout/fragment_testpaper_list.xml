@@ -14,5 +14,5 @@
             android:verticalScrollbarPosition="right"
             android:numColumns="2"
             android:clickable="true"
-            android:background="@drawable/ll_main_view_box"/>
+            android:background="@drawable/ll_main_view_box" android:scrollingCache="true"/>
 </LinearLayout>

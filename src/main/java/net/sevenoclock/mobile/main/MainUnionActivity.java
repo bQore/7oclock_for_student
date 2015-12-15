@@ -1,15 +1,13 @@
 package net.sevenoclock.mobile.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import net.sevenoclock.mobile.R;
@@ -17,42 +15,36 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.home.LoadingActivity;
 import net.sevenoclock.mobile.settings.Values;
 
-public class MainUnionFragment extends Fragment {
-
-    private Context con;
+public class MainUnionActivity extends Activity {
 
     private ListView lv_main_union_list;
     private MainUnionAdapter mua;
 
     Values values;
 
-    public static MainUnionFragment newInstance() {
-        MainUnionFragment view = new MainUnionFragment();
-        return view;
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        con = container.getContext();
-        values = (Values) con.getApplicationContext();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
+                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        setContentView(R.layout.activity_main_union);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        View v = inflater.inflate(R.layout.fragment_main_union, container, false);
+        values = (Values) getApplicationContext();
 
-        MainActivity.setTitle("내 소속");
-        MainActivity.setSubtitle(String.format("총 %d개의 소속이 있습니다.", values.unions.length()));
-
-        lv_main_union_list = (ListView) v.findViewById(R.id.lv_main_union_list);
+        lv_main_union_list = (ListView) findViewById(R.id.lv_main_union_list);
 
         mua = new MainUnionAdapter();
         lv_main_union_list.setAdapter(mua);
         lv_main_union_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 try {
-                    Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
+                    Vibrator Vibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                     Vibe.vibrate(30);
                     values.union_info = new TryCatchJO(values.unions.getJSONObject(position));
-                    con.startActivity(new Intent(getActivity(), LoadingActivity.class));
-                    getActivity().finish();
+                    startActivity(new Intent(MainUnionActivity.this, LoadingActivity.class));
+                    MainUnionActivity.this.finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,15 +52,12 @@ public class MainUnionFragment extends Fragment {
         });
 
         new MainUnionTask().execute(null, null, null);
-
-        return v;
     }
 
     class MainUnionTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
-            MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 
@@ -80,7 +69,7 @@ public class MainUnionFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             if(result) {
                 try{
-                    getActivity().runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mua.notifyDataSetChanged();
@@ -91,7 +80,6 @@ public class MainUnionFragment extends Fragment {
                                     e.printStackTrace();
                                 }
                             }
-                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                         }
                     });
                 }catch (Exception e){
@@ -99,7 +87,6 @@ public class MainUnionFragment extends Fragment {
                 }
                 return;
             }
-            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
             return;
         }
     }

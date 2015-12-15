@@ -74,10 +74,7 @@ public class MypageMainFragment extends Fragment {
         values.aq.id(tv_mypage_main_email).text("이메일 : "+values.user_info.get("email", "-"));
         values.aq.id(tv_mypage_main_phone).text("연락처 : "+values.user_info.get("phone", "-"));
         values.aq.id(tv_mypage_main_gender).text("성   별 : "+values.user_info.get("gender", "-"));
-        values.aq.id(tv_mypage_main_group).text("소   속 : "+String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")));
+        values.aq.id(tv_mypage_main_group).text("소   속 : "+values.union_info.get("title","-"));
 
         ll_mypage_main_group.setOnClickListener(new View.OnClickListener() {
             @Override

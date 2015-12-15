@@ -242,6 +242,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                 JSONArray ja = Functions.GET("get_user_info&uid=" + values.user_id);
                 if (ja != null) {
                     values.user_info = new TryCatchJO(ja.getJSONObject(0));
+                    values.unions = values.user_info.getJSONArray("union");
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -258,6 +259,7 @@ public class LandingActivity extends Activity implements View.OnClickListener {
                         startActivity(new Intent(LandingActivity.this, Step1Activity.class));
                         LandingActivity.this.finish();
                     }else{
+                        values.union_info = new TryCatchJO(values.unions.getJSONObject(0));
                         startActivity(new Intent(LandingActivity.this, MainActivity.class));
                         LandingActivity.this.finish();
                     }

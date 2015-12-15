@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:background="#f9f9f9" android:gravity="center_horizontal">
+
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/lv_qna_detail_list" android:divider="#00000000"
+                android:dividerHeight="0dp" android:paddingBottom="80dp"
+                android:clipToPadding="false" android:background="#f9f9f9" android:clickable="false"
+                android:choiceMode="none"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:gravity="bottom">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal"
+                    android:layout_margin="20dp" android:background="@drawable/ll_question_fragment_feedback_bg"
+                    android:id="@+id/ll_qna_detail_btns">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_qna_detail_answer"
+                        android:layout_weight="1" android:paddingTop="15dp" android:paddingBottom="15dp"
+                        android:longClickable="false">
+                    <net.sevenoclock.mobile.customobj.IconTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ic_qna_pager_ask"
+                            android:textSize="15sp" android:textColor="#666666"
+                            android:layout_weight="0" android:layout_marginRight="5dp" android:gravity="center_vertical|center_horizontal"/>
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="답변하기"
+                            android:textSize="13sp" android:textColor="#666666"
+                            android:layout_weight="0" android:gravity="center_vertical|center_horizontal"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

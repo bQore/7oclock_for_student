@@ -42,9 +42,6 @@ public class InventoryListFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_inventory_list, container, false);
 
-        MainActivity.setTitle("내 보관함");
-        MainActivity.setSubtitle(values.user_info.get("first_name","-")+"님의 보관함입니다.");
-
         ll_inventory_list_view = (LinearLayout) v.findViewById(R.id.ll_inventory_list_view);
         ll_inventory_list_left = (LinearLayout) v.findViewById(R.id.ll_inventory_list_left);
         ll_inventory_list_right = (LinearLayout) v.findViewById(R.id.ll_inventory_list_right);

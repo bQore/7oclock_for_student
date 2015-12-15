@@ -37,4 +37,7 @@
 
     <string name="ic_testpaper_input_result_quick_o">&#xe88c;</string>
     <string name="ic_testpaper_input_result_quick_x">&#xe616;</string>
+
+    <string name="ic_qna_pager_ask">&#xe72c;</string>
+
 </resources>

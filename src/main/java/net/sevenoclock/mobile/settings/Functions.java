@@ -16,6 +16,7 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.dashboard.DashboardFragment;
+import net.sevenoclock.mobile.qna.QnADetailFragment;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -24,6 +25,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2015-09-03.
@@ -106,6 +109,18 @@ public class Functions {
 
     public static int history_length(){
         return values.fragment_history.size();
+    }
+
+    public static void QnADetail_reflesh(Context con){
+        try{
+            Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+            QnADetailFragment fragment = (QnADetailFragment)values.fragment_history.get(values.fragment_history.size() - 1);
+            fragment.reflesh();
+            System.gc();
+        }catch (Exception e){
+            Log.i("history_go_Error",e.getMessage());
+        }
     }
 
     public static void fragmentReplace(Context con, Fragment newFragment) {
@@ -224,6 +239,24 @@ public class Functions {
 //	    intent.putExtra("badge_count_class_name", launcherClassName);
 //	    context.sendBroadcast(intent);
 //	}
+
+    public static String getTimeFormat(long unixtime){
+
+        long unixtime_now = System.currentTimeMillis() / 1000;
+        long time_diff = unixtime_now-unixtime;
+
+        if(time_diff < 60){
+            return "조금전";
+        }else if(time_diff<(60*60)){
+            return (time_diff/60)+"분 전";
+        }else if(time_diff<(60*60*24)){
+            return (time_diff/60/60)+"시간 전";
+        }else if(time_diff<(60*60*24*3)){
+            return (time_diff/60/60/24)+"일 전";
+        }
+        Date date = new Date(unixtime*1000);
+        return new SimpleDateFormat("MM월 dd일").format(date);
+    }
 
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인

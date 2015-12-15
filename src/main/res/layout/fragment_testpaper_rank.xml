@@ -22,7 +22,8 @@
             <ListView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lv_testpaper_rank_myrank" android:dividerHeight="0dp" android:divider="#00000000"/>
+                    android:id="@+id/lv_testpaper_rank_myrank" android:dividerHeight="0dp" android:divider="#00000000"
+                    android:scrollingCache="true"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
@@ -38,7 +39,8 @@
             <ListView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lv_testpaper_rank_ranks" android:dividerHeight="0dp" android:divider="#00000000"/>
+                    android:id="@+id/lv_testpaper_rank_ranks" android:dividerHeight="0dp" android:divider="#00000000"
+                    android:scrollingCache="true"/>
         </LinearLayout>
     </LinearLayout>
 

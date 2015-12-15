@@ -47,7 +47,7 @@ public class MainMenudrawerView extends LinearLayout {
 
         values.aq.id(iv_main_menudrawer_profilepic).image(Functions.borderRadius(Functions.DOMAIN + values.user_info.get("src", ""), 1000));
         values.aq.id(tv_main_menudrawer_username).text(values.user_info.get("first_name", "다시 로그인해주세요."));
-        values.aq.id(tv_main_menudrawer_unionlevel).text(values.union_info.get("level_title","-"));
+        values.aq.id(tv_main_menudrawer_unionlevel).text(String.format("%s %s",values.union_info.get("title","-"),values.union_info.get("level_title","-")));
 
         ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_dashboard, "대쉬보드"));
         ll_main_menudrawer_list.addView(new MainMenudrawerListView(context, R.string.ic_main_menudrawer_list_testpaper, "출제문제지"));
