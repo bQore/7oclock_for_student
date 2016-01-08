@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+                android:background="@drawable/ll_main_view_box">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_margin="5dp">
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/iv_qna_detail_write_icon" android:src="@drawable/default_user"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="New Text"
+                        android:id="@+id/tv_qna_detail_write_username" android:gravity="center_vertical" android:layout_marginLeft="5dp"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:background="@drawable/ll_testpaper_question_list_box"
+                    android:layout_margin="10dp" android:padding="10dp">
+                <HorizontalScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/horizontalScrollView2">
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/ll_qna_detail_write_sources">
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp" android:background="@drawable/btn_quiz_text_input_btns"
+                                android:gravity="center_vertical|center_horizontal" android:id="@+id/ll_qna_detail_write_source_add">
+                            <net.sevenoclock.mobile.customobj.IconTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/tv_qna_write_source_add"
+                                    android:textSize="40sp" android:paddingBottom="10dp"/>
+                            <net.sevenoclock.mobile.customobj.FontTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="이미지 첨부"
+                                    android:id="@+id/textView3"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_qna_detail_write_contents" android:hint="ex) 이렇게 풀면 됩니다." android:layout_margin="20dp"/>
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="작성완료"
+                    android:id="@+id/btn_qna_detail_write_done" android:background="@drawable/btn_home_signup_btn"
+                    android:textColor="#FFFFFF" android:layout_margin="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

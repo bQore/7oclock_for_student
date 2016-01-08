@@ -39,5 +39,6 @@
     <string name="ic_testpaper_input_result_quick_x">&#xe616;</string>
 
     <string name="ic_qna_pager_ask">&#xe72c;</string>
+    <string name="tv_qna_write_source_add">&#xe603;</string>
 
 </resources>

@@ -19,10 +19,7 @@ import net.sevenoclock.mobile.dashboard.DashboardFragment;
 import net.sevenoclock.mobile.qna.QnADetailFragment;
 import org.json.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -130,6 +127,13 @@ public class Functions {
         transaction.commit();
         values.tracker.send(MapBuilder.createEvent("UserAction", "PageMove", newFragment.getClass().toString(), null).build());
         values.tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, newFragment.getClass().toString().replaceAll("net.sevenoclock.mobile.","")).build());
+    }
+
+    public static byte[] bitmapToByteArray( Bitmap $bitmap ) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
+        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
+        byte[] byteArray = stream.toByteArray() ;
+        return byteArray ;
     }
 
     public static Bitmap borderRadius(String src, int pixels) { return borderRadius(getBitmapFromURL(src), pixels); }

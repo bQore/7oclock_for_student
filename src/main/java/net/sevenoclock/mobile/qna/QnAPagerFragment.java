@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.viewpagerindicator.TabPageIndicator;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.main.MainActivity;
+import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 
 public class QnAPagerFragment extends Fragment {
@@ -21,6 +23,7 @@ public class QnAPagerFragment extends Fragment {
 
     private ViewPager pager;
     private TabPageIndicator indicator;
+    private LinearLayout ll_qna_pager_ask;
 
     private QnAFragmentAdapter adapter;
 
@@ -45,6 +48,14 @@ public class QnAPagerFragment extends Fragment {
 
         pager = (ViewPager) v.findViewById(R.id.vp_qna_fragment_viewpaper);
         indicator = (TabPageIndicator) v.findViewById(R.id.tpi_qna_fragment_indicator);
+
+        ll_qna_pager_ask = (LinearLayout) v.findViewById(R.id.ll_qna_pager_ask);
+        ll_qna_pager_ask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new QnAQuestionWriteFragment());
+            }
+        });
 
         adapter = new QnAFragmentAdapter(this.getChildFragmentManager());
         adapter.notifyDataSetChanged();

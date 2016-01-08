@@ -141,7 +141,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
 
         protected void onPostExecute(Boolean result) {
             if(result){
-                startActivity(new Intent(SignupActivity.this, Step1Activity.class));
+                startActivity(new Intent(SignupActivity.this, Step2Activity.class));
                 ((Activity)LandingActivity.context).finish();
                 SignupActivity.this.finish();
             }

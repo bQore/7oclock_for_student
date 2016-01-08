@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
@@ -99,6 +96,13 @@ public class QnADetailFragment extends Fragment {
         }
 
         lv_qna_detail_list.addHeaderView(header, null, false);
+
+        ll_qna_detail_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.history_go(con, new QnADetailWriteFragment().newInstance(tcjo));
+            }
+        });
 
         new GetAnswerTask().execute(null, null, null);
 

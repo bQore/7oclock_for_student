@@ -134,7 +134,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         opts.inPurgeable = true;
                         Bitmap profilepic = BitmapFactory.decodeStream(iStream, null, opts);
                         profilepic = Functions.getResizedBitmap(profilepic, 256, 256);
-                        params.put("picture", bitmapToByteArray(profilepic));
+                        params.put("picture", Functions.bitmapToByteArray(profilepic));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -152,13 +152,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     });
                 }
         }
-    }
-
-    public byte[] bitmapToByteArray( Bitmap $bitmap ) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
-        byte[] byteArray = stream.toByteArray() ;
-        return byteArray ;
     }
 
     public static void setTitle(String str){
