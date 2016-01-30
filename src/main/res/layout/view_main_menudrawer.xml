@@ -41,7 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="SchoolName"
-                            android:id="@+id/tv_main_menudrawer_schoolname" android:textSize="14sp"
+                            android:id="@+id/tv_main_menudrawer_unionlevel" android:textSize="14sp"
                             android:textColor="#f39c12"/>
                 </LinearLayout>
                 <net.sevenoclock.mobile.customobj.FontTextView

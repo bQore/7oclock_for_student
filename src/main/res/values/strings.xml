@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">모두를 위한 수학</string>
+    <string name="facebook_app_id">420251894830228</string>
     <string name="error_thumbnail_view">There was an error initializing the YouTubeThumbnailView (%1$s)</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <string name="tag_main_title">tag_main_title</string>
     <string name="tag_main_subtitle">tag_main_subtitle</string>
 
-    <string name="ic_main_actionbar_default_menu">&#xe607;</string>
-    <string name="ic_main_actionbar_default_search">&#xe63b;</string>
-    <string name="ic_main_actionbar_search_back">&#xe625;</string>
+    <string name="ic_home_landing_login_mosu">&#xe626;</string>
+    <string name="ic_home_landing_login_facebook">&#xe819;</string>
+    <string name="ic_home_landing_login_kakao">&#xe899;</string>
+
+    <string name="ic_home_set3_ok">&#xe92b;</string>
+
+    <string name="ic_main_actionbar_menu">&#xe607;</string>
 
     <string name="ic_main_menudrawer_tablist_setting">&#xe686;</string>
     <string name="ic_main_menudrawer_tablist_logout">&#xe646;</string>
+    <string name="ic_main_menudrawer_list_dashboard">&#xe6b2;</string>
     <string name="ic_main_menudrawer_list_testpaper">&#xe604;</string>
+    <string name="ic_main_menudrawer_list_qna">&#xe6ec;</string>
     <string name="ic_main_menudrawer_list_inventory">&#xe655;</string>
-    <string name="ic_main_menudrawer_list_search">&#xe63b;</string>
 
     <string name="ic_main_mypage_picicon">&#xe72c;</string>
 
@@ -31,4 +37,23 @@
 
     <string name="ic_testpaper_input_result_quick_o">&#xe88c;</string>
     <string name="ic_testpaper_input_result_quick_x">&#xe616;</string>
+
+    <string name="ic_qna_pager_ask">&#xe72c;</string>
+    <string name="tv_qna_write_source_add">&#xe603;</string>
+
+    <string name="ic_mypage_group_info">&#xe727;</string>
+
+    <string name="ic_union_search">&#xe63b;</string>
+
+    <string name="ic_filter_setting">&#xe686;</string>
+
+    <string name="ic_bell">&#xe798;</string>
+
+    <string name="ic_refresh">&#xe642;</string>
+
+    <string name="ic_error">&#xe719;</string>
+
+    <string name="ic_main_group">&#xe6c3;</string>
+
+    <string name="ic_main_mail">&#xe6d6;</string>
 </resources>

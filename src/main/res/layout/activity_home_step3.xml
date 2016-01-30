@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#FFFFFF">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView3">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent" android:focusableInTouchMode="true" android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView" android:src="@drawable/step3_title" android:scaleType="fitCenter"
+                    android:minHeight="100dp"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px" android:background="#dddddd"
+                    android:layout_marginBottom="30dp">
+            </LinearLayout>
+
+            <net.sevenoclock.mobile.customobj.IconTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_home_set3_ok"
+                    android:gravity="center_vertical|center_horizontal" android:textSize="120sp"
+                    android:textColor="#27ae60"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="모두를 위한 수학에 오신것을 환영합니다."
+                    android:id="@+id/textView" android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#666666" android:textSize="18sp" android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"/>
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="완료"
+                    android:id="@+id/btn_home_step3_submit" android:textColor="#FFF" android:background="#2ecc71"
+                    android:textSize="16sp" android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

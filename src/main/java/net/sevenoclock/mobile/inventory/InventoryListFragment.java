@@ -42,9 +42,6 @@ public class InventoryListFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_inventory_list, container, false);
 
-        MainActivity.setTitle("내 보관함");
-        MainActivity.setSubtitle(values.user_info.get("first_name","-")+"님의 보관함입니다.");
-
         ll_inventory_list_view = (LinearLayout) v.findViewById(R.id.ll_inventory_list_view);
         ll_inventory_list_left = (LinearLayout) v.findViewById(R.id.ll_inventory_list_left);
         ll_inventory_list_right = (LinearLayout) v.findViewById(R.id.ll_inventory_list_right);
@@ -55,7 +52,7 @@ public class InventoryListFragment extends Fragment {
             public void onClick(View v) {
                 Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
                 Vibe.vibrate(30);
-                //Functions.history_go(con, MainActivity.view_search_fragment);
+                Functions.history_go_home(con);
             }
         });
 
@@ -81,43 +78,47 @@ public class InventoryListFragment extends Fragment {
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < ja_book.length(); i++) {
-                            InventoryBookView ibv = null;
-                            try {
-                                TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
-                                ibv = new InventoryBookView(con, tcjo);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < ja_book.length(); i++) {
+                                InventoryBookView ibv = null;
+                                try {
+                                    TryCatchJO tcjo = new TryCatchJO(ja_book.getJSONObject(i));
+                                    ibv = new InventoryBookView(con, tcjo);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (ibv != null) {
+                                    int count_left = ll_inventory_list_left.getChildCount();
+                                    int count_right = ll_inventory_list_right.getChildCount();
+
+                                    if (count_left > count_right) ll_inventory_list_right.addView(ibv);
+                                    else ll_inventory_list_left.addView(ibv);
+
+                                    ibv.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Functions.history_go(con, new InventoryQuestionListFragment().newInstance(((InventoryBookView) v).tcjo));
+                                        }
+                                    });
+                                }
                             }
-
-                            if (ibv != null) {
-                                int count_left = ll_inventory_list_left.getChildCount();
-                                int count_right = ll_inventory_list_right.getChildCount();
-
-                                if (count_left > count_right) ll_inventory_list_right.addView(ibv);
-                                else ll_inventory_list_left.addView(ibv);
-
-                                ibv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Functions.history_go(con, new InventoryQuestionListFragment().newInstance(((InventoryBookView)v).tcjo));
-                                    }
-                                });
+                            if (ja_book.length() <= 0) {
+                                ll_inventory_list_view.setVisibility(View.GONE);
+                                iv_inventory_list_nodata.setVisibility(View.VISIBLE);
+                            } else {
+                                iv_inventory_list_nodata.setVisibility(View.GONE);
+                                ll_inventory_list_view.setVisibility(View.VISIBLE);
                             }
+                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                         }
-                        if(ja_book.length() <= 0){
-                            ll_inventory_list_view.setVisibility(View.GONE);
-                            iv_inventory_list_nodata.setVisibility(View.VISIBLE);
-                        }else{
-                            iv_inventory_list_nodata.setVisibility(View.GONE);
-                            ll_inventory_list_view.setVisibility(View.VISIBLE);
-                        }
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 MainActivity.ll_main_main_loading.setVisibility(View.GONE);

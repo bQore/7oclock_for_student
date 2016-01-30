@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#FFFFFF">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView3">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent" android:focusableInTouchMode="true" android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView" android:src="@drawable/step2_title" android:scaleType="fitCenter"
+                    android:minHeight="100dp"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px" android:background="#dddddd"
+                    android:layout_marginBottom="30dp">
+            </LinearLayout>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중학교" android:layout_marginBottom="5dp" android:textSize="16sp"
+                    android:textColor="#666"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_marginBottom="15dp" android:id="@+id/rg_home_step2_grade_m">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중학교 1학년"
+                        android:id="@+id/rb_home_step2_grade_m1"
+                        android:onClick="oneRadioButtonClicked"
+                        android:checked="true" android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중학교 2학년"
+                        android:id="@+id/rb_home_step2_grade_m2"
+                        android:onClick="oneRadioButtonClicked"
+                        android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중학교 3학년"
+                        android:id="@+id/rb_home_step2_grade_m3"
+                        android:onClick="oneRadioButtonClicked"
+                        android:layout_weight="1"/>
+            </RadioGroup>
+
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고등학교" android:layout_marginBottom="5dp" android:textSize="16sp"
+                    android:textColor="#666"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_marginBottom="15dp" android:id="@+id/rg_home_step2_grade_h">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="고등학교 1학년"
+                        android:id="@+id/rb_home_step2_grade_h1"
+                        android:onClick="oneRadioButtonClicked"
+                        android:checked="false" android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="고등학교 2학년"
+                        android:id="@+id/rb_home_step2_grade_h2"
+                        android:onClick="oneRadioButtonClicked"
+                        android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="고등학교 3학년"
+                        android:id="@+id/rb_home_step2_grade_h3"
+                        android:onClick="oneRadioButtonClicked"
+                        android:layout_weight="1"/>
+            </RadioGroup>
+
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기타" android:layout_marginBottom="5dp" android:textSize="16sp"
+                    android:textColor="#666"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:layout_marginBottom="15dp" android:id="@+id/rg_home_step2_grade_n">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일반인"
+                        android:id="@+id/rb_home_step2_grade_n1"
+                        android:onClick="oneRadioButtonClicked"
+                        android:checked="false" android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="선생님"
+                        android:id="@+id/rb_home_step2_grade_n2"
+                        android:onClick="oneRadioButtonClicked"
+                        android:layout_weight="1"/>
+            </RadioGroup>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/ll_home_step2_part2" >
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1px" android:background="#dddddd"
+                        android:layout_marginBottom="30dp" android:layout_marginTop="15dp">
+                </LinearLayout>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="학교명" android:layout_marginBottom="5dp" android:textSize="16sp"
+                        android:textColor="#666"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_home_step2_school" android:background="@drawable/et_flat"
+                            android:layout_marginRight="10dp" android:layout_marginBottom="20dp"
+                            android:layout_weight="1" android:textSize="18sp" android:hint="학교명"/>
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="검색"
+                            android:id="@+id/btn_home_step2_school" android:layout_weight="0" android:textColor="#FFF"
+                            android:background="#2ecc71" android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="다음"
+                    android:id="@+id/btn_home_step2_submit" android:textColor="#FFF" android:background="#2ecc71"
+                    android:textSize="16sp" android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

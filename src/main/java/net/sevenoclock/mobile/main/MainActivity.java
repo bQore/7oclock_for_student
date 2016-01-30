@@ -8,33 +8,41 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
-import com.google.analytics.tracking.android.MapBuilder;
+
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
+import net.sevenoclock.mobile.customobj.IconTextView;
+import net.sevenoclock.mobile.dashboard.DashboardFragment;
+import net.sevenoclock.mobile.dashboard.NewsFeedListFragment;
 import net.sevenoclock.mobile.home.LoadingActivity;
-import net.sevenoclock.mobile.inventory.InventoryListFragment;
+import net.sevenoclock.mobile.inventory.InventoryPagerFragment;
 import net.sevenoclock.mobile.mypage.MypageMainFragment;
-import net.sevenoclock.mobile.search.SearchPagerFragment;
+import net.sevenoclock.mobile.qna.QnAPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
+
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,17 +57,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public LinearLayout ll_main_main_mainview;
     public static LinearLayout ll_main_main_loading;
 
-    public LinearLayout ll_main_main_title;
+    public static LinearLayout ll_main_main_title;
     public static FontTextView tv_main_main_title;
     public static FontTextView tv_main_main_subtitle;
 
-    public static ActionbarDefaultView view_actionbar_default;
-    public static ActionbarSearchView view_actionbar_search;
-    public static MainSearchFragment fragment_main_search;
+    public static RelativeLayout rl_main_search_bar;
+    public static EditText et_search_bar;
+    public static IconTextView ic_union_search;
 
     Values values;
     public static InputMethodManager imm;
     public static int app_width = 0;
+
+    public static int news_count = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,10 +79,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         imm= (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         values.aq = new AQuery(this);
         values.tracker = GoogleAnalytics.getInstance(this).getTracker("UA-68827491-1");
-        values.tracker.send(MapBuilder.createEvent("UserAction", "Enter", String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")), null).build());
 
         setActionBar();
         setMenuDrawer();
@@ -80,25 +86,34 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ll_main_main_mainview = (LinearLayout)findViewById(R.id.ll_main_main_mainview);
         ll_main_main_loading = (LinearLayout)findViewById(R.id.ll_main_main_loading);
 
+        rl_main_search_bar = (RelativeLayout)findViewById(R.id.rl_union_search);
+        et_search_bar = (EditText)findViewById(R.id.et_main_union_search);
+        ic_union_search = (IconTextView)findViewById(R.id.itv_main_search_done);
+
         ll_main_main_title = (LinearLayout)findViewById(R.id.ll_main_main_title);
         tv_main_main_title = (FontTextView)findViewById(R.id.tv_main_main_title);
         tv_main_main_subtitle = (FontTextView)findViewById(R.id.tv_main_main_subtitle);
 
+        ic_union_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MainActivity.this, MainUnionSearch.class);
+                it.putExtra("search_name",et_search_bar.getText().toString());
+                Log.i("@@info","search init...keyword:"+et_search_bar.getText().toString());
+                startActivity(it);
+            }
+        });
         DisplayMetrics displayMetrics = new DisplayMetrics();
         displayMetrics = getResources().getDisplayMetrics();
         values.book_height = (int) (90 * displayMetrics.density);
 
-        view_actionbar_default = new ActionbarDefaultView(this);
-        view_actionbar_search = new ActionbarSearchView(this);
-        fragment_main_search = new MainSearchFragment().newInstance();
-
-        Functions.history_set_home(this, new TestpaperListFragment().newInstance());
+        Functions.history_set_home(this, new DashboardFragment().newInstance());
     }
 
     private void setActionBar(){
         actionBar = getSupportActionBar();
         actionbar_lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        actionBar.setCustomView(new ActionbarDefaultView(this), actionbar_lp);
+        actionBar.setCustomView(new MainActionbarView(this), actionbar_lp);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowCustomEnabled(true);
     }
@@ -116,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         else if(app_width<640)
             menuDrawer.setMenuSize(400);
         menuDrawer.setContentView(R.layout.activity_main_main);
-        menuDrawer.setMenuView(new MenudrawerView(this));
+        menuDrawer.setMenuView(new MainMenudrawerView(this));
         menuDrawer.setDropShadowEnabled(false);
     }
 
@@ -129,6 +144,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
 
+                    Log.i("@@info",selectedImage.toString());
+
                     HashMap<String, Object> params = new HashMap<String, Object>();
 
                     InputStream iStream = null;
@@ -138,31 +155,35 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         opts.inPurgeable = true;
                         Bitmap profilepic = BitmapFactory.decodeStream(iStream, null, opts);
                         profilepic = Functions.getResizedBitmap(profilepic, 256, 256);
-                        params.put("picture", bitmapToByteArray(profilepic));
+                        params.put("picture", Functions.bitmapToByteArray(profilepic));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }catch (NullPointerException e){
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImage);
+                            params.put("picture",Functions.bitmapToByteArray(bitmap));
+                        } catch (IOException ioe) {
+                            e.printStackTrace();
+                        }
                     }
+
 
                     values.aq.ajax(Functions.DOMAIN+"/mobile/?mode=set_user_profilepic&uid=" + values.user_id, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                         @Override
                         public void callback(String url, JSONObject object,AjaxStatus status) {
-                            values.user_info = null;
-                            values.user_id = 0;
-                            startActivity(new Intent(MainActivity.this, LoadingActivity.class));
-                            MainActivity.this.finish();
+                            if(status.getCode()==200) {
+                                values.user_info = null;
+                                values.user_id = 0;
+                                startActivity(new Intent(MainActivity.this, LoadingActivity.class));
+                                MainActivity.this.finish();
+                            }else
+                                Toast.makeText(MainActivity.this,"사진을 가져오는데 실패하였습니다!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
         }
-    }
-
-    public byte[] bitmapToByteArray( Bitmap $bitmap ) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
-        byte[] byteArray = stream.toByteArray() ;
-        return byteArray ;
     }
 
     public static void setTitle(String str){
@@ -171,17 +192,24 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public static void setSubtitle(String str){
         MainActivity.tv_main_main_subtitle.setText(str);
     }
+    public static void setTitleVisible(int value){ MainActivity.ll_main_main_title.setVisibility(value);}
+    public static void setSearchBarVisible(int value){ MainActivity.rl_main_search_bar.setVisibility(value);}
 
     @Override
     public void onClick(View v) {
         if(v.getTag() != null){
+            Functions.history_clear();
             String tag = v.getTag().toString();
-            if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
+            if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_dashboard)){
                 Functions.history_go_home(this);
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_testpaper)){
+                Functions.history_go(this, new TestpaperListFragment().newInstance());
+            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_qna)){
+                Functions.history_go(this, new QnAPagerFragment().newInstance());
             }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_inventory)){
-                Functions.history_go(this, new InventoryListFragment().newInstance());
-            }else if(tag.equals("ll_main_menudrawer_"+R.string.ic_main_menudrawer_list_search)){
-                Functions.history_go(this, new SearchPagerFragment().newInstance(Functions.GET("get_question_unit"), 0, 0, values.user_info.get("school_name","")));
+                Functions.history_go(this, new InventoryPagerFragment().newInstance());
+            }else if(tag.equals("ll_main_menudrawer_333")){
+                Functions.history_go(this, new NewsFeedListFragment().newInstance());
             }
             menuDrawer.closeMenu();
         }else{
@@ -192,20 +220,21 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 case R.id.fl_mypage_main_upload:
                     Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                     photoPickerIntent.setType("image/*");
+                    //여기서부터 프로필 이미지 잘라오기
+                    //Crop 활성화(잘라내기)
+                    photoPickerIntent.putExtra("crop","true");
+                    //X:Y 비율 1:1로 지정
+                    photoPickerIntent.putExtra("aspectX",1);
+                    photoPickerIntent.putExtra("aspectY",1);
+                    //X:Y 픽셀 지정. 1:1이므로 서로 같은 픽셀
+                    photoPickerIntent.putExtra("outputX",256);
+                    photoPickerIntent.putExtra("outputY",256);
+                    //이미지 잘라오기 끝
                     startActivityForResult(photoPickerIntent, 100);
                     break;
-                case R.id.tv_main_actionbar_searchbtn:
-                    actionBar.setCustomView(view_actionbar_search, actionbar_lp);
-                    fragment_main_search.reset();
-                    Functions.history_go(this, fragment_main_search);
-                    view_actionbar_search.et_main_actionbar_search_form.setText("");
-                    view_actionbar_search.et_main_actionbar_search_form.requestFocus();
-                    imm.showSoftInput(view_actionbar_search.et_main_actionbar_search_form, InputMethodManager.SHOW_FORCED);
-                    break;
-                case R.id.tv_main_actionbar_search_backbtn:
-                    Functions.history_back(this);
-                    imm.hideSoftInputFromWindow(view_actionbar_search.et_main_actionbar_search_form.getWindowToken(), 0);
-                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
+                case R.id.iv_main_actionbar_unionbtn:
+                    Intent intent = new Intent(this, MainUnionActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_main_menudrawer_profile:
                     menuDrawer.closeMenu();
@@ -223,6 +252,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                             })
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    values.union_info = null;
+                                    values.unions = null;
                                     values.user_info = null;
                                     values.user_id = 0;
                                     Functions.remove_pref(getApplicationContext());
@@ -243,11 +274,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case KeyEvent.KEYCODE_BACK:
                 if(menuDrawer.isMenuVisible()){
                     menuDrawer.closeMenu();
-                    return false;
-                }
-                if(actionBar.getCustomView() == view_actionbar_search){
-                    Functions.history_back(this);
-                    actionBar.setCustomView(view_actionbar_default, actionbar_lp);
                     return false;
                 }
                 if (Functions.history_length() > 1) {
@@ -274,10 +300,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onDestroy(){
-        values.tracker.send(MapBuilder.createEvent("UserAction","Exit",String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")),null).build());
         super.onDestroy();
     }
 }

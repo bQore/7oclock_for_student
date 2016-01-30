@@ -28,6 +28,39 @@
                     android:id="@+id/tv_main_main_subtitle" android:textSize="15sp" android:textColor="#a7a8af"
                     android:gravity="bottom" android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp" android:layout_marginLeft="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="100dp">
+                <RelativeLayout
+                    android:id="@+id/rl_union_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:visibility="gone">
+                    <EditText
+                        android:id="@+id/et_main_union_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:hint="소속 이름"
+                        android:textColorHint="#999" />
+                    <net.sevenoclock.mobile.customobj.IconTextView
+                        android:id="@+id/itv_main_search_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/ic_union_search"
+                        android:textSize="25sp"
+                        android:textColor="#333"
+                        android:layout_toRightOf="@id/et_main_union_search" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/ll_main_main_mainview"

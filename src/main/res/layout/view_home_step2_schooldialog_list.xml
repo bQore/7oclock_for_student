@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:gravity="center_vertical" android:paddingTop="20dp"
+            android:paddingBottom="20dp" android:paddingLeft="10dp">
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="학교명"
+                android:id="@+id/tv_home_step2_schooldialog_list_name" android:textSize="16sp"
+                android:layout_marginRight="10dp"/>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주소"
+                android:id="@+id/tv_home_step2_schooldialog_list_address" android:textSize="12sp"
+                android:textColor="#aaaaaa"/>
+    </LinearLayout>
+</LinearLayout>

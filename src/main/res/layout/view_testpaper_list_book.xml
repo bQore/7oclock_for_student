@@ -1,35 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" android:background="#FFFFFF">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
-    <LinearLayout
-            android:orientation="vertical"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="150dp"
+        android:background="@drawable/ll_testpaper_list_book"
+        android:padding="10dp">
+        <RelativeLayout
+            android:id="@+id/tmp_wrap_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/iv_testpaper_list_book_src"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_launcher"/>
+        </RelativeLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:background="@drawable/ll_testpaper_list_book"
-            android:minHeight="150dp"
-            android:gravity="center_horizontal" android:paddingTop="40dp"
-            android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_margin="5dp">
-        <net.sevenoclock.mobile.customobj.FontTextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tmp_wrap_image"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+            <net.sevenoclock.mobile.customobj.FontTextView
+                android:id="@+id/tv_testpaper_list_book_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:id="@+id/tv_testpaper_list_book_title" android:textColor="#333333" android:textSize="18sp"
-                android:textStyle="bold" android:background="#FFFFFF" android:paddingTop="5dp"
-                android:paddingBottom="5dp" android:paddingLeft="7dp" android:paddingRight="7dp"
-                android:gravity="fill_horizontal|center_vertical"/>
-        <net.sevenoclock.mobile.customobj.FontTextView
-                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="문제지 이름"
+                android:textSize="20sp"
+                android:textColor="#333"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2015.01.01"
-                android:id="@+id/tv_testpaper_list_book_date" android:textColor="#ffffff" android:layout_marginTop="7dp"
-                android:textSize="12sp" android:gravity="center_vertical|center_horizontal"/>
-        <net.sevenoclock.mobile.customobj.FontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"
-                android:id="@+id/tv_testpaper_list_book_purpose" android:textColor="#ffffff" android:layout_marginTop="7dp"
-                android:textSize="12sp" android:gravity="center_vertical|center_horizontal"/>
-    </LinearLayout>
+                android:orientation="horizontal" >
+                <net.sevenoclock.mobile.customobj.FontTextView
+                    android:id="@+id/tv_testpaper_list_book_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="출제문제지 소속"
+                    android:textSize="10sp"
+                    android:textColor="#666"/>
+                <net.sevenoclock.mobile.customobj.FontTextView
+                    android:id="@+id/tv_testpaper_list_book_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="출제 일시"
+                    android:textSize="10sp"
+                    android:textColor="#666"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

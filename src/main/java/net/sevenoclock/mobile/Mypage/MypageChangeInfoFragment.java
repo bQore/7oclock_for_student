@@ -118,6 +118,8 @@ public class MypageChangeInfoFragment extends Fragment {
                     public void callback(String url, String html, AjaxStatus status) {
                         if (status.getCode() == 200) {
                             Toast.makeText(con, "개인정보 수정 완료", Toast.LENGTH_LONG).show();
+                            values.union_info = null;
+                            values.unions = null;
                             values.user_info = null;
                             values.user_id = 0;
                             con.startActivity(new Intent(getActivity(), LoadingActivity.class));

@@ -1,6 +1,9 @@
 package net.sevenoclock.mobile.question;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +25,19 @@ import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.IconTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
+import net.sevenoclock.mobile.quiz.QuizPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
+import net.sevenoclock.mobile.settings.UserData;
 import net.sevenoclock.mobile.settings.Values;
+import net.sevenoclock.mobile.testpaper.TestpaperListAdapter;
+import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
+import net.sevenoclock.mobile.testpaper.TestpaperQuestionListFragment;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class QuestionPagerFragment extends Fragment {
 
@@ -36,9 +49,9 @@ public class QuestionPagerFragment extends Fragment {
 
     private ViewPager pager;
     private TabPageIndicator indicator;
-    private LinearLayout ll_question_fragment_up, ll_question_fragment_down, ll_question_fragment_save;
-    private IconTextView itv_question_fragment_up, itv_question_fragment_down,itv_question_fragment_save;
-    private FontTextView ftv_question_fragment_up, ftv_question_fragment_down,ftv_question_fragment_save;
+    private LinearLayout ll_question_fragment_up, ll_question_fragment_down, ll_question_fragment_save, ll_question_fragment_same, ll_question_fragment_error;
+    private IconTextView itv_question_fragment_up, itv_question_fragment_down,itv_question_fragment_save, itv_question_fragment_same, itv_question_fragment_error;
+    private FontTextView ftv_question_fragment_up, ftv_question_fragment_down,ftv_question_fragment_save, ftv_question_fragment_same, ftv_question_fragment_error;
 
     private static final String[] CONTENT = new String[] { "문제", "해설", "동영상" };
 
@@ -66,7 +79,7 @@ public class QuestionPagerFragment extends Fragment {
         }
 
         MainActivity.setTitle("");
-        MainActivity.setSubtitle(tcjo.get("unit_title",""));
+        MainActivity.setSubtitle(tcjo.get("unit_title", ""));
 
         pager = (ViewPager) v.findViewById(R.id.vp_question_fragment_viewpaper);
         indicator = (TabPageIndicator) v.findViewById(R.id.tpi_question_fragment_indicator);
@@ -82,6 +95,15 @@ public class QuestionPagerFragment extends Fragment {
         ftv_question_fragment_up = (FontTextView) v.findViewById(R.id.ftv_question_fragment_up);
         ftv_question_fragment_down = (FontTextView) v.findViewById(R.id.ftv_question_fragment_down);
         ftv_question_fragment_save = (FontTextView) v.findViewById(R.id.ftv_question_fragment_save);
+
+        ll_question_fragment_same = (LinearLayout) v.findViewById(R.id.ll_question_fragment_same);
+        ll_question_fragment_error = (LinearLayout) v.findViewById(R.id.ll_question_fragment_error);
+
+        itv_question_fragment_same = (IconTextView) v.findViewById(R.id.itv_question_fragment_same);
+        itv_question_fragment_error = (IconTextView) v.findViewById(R.id.itv_question_fragment_error);
+
+        ftv_question_fragment_same = (FontTextView) v.findViewById(R.id.ftv_question_fragment_same);
+        ftv_question_fragment_error = (FontTextView) v.findViewById(R.id.ftv_question_fragment_error);
 
         ll_question_fragment_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +140,42 @@ public class QuestionPagerFragment extends Fragment {
                     e.printStackTrace();
                 }
                 setSaveBtn(true);
+            }
+        });
+
+        ll_question_fragment_same.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    JSONArray array = Functions.GET("get_testpaper_similar&qid=" + tcjo.get("id",0));
+                    TryCatchJO question = new TryCatchJO(array.getJSONObject(0));
+                    Functions.history_back_delete(con);
+                    Functions.history_go(con, new QuizPagerFragment().newInstance(question,array));
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ll_question_fragment_error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator Vibe = (Vibrator) getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                Vibe.vibrate(30);
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"eaeao@naver.com", "storm0812@hanmail.net", "tellme0218@naver.com"});
+                email.putExtra(Intent.EXTRA_SUBJECT, "[모두를위한수학]오류신고합니다!");
+                email.putExtra(Intent.EXTRA_TEXT, "제목 : " + getArguments().getInt("qid") + "번 문제 오류신고합니다!\n\n내용 : ");
+                email.setType("text/plain");
+                final PackageManager pm = getActivity().getPackageManager();
+                final List<ResolveInfo> matches = pm.queryIntentActivities(email, 0);
+                ResolveInfo best = null;
+                for (final ResolveInfo info : matches)
+                    if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                        best = info;
+                if (best != null)
+                    email.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+                getActivity().startActivity(email);
             }
         });
 

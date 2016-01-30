@@ -12,18 +12,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.google.analytics.tracking.android.Fields;
-import com.google.analytics.tracking.android.MapBuilder;
+
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.RefreshScrollView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.question.QuestionPagerFragment;
-import net.sevenoclock.mobile.quiz.QuizPagerFragment;
 import net.sevenoclock.mobile.quiz.QuizInputQuickFragment;
+import net.sevenoclock.mobile.quiz.QuizPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
+import net.sevenoclock.mobile.settings.UserData;
 import net.sevenoclock.mobile.settings.Values;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,7 +85,7 @@ public class TestpaperQuestionListFragment extends Fragment {
 
 
         tv_testpaper_question_list_title.setText(tcjo.get("title", ""));
-        tv_testpaper_question_list_school.setText(tcjo.get("school_name", ""));
+        tv_testpaper_question_list_school.setText(values.union_info.get("title","-"));
         tv_testpaper_question_list_teacher.setText(tcjo.get("user", "") + " 선생님");
 
         MainActivity.setTitle(tcjo.get("title", ""));
@@ -158,88 +159,92 @@ public class TestpaperQuestionListFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             semaphore = false;
             pb_testpaper_question_list_loading.setVisibility(View.VISIBLE);
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    int max = element_count + 10;
-                    for (; element_count < max; element_count++) {
-                        if (element_count >= ja_question.length()) break;
-                        TestpaperQuestionView tqv = null;
-                        try {
-                            TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(element_count));
-                            tqv = new TestpaperQuestionView(con, element_count, tcjo_question);
-
-                            tqv.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(final View v) {
-                                    if (is_solved) {
-                                        Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperQuestionView) v).tcjo));
-                                    } else {
-                                        new AlertDialog.Builder(con).setTitle("답안 미입력")
-                                                .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")
-                                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        return;
-                                                    }
-                                                })
-                                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
-                                                        Functions.history_go(con, new QuizPagerFragment().newInstance(tcjo, ja_question));
-                                                        return;
-                                                    }
-                                                }).show();
-                                    }
-                                }
-                            });
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        count_left = ll_testpaper_question_list_left.getChildCount();
-                        count_right = ll_testpaper_question_list_right.getChildCount();
-
-                        if (count_left > count_right) ll_testpaper_question_list_right.addView(tqv);
-                        else ll_testpaper_question_list_left.addView(tqv);
-                    }
-
-                    try {
-                        if (ja_question.getJSONObject(0).getInt("purpose") == 0) {
+            try {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int max = element_count + 10;
+                        for (; element_count < max; element_count++) {
+                            if (element_count >= ja_question.length()) break;
+                            TestpaperQuestionView tqv = null;
                             try {
-                                if (ja_question.getJSONObject(0).getInt("is_solved") == 1) {
-                                    is_solved = true;
-                                    ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
-                                    ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
-                                    ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
-                                    ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
-                                } else {
-                                    is_solved = false;
-                                    ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
-                                    ll_testpaper_question_list_quickinput.setVisibility(View.VISIBLE);
-                                    ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
-                                    ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
-                                }
+                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(element_count));
+                                tqv = new TestpaperQuestionView(con, element_count, tcjo_question);
+
+                                tqv.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(final View v) {
+                                        if (is_solved) {
+                                            Functions.history_go(con, new QuestionPagerFragment().newInstance(((TestpaperQuestionView) v).tcjo));
+                                        } else {
+                                            new AlertDialog.Builder(con).setTitle("답안 미입력")
+                                                    .setMessage("답안제출 후 열람가능합니다.\n답안을 입력하시겠습니까?")
+                                                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            return;
+                                                        }
+                                                    })
+                                                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
+                                                            Functions.history_go(con, new QuizPagerFragment().newInstance(tcjo, ja_question));
+                                                            return;
+                                                        }
+                                                    }).show();
+                                        }
+                                    }
+                                });
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        } else {
-                            is_solved = true;
-                            ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
-                            ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
-                            ll_testpaper_question_list_quickrank.setVisibility(View.GONE);
-                            ll_testpaper_question_list_quickanswer.setVisibility(View.VISIBLE);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    count_left = ll_testpaper_question_list_left.getChildCount();
-                    count_right = ll_testpaper_question_list_right.getChildCount();
 
-                    semaphore = true;
-                    pb_testpaper_question_list_loading.setVisibility(View.GONE);
-                }
-            });
+                            count_left = ll_testpaper_question_list_left.getChildCount();
+                            count_right = ll_testpaper_question_list_right.getChildCount();
+
+                            if (count_left > count_right) ll_testpaper_question_list_right.addView(tqv);
+                            else ll_testpaper_question_list_left.addView(tqv);
+                        }
+
+                        try {
+                            if (ja_question.getJSONObject(0).getInt("purpose") == 0) {
+                                try {
+                                    if (ja_question.getJSONObject(0).getInt("is_solved") == 1) {
+                                        is_solved = true;
+                                        ll_testpaper_question_list_quickresult.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
+                                        ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                                    } else {
+                                        is_solved = false;
+                                        ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
+                                        ll_testpaper_question_list_quickinput.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickrank.setVisibility(View.VISIBLE);
+                                        ll_testpaper_question_list_quickanswer.setVisibility(View.GONE);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                is_solved = true;
+                                ll_testpaper_question_list_quickresult.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickinput.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickrank.setVisibility(View.GONE);
+                                ll_testpaper_question_list_quickanswer.setVisibility(View.VISIBLE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        count_left = ll_testpaper_question_list_left.getChildCount();
+                        count_right = ll_testpaper_question_list_right.getChildCount();
+
+                        semaphore = true;
+                        pb_testpaper_question_list_loading.setVisibility(View.GONE);
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return;
         }
     }

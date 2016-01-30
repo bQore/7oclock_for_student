@@ -28,7 +28,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:id="@+id/et_mypage_info_name" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_info_name" android:background="@drawable/et_flat"
                         android:hint="이름" android:layout_marginBottom="15dp" android:inputType="textPersonName"/>
 
                 <net.sevenoclock.mobile.customobj.FontTextView
@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:id="@+id/et_mypage_info_email" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_info_email" android:background="@drawable/et_flat"
                         android:hint="이메일" android:layout_marginBottom="15dp" android:inputType="textEmailAddress"/>
 
                 <net.sevenoclock.mobile.customobj.FontTextView
@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:id="@+id/et_mypage_info_phone" android:background="@drawable/et_home_signup_userinput"
+                        android:id="@+id/et_mypage_info_phone" android:background="@drawable/et_flat"
                         android:hint="연락처" android:layout_marginBottom="15dp" android:inputType="textPhonetic"/>
 
                 <net.sevenoclock.mobile.customobj.FontTextView

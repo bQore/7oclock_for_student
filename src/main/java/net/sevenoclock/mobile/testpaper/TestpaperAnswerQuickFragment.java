@@ -85,19 +85,23 @@ public class TestpaperAnswerQuickFragment extends Fragment {
                         }
                     }
                 });
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < ja_question.length(); i++) {
-                            try {
-                                tarq.add(new TryCatchJO(ja_question.getJSONObject(i)));
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < ja_question.length(); i++) {
+                                try {
+                                    tarq.add(new TryCatchJO(ja_question.getJSONObject(i)));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
                         }
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             return;
         }

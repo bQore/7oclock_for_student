@@ -1,7 +1,9 @@
 package net.sevenoclock.mobile.quiz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,8 +25,6 @@ import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class QuizPagerFragment extends Fragment {
 
@@ -85,23 +86,44 @@ public class QuizPagerFragment extends Fragment {
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                indicator.requestFocus();
+                pager.requestFocus();
             }
 
             @Override
             public void onPageSelected(int position) {
                 if (position == ja_questions.length()) {
-                    qff.qfla.reflesh();
-                    for (int i = 0; i < ja_questions.length(); i++) {
-                        if(qtf[i].answer.equals("")) qff.qfla.add(new String[]{"" + (i + 1), "-",""+qtf[i].qid});
-                        else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer,""+qtf[i].qid});
-                    }
-                    qff.qfla.notifyDataSetChanged();
+                    MainActivity.ll_main_main_loading.setVisibility(View.VISIBLE);
                 }
+                // 소프트키에 대한 권한을 얻기 위해 매니저 클래스 선언
+                InputMethodManager input_manager = (InputMethodManager)con.getSystemService(Context.INPUT_METHOD_SERVICE);
+                // 현재 포커스인 EditText에 대한 정보를 얻어오기 위해 사용
+                IBinder now_focus;
+                if(((Activity)con).getCurrentFocus() != null){
+                    now_focus = ((Activity)con).getCurrentFocus().getApplicationWindowToken();
+                    if(now_focus!=null)input_manager.hideSoftInputFromWindow(now_focus, 0);
+                }
+                // 키보드 감춤
+                ll_quiz_text_input_quick_btns.setVisibility(View.GONE);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    int position = pager.getCurrentItem();
+                    if (position == ja_questions.length()) {
+                        qff.qfla.reflesh();
+                        for (int i = 0; i < ja_questions.length(); i++) {
+                            if (qtf[i].answer.equals(""))
+                                qff.qfla.add(new String[]{"" + (i + 1), "-", "" + qtf[i].qid});
+                            else qff.qfla.add(new String[]{"" + (i + 1), qtf[i].answer, "" + qtf[i].qid});
+                        }
+                        qff.qfla.notifyDataSetChanged();
+                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    }
+                }
+                indicator.requestFocus();
+                pager.requestFocus();
             }
         });
 
@@ -145,6 +167,7 @@ public class QuizPagerFragment extends Fragment {
             for(int i=0; i<ja_length; i++){
                 try {
                     TryCatchJO tcjo_tmp = new TryCatchJO(ja.getJSONObject(i));
+                    Log.i("@@info","tmp:"+tcjo_tmp);
                     qtf[i] = new QuizTextFragment().newInstance(i+1, tcjo_tmp);
                 } catch (JSONException e) {
                     e.printStackTrace();

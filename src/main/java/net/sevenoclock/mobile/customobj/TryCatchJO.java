@@ -36,4 +36,12 @@ public class TryCatchJO extends JSONObject {
         }
     }
 
+    public boolean get(String key, boolean default_value){
+        try{
+            return getBoolean(key);
+        }catch(Exception e){
+            return default_value;
+        }
+    }
+
 }

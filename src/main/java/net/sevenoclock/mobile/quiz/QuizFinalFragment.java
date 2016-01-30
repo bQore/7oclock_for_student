@@ -24,6 +24,7 @@ import com.androidquery.callback.AjaxStatus;
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
+import net.sevenoclock.mobile.question.QuestionPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class QuizFinalFragment extends Fragment {
         con = container.getContext();
         values = (Values)container.getContext().getApplicationContext();
 
-        tpid = getArguments().getInt("tpid");
+        tpid = getArguments().getInt("tpid",-1);
         try {
             tcjo = new TryCatchJO(new JSONObject(getArguments().getString("tcjo")));
         } catch (JSONException e) {
@@ -63,9 +64,6 @@ public class QuizFinalFragment extends Fragment {
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         lv_quiz_final_list = (ListView) view.findViewById(R.id.lv_quiz_final_list);
-
-        qfla = new QuizFinalListAdapter();
-        lv_quiz_final_list.setAdapter(qfla);
 
         btn_quiz_input_quick_submit = new Button(con);
         btn_quiz_input_quick_submit.setText("제출하기");
@@ -101,23 +99,32 @@ public class QuizFinalFragment extends Fragment {
                             })
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    String url = Functions.DOMAIN + "/mobile/?mode=set_testpaper_submit&uid=" + values.user_id
-                                            + "&tpid=" + tpid;
+                                    Log.i("@@info","tpid:"+tpid+" obj:"+tcjo.toString());
+                                    if(tpid == -1){
+                                        Functions.history_back_delete(con);
+                                        Functions.history_go(con, new QuestionPagerFragment().newInstance(tcjo));
+                                    }else {
+                                        String url = Functions.DOMAIN + "/mobile/?mode=set_testpaper_submit&uid=" + values.user_id
+                                                + "&tpid=" + tpid;
 
-                                    Map<String, Object> params = new HashMap<String, Object>();
-                                    params.put("answer", jo_answer.toString());
+                                        Map<String, Object> params = new HashMap<String, Object>();
+                                        params.put("answer", jo_answer.toString());
 
-                                    values.aq.ajax(url, params, String.class, new AjaxCallback<String>() {
-                                        @Override
-                                        public void callback(String url, String html, AjaxStatus status) {
-                                            Log.i("@", status.getMessage());
-                                            if (status.getMessage().equals("OK")) {
-                                                Functions.history_back_delete(con);
-                                                Functions.history_go(con, new QuizInputQuickFragment().newInstance(tcjo));
+                                        values.aq.ajax(url, params, String.class, new AjaxCallback<String>() {
+                                            @Override
+                                            public void callback(String url, String html, AjaxStatus status) {
+                                                Log.i("@", status.getMessage());
+                                                if (status.getMessage().equals("OK")) {
+                                                    Functions.history_back_delete(con);
+                                                    Functions.history_go(con, new QuizInputQuickFragment().newInstance(tcjo));
+                                                }else{
+                                                    Functions.history_back_delete(con);
+                                                    Functions.history_go(con, new QuestionPagerFragment().newInstance(tcjo));
+                                                }
                                             }
-                                        }
-                                    });
-                                    return;
+                                        });
+                                        return;
+                                    }
                                 }
                             }).show();
                 } catch (JSONException e) {
@@ -126,9 +133,11 @@ public class QuizFinalFragment extends Fragment {
             }
         });
 
-
         lv_quiz_final_list.addFooterView(btn_quiz_input_quick_submit);
         btn_quiz_input_quick_submit.setVisibility(View.VISIBLE);
+
+        qfla = new QuizFinalListAdapter();
+        lv_quiz_final_list.setAdapter(qfla);
 
         return view;
     }

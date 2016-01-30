@@ -20,6 +20,7 @@ import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.question.QuestionPagerFragment;
 import net.sevenoclock.mobile.settings.Functions;
+import net.sevenoclock.mobile.settings.UserData;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -218,21 +219,25 @@ public class QuizInputQuickFragment extends Fragment {
                         }
                     }
                 });
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < ja_submit.length(); i++) {
-                            try {
-                                qrqa.add(new TryCatchJO(ja_submit.getJSONObject(i)));
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < ja_submit.length(); i++) {
+                                try {
+                                    qrqa.add(new TryCatchJO(ja_submit.getJSONObject(i)));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
 
-                        MainActivity.setTitle("채점결과");
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                    }
-                });
+                            MainActivity.setTitle("채점결과");
+                            MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 new TestpaperQuestionTask().execute(null, null, null);
             }
@@ -259,24 +264,28 @@ public class QuizInputQuickFragment extends Fragment {
             if(result) {
                 lv_quiz_input_quick_list.setVisibility(View.GONE);
                 ll_quiz_input_quick_list.setVisibility(View.VISIBLE);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tafv = new QuizInputQuickFormView[ja_question.length()];
-                        for (int i = 0; i < ja_question.length(); i++) {
-                            try {
-                                TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
-                                tafv[i] = new QuizInputQuickFormView(con, i, tcjo_question);
-                                ll_quiz_input_quick_list.addView(tafv[i]);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                try{
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tafv = new QuizInputQuickFormView[ja_question.length()];
+                            for (int i = 0; i < ja_question.length(); i++) {
+                                try {
+                                    TryCatchJO tcjo_question = new TryCatchJO(ja_question.getJSONObject(i));
+                                    tafv[i] = new QuizInputQuickFormView(con, i, tcjo_question);
+                                    ll_quiz_input_quick_list.addView(tafv[i]);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            ll_quiz_input_quick_list.addView(btn_quiz_input_quick_submit);
+                            btn_quiz_input_quick_submit.setVisibility(View.VISIBLE);
+                            MainActivity.setTitle("빠른 답안 입력");
                         }
-                        ll_quiz_input_quick_list.addView(btn_quiz_input_quick_submit);
-                        btn_quiz_input_quick_submit.setVisibility(View.VISIBLE);
-                        MainActivity.setTitle("빠른 답안 입력");
-                    }
-                });
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }

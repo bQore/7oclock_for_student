@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+            android:background="@drawable/ll_main_view_box">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_margin="5dp">
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/iv_qna_detail_icon" android:src="@drawable/default_user"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="New Text"
+                    android:id="@+id/tv_qna_detail_username" android:gravity="center_vertical" android:layout_marginLeft="5dp"
+                    android:textSize="16sp" android:layout_weight="1"/>
+            <net.sevenoclock.mobile.customobj.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_quiz_text_input_btns"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="채택"
+                    android:id="@+id/tv_qna_detail_select" android:gravity="center_vertical|center_horizontal"
+                    android:layout_marginRight="10dp" android:textSize="15sp" android:textColor="#cccccc"/>
+
+        </LinearLayout>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:background="@drawable/ll_testpaper_question_list_question"
+                android:padding="2dp" android:layout_margin="5dp">
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:id="@+id/iv_qna_detail_question" android:src="@drawable/default_question"
+                    android:scaleType="centerCrop"
+            />
+            <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pb_qna_detail_loading" android:layout_gravity="center"
+            />
+        </FrameLayout>
+        <net.sevenoclock.mobile.customobj.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:text="New Text"
+                android:id="@+id/tv_qna_detail_contents" android:textSize="16sp" android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" android:layout_marginRight="20dp" android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+</LinearLayout>

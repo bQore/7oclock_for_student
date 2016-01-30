@@ -10,11 +10,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
+import net.sevenoclock.mobile.settings.UserData;
 import net.sevenoclock.mobile.settings.Values;
 import net.sevenoclock.mobile.testpaper.TestpaperRankAdapter;
 import org.json.JSONException;
@@ -63,7 +66,7 @@ public class MypageMainFragment extends Fragment {
         tv_mypage_main_phone = (FontTextView) v.findViewById(R.id.tv_mypage_main_phone);
         tv_mypage_main_gender = (FontTextView) v.findViewById(R.id.tv_mypage_main_gender);
 
-        ll_mypage_main_group = (LinearLayout) v.findViewById(R.id.ll_mypage_main_group);
+        ll_mypage_main_group = (LinearLayout) v.findViewById(R.id.ll_mypage_main_group_setting);
         ll_mypage_main_pw = (LinearLayout) v.findViewById(R.id.ll_mypage_main_pw);
         ll_mypage_main_info = (LinearLayout) v.findViewById(R.id.ll_mypage_main_info);
 
@@ -73,16 +76,14 @@ public class MypageMainFragment extends Fragment {
         values.aq.id(tv_mypage_main_name).text("이   름 : "+values.user_info.get("first_name", "-"));
         values.aq.id(tv_mypage_main_email).text("이메일 : "+values.user_info.get("email", "-"));
         values.aq.id(tv_mypage_main_phone).text("연락처 : "+values.user_info.get("phone", "-"));
-        values.aq.id(tv_mypage_main_gender).text("성   별 : "+values.user_info.get("gender", "-"));
-        values.aq.id(tv_mypage_main_group).text("소   속 : "+String.format("%s %s학년 %s반"
-                , values.user_info.get("school_name", "-")
-                , values.user_info.get("school_year", "")
-                , values.user_info.get("school_room", "")));
+        values.aq.id(tv_mypage_main_gender).text("성   별 : " + values.user_info.get("gender", "-"));
+        values.aq.id(tv_mypage_main_group).text("소   속 : "+values.union_info.get("title","-"));
 
         ll_mypage_main_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                Toast.makeText(con, "구현 중입니다!", Toast.LENGTH_SHORT).show();
+                Functions.history_go(con, new MypageGroupFragment().newInstance());
             }
         });
 

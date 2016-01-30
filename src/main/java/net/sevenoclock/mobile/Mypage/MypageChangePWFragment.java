@@ -81,6 +81,8 @@ public class MypageChangePWFragment extends Fragment {
                     public void callback(String url, String html, AjaxStatus status) {
                         if (status.getCode() == 200) {
                             Toast.makeText(con, "비밀번호 재설정 완료", Toast.LENGTH_LONG).show();
+                            values.union_info = null;
+                            values.unions = null;
                             values.user_info = null;
                             values.user_id = 0;
                             Functions.remove_pref(con);

@@ -67,15 +67,97 @@
 
             </LinearLayout>
 
-            <Button
-                    android:id="@+id/btn_home_landing_login"
+            <LinearLayout
+                    android:id="@+id/ll_home_landing_login_mosu"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_home_landing_login"
-                    android:text="로그인하기"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="20sp"/>
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/btn_home_landing_login_mosu"
+                    android:orientation="horizontal">
+
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/ic_home_landing_login_mosu"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아이디로 로그인하기"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/ll_home_landing_login_facebook"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/btn_home_landing_login_facebook"
+                    android:orientation="horizontal">
+
+                <net.sevenoclock.mobile.customobj.IconTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/ic_home_landing_login_facebook"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+
+                <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="페이스북으로 로그인하기"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+            </LinearLayout>
+
+            <!--&lt;!&ndash; 구현 중-->
+            <!--<com.kakao.usermgmt.LoginButton-->
+                <!--android:id="@+id/com_kakao_login"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--/>-->
+            <!--&ndash;&gt;-->
+
+            <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_home_landing_login_kakao"-->
+                    <!--android:layout_width="300dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:background="@drawable/btn_home_landing_login_kakao"-->
+                    <!--android:orientation="horizontal">-->
+
+                <!--<net.sevenoclock.mobile.customobj.IconTextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="5dp"-->
+                        <!--android:text="@string/ic_home_landing_login_kakao"-->
+                        <!--android:textColor="#3b3b3b"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="20sp"/>-->
+
+                <!--<net.sevenoclock.mobile.customobj.FontTextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="카카오로 로그인하기"-->
+                        <!--android:textColor="#3b3b3b"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="20sp"/>-->
+
+            <!--</LinearLayout>-->
+
             <LinearLayout
                     android:id="@+id/ll_home_landing_signup"
                     android:layout_width="match_parent"
@@ -132,7 +214,8 @@
             android:id="@+id/ll_home_landing_loading"
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:background="#66FFFFFF" android:gravity="center">
+            android:layout_height="fill_parent" android:background="#66FFFFFF" android:gravity="center"
+            android:visibility="gone">
         <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"

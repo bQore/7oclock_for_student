@@ -15,18 +15,15 @@ import android.util.Log;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.main.MainActivity;
-import net.sevenoclock.mobile.testpaper.TestpaperListFragment;
-import net.sevenoclock.mobile.testpaper.TestpaperQuestionListFragment;
+import net.sevenoclock.mobile.dashboard.DashboardFragment;
+import net.sevenoclock.mobile.qna.QnADetailFragment;
 import org.json.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2015-09-03.
@@ -34,16 +31,17 @@ import java.util.HashMap;
 public class Functions {
 
     public static final String YOUTUBE_KEY = "AIzaSyA5ajaURV7840WCtQsHMFUKZFsR1kLMA2A";
-    public static final String DOMAIN = "http://yan3140.cafe24.com";
+    public static final String DOMAIN = "http://storm1113.cafe24.com";
     private static final String PREF_NAME = "net.sevenoclock.mobile";
     private static Typeface mTypeface = null;
     private static Values values;
 
     public static void history_go(Context con, Fragment fragment){
         try{
-            Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            values.fragment_history.add(fragment);
+            Fragment fragment_now = values.fragment_history.get(values.fragment_history.size() - 1);
+            if(fragment_now != fragment) values.fragment_history.add(fragment);
             fragmentReplace(con, fragment);
             System.gc();
         }catch (Exception e){
@@ -55,8 +53,7 @@ public class Functions {
         try{
             Vibrator Vibe = (Vibrator)con.getSystemService(con.VIBRATOR_SERVICE);
             Vibe.vibrate(30);
-            TestpaperListFragment home = (TestpaperListFragment)values.fragment_history.get(0);
-            home.reflesh();
+            DashboardFragment home = (DashboardFragment)values.fragment_history.get(0);
             values.fragment_history.clear();
             values.fragment_history.add(home);
             fragmentReplace(con, home);
@@ -110,6 +107,24 @@ public class Functions {
         return values.fragment_history.size();
     }
 
+    public static void history_clear(){
+        for(;history_length()>1;){
+            values.fragment_history.remove(history_length()-1);
+        }
+    }
+
+    public static void QnADetail_reflesh(Context con){
+        try{
+            Vibrator Vibe = (Vibrator) con.getSystemService(con.VIBRATOR_SERVICE);
+            Vibe.vibrate(30);
+            QnADetailFragment fragment = (QnADetailFragment)values.fragment_history.get(values.fragment_history.size() - 1);
+            fragment.reflesh();
+            System.gc();
+        }catch (Exception e){
+            Log.i("history_go_Error",e.getMessage());
+        }
+    }
+
     public static void fragmentReplace(Context con, Fragment newFragment) {
         FragmentActivity activity = (FragmentActivity)con;
         final FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
@@ -117,6 +132,13 @@ public class Functions {
         transaction.commit();
         values.tracker.send(MapBuilder.createEvent("UserAction", "PageMove", newFragment.getClass().toString(), null).build());
         values.tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, newFragment.getClass().toString().replaceAll("net.sevenoclock.mobile.","")).build());
+    }
+
+    public static byte[] bitmapToByteArray( Bitmap $bitmap ) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
+        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
+        byte[] byteArray = stream.toByteArray() ;
+        return byteArray ;
     }
 
     public static Bitmap borderRadius(String src, int pixels) { return borderRadius(getBitmapFromURL(src), pixels); }
@@ -153,7 +175,12 @@ public class Functions {
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            //아래는 이미지 크기를 줄이기 위해 사용함.
+            BitmapFactory.Options option = new BitmapFactory.Options();
+            option.inSampleSize = 4;
+            Bitmap myBitmap = BitmapFactory.decodeStream(input,null,option);
+//            //아래는 원문
+//            Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,6 +253,24 @@ public class Functions {
 //	    intent.putExtra("badge_count_class_name", launcherClassName);
 //	    context.sendBroadcast(intent);
 //	}
+
+    public static String getTimeFormat(long unixtime){
+
+        long unixtime_now = System.currentTimeMillis() / 1000;
+        long time_diff = unixtime_now-unixtime;
+
+        if(time_diff < 60){
+            return "조금전";
+        }else if(time_diff<(60*60)){
+            return (time_diff/60)+"분 전";
+        }else if(time_diff<(60*60*24)){
+            return (time_diff/60/60)+"시간 전";
+        }else if(time_diff<(60*60*24*3)){
+            return (time_diff/60/60/24)+"일 전";
+        }
+        Date date = new Date(unixtime*1000);
+        return new SimpleDateFormat("MM월 dd일").format(date);
+    }
 
     public static Boolean chkNetwork(Context con){
         //인터넷에 연결돼 있나 확인

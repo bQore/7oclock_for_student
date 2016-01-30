@@ -10,18 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.google.analytics.tracking.android.Fields;
-import com.google.analytics.tracking.android.MapBuilder;
 import net.sevenoclock.mobile.R;
-import net.sevenoclock.mobile.customobj.RefreshScrollView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TestpaperListFragment extends Fragment {
 
@@ -58,7 +55,13 @@ public class TestpaperListFragment extends Fragment {
             }
         });
 
-        new AddBookTask().execute(null, null, null);
+        try {
+            if (values.union_info.getBoolean("unionUser_active"))
+                new AddBookTask().execute(null, null, null);
+            else Toast.makeText(con,"승인 후 이용해주세요!",Toast.LENGTH_SHORT).show();
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
 
         return v;
     }
@@ -81,30 +84,28 @@ public class TestpaperListFragment extends Fragment {
         }
 
         protected Boolean doInBackground(Void... Void) {
-            ja_book = Functions.GET("get_testpaper_list&&uid=" + values.user_id);
+            ja_book = Functions.GET(String.format("get_testpaper_list&user_id=%d&union_id=%d", values.user_id, values.union_info.get("id",0)));
             if(ja_book == null) return false;
+            tla.reflesh();
+            for (int i = 0; i < ja_book.length(); i++) {
+                try {
+                    tla.add(new TryCatchJO(ja_book.getJSONObject(i)));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
             return true;
         }
 
         protected void onPostExecute(Boolean result) {
             if(result) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tla.reflesh();
-                        tla.notifyDataSetChanged();
-                        for (int i = 0; i < ja_book.length(); i++) {
-                            try {
-                                tla.add(new TryCatchJO(ja_book.getJSONObject(i)));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        MainActivity.ll_main_main_loading.setVisibility(View.GONE);
-                        MainActivity.setSubtitle("총 " + ja_book.length() + "개의 문제지가 있습니다.");
-                    }
-                });
+                try {
+                    tla.notifyDataSetChanged();
+                    MainActivity.ll_main_main_loading.setVisibility(View.GONE);
+                    MainActivity.setSubtitle("총 " + ja_book.length() + "개의 문제지가 있습니다.");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 Toast.makeText(con, "데이터 로드에 실패하였습니다.", Toast.LENGTH_LONG).show();
                 MainActivity.ll_main_main_loading.setVisibility(View.GONE);

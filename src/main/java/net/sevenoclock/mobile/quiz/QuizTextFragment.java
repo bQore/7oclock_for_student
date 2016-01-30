@@ -13,19 +13,28 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+
 import net.sevenoclock.mobile.R;
 import net.sevenoclock.mobile.customobj.FontTextView;
 import net.sevenoclock.mobile.customobj.TryCatchJO;
 import net.sevenoclock.mobile.main.MainActivity;
 import net.sevenoclock.mobile.settings.Functions;
 import net.sevenoclock.mobile.settings.Values;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,14 +52,18 @@ public class QuizTextFragment extends Fragment {
     public int items = 0;
     public int answer_len = 0;
     public String answer = "";
+    String answer_unit;
+    private String answer_mobile;
 
     private ImageView iv_quiz_text_img;
     private FontTextView tv_quize_text_input_index;
     private LinearLayout ll_quize_text_form_input_view;
+    private FontTextView ftv_quiz_answer_unit;
 
     public EditText et_answer;
 
     private Values values;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +82,7 @@ public class QuizTextFragment extends Fragment {
         iv_quiz_text_img = (ImageView)view.findViewById(R.id.iv_quiz_text_img);
         tv_quize_text_input_index = (FontTextView) view.findViewById(R.id.tv_quize_text_input_index);
         ll_quize_text_form_input_view = (LinearLayout) view.findViewById(R.id.ll_quize_text_form_input_view);
+        ftv_quiz_answer_unit = (FontTextView) view.findViewById(R.id.ftv_quiz_unit);
 
         MainActivity.ll_main_main_loading.setVisibility(View.GONE);
 
@@ -76,8 +90,12 @@ public class QuizTextFragment extends Fragment {
         index = getArguments().getInt("index");
         str_url = tcjo.get("src","");
         items = tcjo.get("items",0);
-        String answer_mobile = tcjo.get("answer_mobile","");
+        answer_mobile = tcjo.get("answer_mobile","");
+        String answer = tcjo.get("answer", "");
+        answer_unit = isInWord(answer.substring(8));
         answer_len = answer_mobile.length();
+
+        ftv_quiz_answer_unit.setText(answer_unit);
 
         values.aq = new AQuery(getActivity(), view);
 
@@ -106,9 +124,11 @@ public class QuizTextFragment extends Fragment {
         }
 
         if(qid != 0){
-            tv_quize_text_input_index.setText(""+index);
+            tv_quize_text_input_index.setText("" + index);
+            Log.i("@@info","item:"+items);
             if(items == 1) setSingular();
             else  setPlural();
+
         }
 
         Button btn_quiz_text_error = (Button)view.findViewById(R.id.btn_quiz_text_error);
@@ -146,11 +166,6 @@ public class QuizTextFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     void setSingular(){
         et_answer = new EditText(con);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -160,7 +175,6 @@ public class QuizTextFragment extends Fragment {
         et_answer.setHint("ex) 답");
         et_answer.setBackgroundColor(Color.WHITE);
         ll_quize_text_form_input_view.addView(et_answer);
-
         et_answer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -184,7 +198,10 @@ public class QuizTextFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (filterLongEnough()) {
-                    answer = et_answer.getText().toString();
+                    if(et_answer.getText().toString().startsWith("+")){
+                        if(answer_mobile.startsWith("+")) answer = et_answer.getText().toString();
+                        else answer = et_answer.getText().toString().substring(1);
+                    }else answer = et_answer.getText().toString();
                 }
             }
 
@@ -242,5 +259,15 @@ public class QuizTextFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private String isInWord(String word){
+        String[] arr = {"cm^3","cm^2","cm","m^3","m^2","m"};
+        for(int i=0;i<arr.length;i++){
+            if(word.contains(arr[i])){
+                return arr[i];
+            }
+        }
+        return "";
     }
 }

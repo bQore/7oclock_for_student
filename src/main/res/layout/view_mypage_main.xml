@@ -72,18 +72,7 @@
                     android:layout_marginBottom="5dp" android:background="@drawable/ll_main_view_box"
                     android:paddingBottom="1dp">
 
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" android:padding="20dp"
-                        android:background="@drawable/ll_main_menudrawer_listbox" android:id="@+id/ll_mypage_main_group"
-                        android:visibility="gone">
-                    <net.sevenoclock.mobile.customobj.FontTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="소속 변경"
-                            android:textSize="16sp" android:textColor="#666"/>
-                </LinearLayout>
+
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="fill_parent"
@@ -105,6 +94,18 @@
                             android:layout_height="wrap_content"
                             android:text="개인정보 수정"
                             android:textSize="16sp" android:textColor="#666"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:padding="20dp"
+                    android:background="@drawable/ll_main_menudrawer_listbox" android:id="@+id/ll_mypage_main_group_setting">
+                    <net.sevenoclock.mobile.customobj.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="소속 관리"
+                        android:textSize="16sp" android:textColor="#666"/>
                 </LinearLayout>
 
             </LinearLayout>
